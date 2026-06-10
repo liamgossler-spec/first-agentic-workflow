@@ -1,0 +1,27 @@
+# Secrets & credentials — NEVER commit these
+.env
+credentials.json
+token.json
+*.pem
+*.key
+
+# Temp / regenerable processing files
+.tmp/
+!.tmp/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local Claude Code settings (machine-specific)
+.claude/settings.local.json
