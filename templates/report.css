@@ -1,0 +1,101 @@
+/* Brand-driven print stylesheet. Rendered through Jinja2 so palette/font values
+   are substituted before the engine sees it. Works for two engines:
+   - weasyprint: uses @page margin-box "running elements" for the repeating header.
+   - chromium  : uses position:fixed for the repeating header + page.pdf() margins.
+   The {{ engine }} flag switches the page-level rules; the visual design is shared. */
+
+{% for face in font_faces %}
+@font-face {
+  font-family: "{{ face.family }}";
+  src: url("{{ face.path }}");
+  font-weight: {{ face.weight }};
+  font-style: normal;
+}
+{% endfor %}
+
+{% if engine == 'weasyprint' %}
+/* ---------- WeasyPrint page setup ---------- */
+@page {
+  size: A4;
+  margin: 2.4cm 1.8cm 2.2cm 1.8cm;
+  @top-left { content: element(runningHeader); vertical-align: middle; }
+  @bottom-left {
+    content: element(runningFooter);
+    color: {{ palette.muted }}; font-size: 8pt; vertical-align: middle;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    color: {{ palette.muted }}; font-size: 8pt;
+    font-family: "{{ fonts.body }}", "Helvetica Neue", Arial, sans-serif;
+  }
+}
+@page cover { margin: 0; @top-left { content: none; } @bottom-left { content: none; } @bottom-right { content: none; } }
+.cover { page: cover; page-break-after: always; }
+.running-header { position: running(runningHeader); font-size: 8pt; color: {{ palette.muted }}; }
+.running-header img { height: 18px; vertical-align: middle; margin-right: 8px; }
+.running-footer { position: running(runningFooter); font-family: "{{ fonts.body }}", Arial, sans-serif; }
+.running-company { font-family: "{{ fonts.heading }}", Arial, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+{% endif %}
+
+{% if engine == 'chromium' %}
+/* ---------- Chromium page setup ----------
+   The repeating logo header + page-number footer are injected by Chromium's
+   page.pdf header/footer templates (they reserve the page margin, so body text
+   never overlaps them). Side/top/bottom margins are set in page.pdf() options. */
+@page { size: A4; }
+{% endif %}
+
+/* ---------- Base typography ---------- */
+html, body { margin: 0; padding: 0; }
+html {
+  font-family: "{{ fonts.body }}", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10.5pt; line-height: 1.5; color: {{ palette.text }};
+}
+h1, h2, h3, h4 {
+  font-family: "{{ fonts.heading }}", "Helvetica Neue", Arial, sans-serif;
+  color: {{ palette.primary }}; line-height: 1.2; margin: 1.2em 0 0.4em;
+}
+h1 { font-size: 20pt; }
+h2 { font-size: 15pt; border-bottom: 2px solid {{ palette.accent }}; padding-bottom: 4px; margin-top: 1.6em; }
+h3 { font-size: 12pt; color: {{ palette.secondary }}; }
+a { color: {{ palette.secondary }}; text-decoration: none; }
+strong { color: {{ palette.text }}; }
+p { margin: 0.5em 0; }
+ul, ol { margin: 0.4em 0 0.8em 1.1em; }
+li { margin: 0.2em 0; }
+
+/* ---------- Cover ---------- */
+.cover {
+  height: 100vh; padding: 3cm 2.4cm;
+  box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(160deg, {{ palette.primary }} 0%, {{ palette.secondary }} 100%);
+  color: #ffffff;
+}
+.cover-logo {
+  max-height: 64px; max-width: 260px; margin-bottom: 2.4cm;
+  background: #ffffff; padding: 12px 16px; border-radius: 8px; align-self: flex-start;
+}
+.cover-kicker {
+  font-family: "{{ fonts.heading }}", Arial, sans-serif; text-transform: uppercase;
+  letter-spacing: 0.12em; font-size: 10pt; opacity: 0.85;
+}
+.cover-title { font-family: "{{ fonts.heading }}", Arial, sans-serif; font-size: 32pt; color: #ffffff; margin: 0.3em 0; border: none; }
+.cover-date { font-size: 12pt; opacity: 0.9; }
+.cover-rule { margin-top: 1.6cm; width: 80px; height: 5px; background: {{ palette.accent }}; }
+
+/* ---------- Tables (comparison matrix) ---------- */
+table { width: 100%; border-collapse: collapse; margin: 0.8em 0 1.2em; font-size: 9pt; }
+thead th {
+  background: {{ palette.primary }}; color: #ffffff; text-align: left; padding: 7px 9px;
+  font-family: "{{ fonts.heading }}", Arial, sans-serif;
+}
+tbody td { padding: 6px 9px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+tbody tr:nth-child(even) td { background: #f7f8fa; }
+
+/* ---------- Callouts ---------- */
+blockquote { margin: 1em 0; padding: 0.6em 1em; border-left: 4px solid {{ palette.accent }}; background: #f7f8fa; }
+code { font-family: "SF Mono", Menlo, monospace; background: #f0f1f3; padding: 1px 4px; border-radius: 3px; font-size: 9pt; }
+hr { border: none; border-top: 1px solid #e5e7eb; margin: 1.4em 0; }
+.report-body h2 { page-break-after: avoid; }
+.report-body table, .report-body tr { page-break-inside: avoid; }

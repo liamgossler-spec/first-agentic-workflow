@@ -9,6 +9,15 @@ token.json
 .tmp/
 !.tmp/.gitkeep
 
+# Competitor analysis: generated deliverables & research history (regenerable)
+reports/*.pdf
+data/snapshots/*/
+!data/snapshots/.gitkeep
+# Brand assets are local to each user; commit the structure, not the logo.
+brand/logo.*
+brand/fonts/*
+!brand/fonts/.gitkeep
+
 # Python
 __pycache__/
 *.py[cod]

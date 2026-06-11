@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  {% if inline_css %}<style>{{ inline_css }}</style>{% endif %}
+</head>
+<body>
+
+  {% if engine == 'weasyprint' %}
+  {# WeasyPrint: running elements repeat via @page margin boxes #}
+  <div class="running-header">
+    {% if logo_src %}<img src="{{ logo_src }}" alt="{{ company_name }}">{% endif %}
+    <span class="running-company">{{ company_name }}</span>
+  </div>
+  <div class="running-footer">{{ company_name }} &middot; Competitor Intelligence &middot; Confidential</div>
+  {% endif %}
+
+  {# Chromium repeats the logo header/footer via page.pdf templates, not the DOM. #}
+
+  {% if render_cover %}
+  <section class="cover">
+    {% if logo_src %}<img class="cover-logo" src="{{ logo_src }}" alt="{{ company_name }}">{% endif %}
+    <div class="cover-meta">
+      <div class="cover-kicker">{{ company_name }}{% if tagline %} &mdash; {{ tagline }}{% endif %}</div>
+      <h1 class="cover-title">{{ title }}</h1>
+      <div class="cover-date">{{ report_date }}</div>
+    </div>
+    <div class="cover-rule"></div>
+  </section>
+  {% endif %}
+
+  {% if render_body %}
+  <main class="report-body">
+    {{ body_html }}
+  </main>
+  {% endif %}
+
+</body>
+</html>

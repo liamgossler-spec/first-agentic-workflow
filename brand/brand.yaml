@@ -1,0 +1,22 @@
+company_name: Get Leads with AI
+tagline: Scrape, build & personalize outreach at scale
+palette:
+  primary: '#4f46e5'
+  secondary: '#111827'
+  accent: '#7c3aed'
+  text: '#1a1a1a'
+  muted: '#6b7280'
+  background: '#ffffff'
+  all_detected:
+  - '#4f46e5'
+  - '#111827'
+  - '#7c3aed'
+  - '#06b6d4'
+  - '#595e69'
+  - '#925cf0'
+  - '#b596ed'
+  - '#caaff7'
+fonts:
+  heading: Inter
+  body: Inter
+logo: brand/logo.png

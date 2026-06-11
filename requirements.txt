@@ -9,6 +9,15 @@ google-api-python-client>=2.0.0
 google-auth-oauthlib>=1.2.0
 google-auth-httplib2>=0.2.0
 
+# --- Competitor analysis workflow ---
+beautifulsoup4>=4.12.0    # scrape_site.py — HTML parsing
+Pillow>=10.0.0            # extract_palette.py — read logo colors
+PyYAML>=6.0              # brand.yaml read/write
+Jinja2>=3.1.0            # render_report_pdf.py — HTML templating
+Markdown>=3.5            # render_report_pdf.py — report.md -> HTML
+weasyprint>=62.0         # render_report_pdf.py — preferred HTML/CSS -> PDF (needs native libs: brew install pango)
+playwright>=1.40.0       # render_report_pdf.py — fallback engine, headless Chromium (no system libs). Run: playwright install chromium
+pypdf>=4.0.0             # render_report_pdf.py — merge cover + body PDFs (Chromium path)
+
 # --- Add as needed ---
 # anthropic>=0.40.0
-# beautifulsoup4>=4.12.0
