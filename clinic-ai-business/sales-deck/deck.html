@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מצגת מכירה — סוכן AI לקליניקות אסתטיקה</title>
+<style>
+  :root{ --bg:#0a0a0f; --ink:#f4f4f8; --muted:#a0a0b8; --gold:#e9c46a; --gold2:#f4d488;
+         --accent:#7c5cff; --accent2:#a78bfa; --bad:#ff7b7b; --card:#16161f; --line:#2a2a3a; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:#000; color:var(--ink); font-family:"Segoe UI","Heebo",Arial,sans-serif; overflow:hidden; }
+  .deck{ width:100vw; height:100vh; position:relative; }
+  .slide{ position:absolute; inset:0; display:none; flex-direction:column; justify-content:center;
+          padding:7vh 9vw; background:var(--bg); }
+  .slide.active{ display:flex; animation:fade .4s ease; }
+  @keyframes fade{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:none;} }
+
+  .kicker{ color:var(--gold); font-size:clamp(13px,1.4vw,16px); letter-spacing:2px; text-transform:uppercase; margin-bottom:18px; }
+  h1{ font-size:clamp(28px,4.6vw,54px); font-weight:800; line-height:1.15; margin-bottom:20px;
+      background:linear-gradient(180deg,#fff,#cfcfe0); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .sub{ font-size:clamp(16px,2.1vw,24px); color:var(--muted); max-width:920px; margin-bottom:34px; line-height:1.5; }
+  ul{ list-style:none; max-width:900px; }
+  li{ font-size:clamp(15px,1.9vw,21px); color:#dcdce8; margin-bottom:16px; padding-inline-start:34px; position:relative; line-height:1.45; }
+  li::before{ content:"◆"; color:var(--gold); position:absolute; inset-inline-start:0; top:2px; font-size:14px; }
+  .vnote{ position:absolute; bottom:5vh; inset-inline-start:9vw; color:#54546a; font-size:12px; max-width:60vw; font-style:italic; }
+
+  /* accents per slide type */
+  .fomo h1{ background:linear-gradient(180deg,#ffd9d9,#ff9b9b); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .fomo li::before{ content:"✕"; color:var(--bad); }
+  .big{ font-size:clamp(54px,11vw,150px); font-weight:900; color:var(--gold); line-height:1; margin:10px 0 24px; }
+  .price-row{ display:flex; gap:22px; flex-wrap:wrap; margin-top:10px; }
+  .pc{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px 30px; min-width:260px; }
+  .pc .lbl{ color:var(--muted); font-size:15px; margin-bottom:8px; }
+  .pc .amt{ color:var(--gold); font-size:clamp(24px,3vw,36px); font-weight:800; }
+  .founders{ display:inline-block; margin-top:20px; background:rgba(233,196,106,.12);
+             border:1px solid rgba(233,196,106,.4); color:var(--gold2); padding:12px 26px; border-radius:30px; font-weight:700; font-size:clamp(15px,1.8vw,20px); }
+  .chatdemo{ background:#0b141a; border:1px solid var(--line); border-radius:16px; padding:18px; max-width:520px; margin-top:8px; }
+  .bub{ max-width:88%; padding:9px 13px; border-radius:13px; font-size:clamp(13px,1.5vw,16px); margin:7px 0; }
+  .in{ background:#202c33; margin-inline-start:auto; } .out{ background:#075e54; }
+  .tm{ font-size:10px; opacity:.55; }
+
+  /* controls */
+  .ctrl{ position:fixed; bottom:22px; inset-inline-end:28px; display:flex; align-items:center; gap:14px; z-index:20; }
+  .ctrl button{ background:var(--card); color:var(--ink); border:1px solid var(--line); width:46px; height:46px;
+                border-radius:12px; font-size:20px; cursor:pointer; transition:.15s; }
+  .ctrl button:hover{ border-color:var(--gold); color:var(--gold); }
+  .counter{ color:var(--muted); font-size:14px; min-width:54px; text-align:center; }
+  .bar{ position:fixed; top:0; inset-inline-start:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent)); z-index:30; transition:width .3s; }
+  .hint{ position:fixed; bottom:24px; inset-inline-start:28px; color:#44445a; font-size:12px; z-index:20; }
+  .logo{ position:fixed; top:20px; inset-inline-end:30px; color:var(--muted); font-size:14px; font-weight:700; z-index:20; }
+  .logo b{ color:var(--gold); }
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="logo">סוכן<b>AI</b> · קליניקות</div>
+
+<div class="deck" id="deck">
+
+  <section class="slide active">
+    <div class="kicker">סוכן AI לקליניקות אסתטיקה</div>
+    <h1>כל פנייה שלא נענתה<br>היא לקוחה שהלכה למתחרה</h1>
+    <p class="sub">מערכת AI שעונה לכל פנייה תוך שניות — 24/7, בוואטסאפ ובאינסטגרם. בלי שתרימי אצבע.</p>
+    <ul>
+      <li>בזמן שאת עם לקוחה, מטפלת בילדים או ישנה — הפניות ממשיכות להגיע</li>
+      <li>הסוכן עונה, מתאם תור וסוגר — גם ב-23:00 וגם בשבת</li>
+      <li>פתרון שמותאם בדיוק לקליניקות אסתטיקה וקוסמטיקה בישראל</li>
+    </ul>
+    <div class="vnote">שקופית פתיחה · רקע יוקרתי, סמארטפון עם שיחת וואטסאפ, לוגו זהב על כהה</div>
+  </section>
+
+  <section class="slide fomo">
+    <div class="kicker">הבעיה</div>
+    <h1>את מאבדת לקוחות<br>בלי בכלל לדעת</h1>
+    <p class="sub">כל פנייה שמחכה יותר מ-5 דקות לתשובה — קרוב לוודאי שכבר פנתה לקליניקה אחרת.</p>
+    <ul>
+      <li>פניות שמגיעות בערב, בלילה ובסופ״ש נשארות ללא מענה עד מחר — אם בכלל</li>
+      <li>באמצע טיפול אי אפשר לעצור ולענות לכל הודעה</li>
+      <li>לקוחה שלא קיבלה תשובה מהירה לא תחזור — היא תזמין במקום אחר</li>
+    </ul>
+  </section>
+
+  <section class="slide fomo">
+    <div class="kicker">כמה זה עולה לך</div>
+    <h1>בואי נחשב את ההפסד</h1>
+    <div class="big">₪30K–60K</div>
+    <p class="sub">אובדן של 2-3 לקוחות חדשות בחודש מצטבר להפסד כזה — בשנה.</p>
+    <ul>
+      <li>לקוחה ממוצעת באסתטיקה שווה אלפי שקלים לאורך זמן — לא רק טיפול אחד</li>
+      <li>זה הכסף שכבר נמצא בטלפון שלך — את פשוט לא קוטפת אותו</li>
+    </ul>
+    <div class="vnote">מחשבון ROI · גרף "דליפת" הכנסות · מספרים גדולים בזהב · FOMO מוחשי</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">השינוי</div>
+    <h1>העולם השתנה —<br>AI כבר עונה במקומך</h1>
+    <p class="sub">הקליניקות המובילות כבר עברו לסוכני AI. מי שלא — נשארת מאחור במירוץ.</p>
+    <ul>
+      <li>טכנולוגיית AI הפכה את שירות הלקוחות לזמין 24/7 בלי גיוס עובדים</li>
+      <li>הלקוחות שלך כבר רגילות לתשובות מיידיות — וזה מה שהן מצפות גם ממך</li>
+      <li>מי שמאמצת את זה ראשונה — לוקחת את הלקוחות מהקליניקה שממול</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">הפתרון</div>
+    <h1>סוכן AI אישי<br>לקליניקה שלך</h1>
+    <p class="sub">עוזרת וירטואלית חכמה שמכירה את הטיפולים, המחירים והזמינות שלך — ועובדת בלי הפסקה.</p>
+    <ul>
+      <li>עונה אוטומטית בוואטסאפ ובאינסטגרם בשפה שלך, בטון שלך</li>
+      <li>מתאמת תורים, עונה על שאלות נפוצות ומסננת פניות רציניות</li>
+      <li>מדברת עברית טבעית — הלקוחות לא ירגישו שזה לא את</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">דמו חי</div>
+    <h1>ככה זה עובד בפועל</h1>
+    <p class="sub">לקוחה שולחת הודעה ב-23:47. תוך 8 שניות — תשובה, ותור ביומן.</p>
+    <div class="chatdemo">
+      <div class="bub in">היי, יש לכם תור לניקוי עור השבוע? <span class="tm">23:47</span></div>
+      <div class="bub out">בשמחה ✨ יש לי יום ה' 11:00 או יום א' 17:00 — מה נוח לך? <span class="tm">23:47</span></div>
+      <div class="bub in">יום ה מושלם <span class="tm">23:48</span></div>
+      <div class="bub out">קבעתי לך 💆‍♀️ שולחת אישור. נתראה! <span class="tm">23:48</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">מה את מקבלת</div>
+    <h1>הכל נבנה בשבילך —<br>בלי כאב ראש</h1>
+    <p class="sub">אנחנו בונים, מחברים ומתחזקים את הכל. את פשוט מקבלת יותר תורים.</p>
+    <ul>
+      <li>הקמה והטמעה מלאה — בלי שתצטרכי להבין שום דבר טכני</li>
+      <li>חיבור לוואטסאפ, אינסטגרם והיומן הקיים שלך</li>
+      <li>תחזוקה, עדכונים ושיפור מתמיד של הסוכן — באחריותנו</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">התוצאה</div>
+    <h1>יותר תורים,<br>פחות עבודה</h1>
+    <p class="sub">מענה מיידי מעלה את אחוז הסגירה דרמטית — ומחזיר את ההשקעה כבר בחודש הראשון.</p>
+    <ul>
+      <li>0% פניות שנופלות בין הכיסאות — כל לידה מקבלת מענה</li>
+      <li>שעות שמתפנות לך — במקום לרדוף אחרי הודעות</li>
+      <li>חוויית לקוח שמרגישה יוקרתית ומקצועית מהשנייה הראשונה</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">השקעה</div>
+    <h1>השקעה שמחזירה<br>את עצמה — ובגדול</h1>
+    <p class="sub">תור אחד או שניים בחודש מכסים את העלות. כל השאר — רווח.</p>
+    <div class="price-row">
+      <div class="pc"><div class="lbl">הקמה חד-פעמית</div><div class="amt">₪6,000–14,000</div></div>
+      <div class="pc"><div class="lbl">ריטיינר חודשי</div><div class="amt">₪1,500–4,000</div></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">הצעה בלעדית</div>
+    <h1>מחיר Founders —<br>רק ל-3 הקליניקות הראשונות</h1>
+    <p class="sub">אנחנו פותחים את הדלת לשלוש שותפות מייסדות, בתנאים שלא יחזרו.</p>
+    <ul>
+      <li>מחיר הקמה מוזל משמעותית — בלעדי לשלוש הראשונות בלבד</li>
+      <li>ליווי צמוד אישי ועדיפות בכל פיתוח ושיפור עתידי</li>
+      <li>המקומות נסגרים מהר — מי שמהססת, מפספסת את התנאי הזה לתמיד</li>
+    </ul>
+    <div class="founders">⭐ 3 מקומות בלבד · תנאי חד-פעמי</div>
+  </section>
+
+  <section class="slide fomo">
+    <div class="kicker">למה עכשיו</div>
+    <h1>כל חודש שעובר<br>הוא לקוחות שהלכו</h1>
+    <p class="sub">כל חודש בלי מערכת מענה הוא חודש של פניות שאבדו למתחרים. הפער רק גדל.</p>
+    <ul>
+      <li>המתחרות שלך כבר בוחנות AI — היתרון שייך למי שזזה ראשונה</li>
+      <li>כל יום בלי המערכת = פניות שאבדו ולא יחזרו</li>
+      <li>ההטמעה מהירה — תוך זמן קצר את כבר רואה תורים נכנסים</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">הצעד הבא</div>
+    <h1>בואי נתחיל</h1>
+    <p class="sub">שיחת אפיון קצרה, ואנחנו בונים לך את הסוכן. המקום הראשון שלך מחכה.</p>
+    <ul>
+      <li>נקבע שיחה קצרה להבין את הקליניקה והצרכים שלך</li>
+      <li>תוך ימים ספורים הסוכן שלך עולה לאוויר ומתחיל לעבוד</li>
+      <li>שמרי את אחד משלושת מקומות ה-Founders — לפני שייסגרו</li>
+    </ul>
+    <div class="founders">📲 צרי קשר עכשיו לקביעת שיחת היכרות</div>
+  </section>
+
+</div>
+
+<div class="bar" id="progress"></div>
+<div class="counter" style="display:none"></div>
+<div class="ctrl">
+  <button onclick="go(-1)">‹</button>
+  <span class="counter" id="ctr">1 / 12</span>
+  <button onclick="go(1)">›</button>
+</div>
+<div class="hint">← → או רווח למעבר · F למסך מלא</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function show(n){
+    slides[i].classList.remove('active');
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides[i].classList.add('active');
+    document.getElementById('ctr').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('bar').style.width=((i+1)/slides.length*100)+'%';
+  }
+  function go(d){ show(i+d); }
+  document.addEventListener('keydown',e=>{
+    if(['ArrowLeft','PageUp'].includes(e.key)) go(1);        // RTL: left = next
+    else if(['ArrowRight','PageDown'].includes(e.key)) go(-1);
+    else if(e.key===' '){ e.preventDefault(); go(1); }
+    else if(e.key==='Home') show(0);
+    else if(e.key==='End') show(slides.length-1);
+    else if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+  show(0);
+</script>
+</body>
+</html>

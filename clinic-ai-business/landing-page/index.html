@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סוכן AI לקליניקות אסתטיקה — המערכת שלא מפספסת אף פנייה</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg2:#12121c; --card:#16161f; --line:#262635;
+    --ink:#f4f4f8; --muted:#9a9ab0; --gold:#e9c46a; --gold2:#f4d488;
+    --accent:#7c5cff; --accent2:#a78bfa; --wa:#25d366; --bad:#ff6b6b;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--bg); color:var(--ink); font-family:"Segoe UI","Heebo",Arial,sans-serif; line-height:1.6; overflow-x:hidden; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 22px; }
+  .gold{ color:var(--gold); }
+  section{ padding:84px 0; position:relative; }
+  h1,h2,h3{ line-height:1.2; font-weight:800; }
+
+  /* Nav */
+  nav{ position:sticky; top:0; z-index:50; background:rgba(10,10,15,.82); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo{ font-weight:800; font-size:19px; letter-spacing:.3px; }
+  .logo b{ color:var(--gold); }
+  .btn{ display:inline-block; background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#1a1407;
+        font-weight:700; padding:13px 26px; border-radius:12px; text-decoration:none; border:none; cursor:pointer;
+        box-shadow:0 8px 26px rgba(233,196,106,.28); transition:transform .15s, box-shadow .15s; font-size:15px; }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 12px 34px rgba(233,196,106,.42); }
+  .btn-sm{ padding:9px 18px; font-size:14px; }
+
+  /* Hero */
+  .hero{ padding:96px 0 72px; text-align:center; background:
+    radial-gradient(900px 420px at 50% -10%, rgba(124,92,255,.22), transparent),
+    radial-gradient(700px 380px at 80% 20%, rgba(233,196,106,.10), transparent); }
+  .badge{ display:inline-block; font-size:13px; color:var(--gold); border:1px solid rgba(233,196,106,.35);
+          background:rgba(233,196,106,.07); padding:7px 16px; border-radius:30px; margin-bottom:26px; letter-spacing:.4px; }
+  .hero h1{ font-size:clamp(34px,6vw,58px); margin-bottom:22px; background:linear-gradient(180deg,#fff,#c9c9da);
+            -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero p.sub{ font-size:clamp(16px,2.3vw,20px); color:var(--muted); max-width:760px; margin:0 auto 34px; }
+  .hero .btn{ font-size:17px; padding:16px 34px; }
+  .trust{ margin-top:22px; color:var(--muted); font-size:13px; }
+
+  /* Phone mock */
+  .mock{ margin:48px auto 0; max-width:340px; background:#0b141a; border:1px solid var(--line); border-radius:26px;
+         padding:16px; box-shadow:0 30px 80px rgba(0,0,0,.6); }
+  .mock .bar{ font-size:11px; color:#8aa; text-align:center; margin-bottom:10px; }
+  .bub{ max-width:86%; padding:9px 13px; border-radius:14px; font-size:14px; margin:7px 0; }
+  .in{ background:#202c33; color:#e9edef; margin-inline-start:auto; border-bottom-right-radius:4px; }
+  .out{ background:#075e54; color:#e9edef; border-bottom-left-radius:4px; }
+  .t{ font-size:10px; opacity:.6; }
+
+  /* FOMO */
+  .fomo{ background:linear-gradient(180deg,#140d0d,#0a0a0f); border-top:1px solid #2a1a1a; border-bottom:1px solid #2a1a1a; }
+  .fomo h2{ font-size:clamp(26px,4vw,38px); text-align:center; margin-bottom:14px; color:#ffd9d9; }
+  .fomo .lead{ text-align:center; color:var(--muted); margin-bottom:40px; }
+  .fgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; }
+  .fcard{ background:rgba(255,107,107,.06); border:1px solid rgba(255,107,107,.22); border-radius:16px; padding:22px; }
+  .fcard .x{ color:var(--bad); font-size:22px; font-weight:800; }
+
+  /* Section heads */
+  .eyebrow{ text-align:center; color:var(--gold); font-size:14px; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px; }
+  .shead{ text-align:center; font-size:clamp(26px,4vw,40px); margin-bottom:46px; }
+
+  /* Steps */
+  .steps{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px; }
+  .step{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:28px; position:relative; }
+  .step .num{ width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg,var(--accent),var(--accent2));
+              display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; margin-bottom:16px; }
+  .step h3{ font-size:19px; margin-bottom:8px; }
+  .step p{ color:var(--muted); font-size:15px; }
+
+  /* Features */
+  .feat{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
+  .fc{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; transition:border-color .2s, transform .2s; }
+  .fc:hover{ border-color:rgba(233,196,106,.45); transform:translateY(-3px); }
+  .fc .ic{ font-size:26px; margin-bottom:12px; }
+  .fc h3{ font-size:17px; margin-bottom:7px; color:var(--gold2); }
+  .fc p{ color:var(--muted); font-size:14.5px; }
+
+  /* ROI */
+  .roi{ background:linear-gradient(180deg,#0d0f14,#0a0a0f); }
+  .roi-box{ background:linear-gradient(135deg,rgba(124,92,255,.12),rgba(233,196,106,.08));
+            border:1px solid var(--line); border-radius:22px; padding:44px; text-align:center; }
+  .roi-box h2{ font-size:clamp(24px,3.6vw,34px); margin-bottom:28px; }
+  .roi-points{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; text-align:right; }
+  .roi-points .p{ display:flex; gap:12px; align-items:flex-start; color:#d8d8e6; font-size:15px; }
+  .roi-points .p .v{ color:var(--gold); font-size:20px; line-height:1.2; }
+
+  /* Pricing note */
+  .price{ text-align:center; }
+  .price .note{ max-width:760px; margin:0 auto; color:var(--muted); font-size:17px; }
+  .pill{ display:inline-block; margin-top:22px; background:rgba(233,196,106,.1); border:1px solid rgba(233,196,106,.4);
+         color:var(--gold2); padding:10px 22px; border-radius:30px; font-weight:700; }
+
+  /* FAQ */
+  .faq-item{ background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:14px; overflow:hidden; }
+  .faq-item summary{ cursor:pointer; padding:20px 24px; font-weight:700; font-size:16.5px; list-style:none; display:flex; justify-content:space-between; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{ content:"+"; color:var(--gold); font-size:24px; }
+  .faq-item[open] summary::after{ content:"–"; }
+  .faq-item p{ padding:0 24px 22px; color:var(--muted); font-size:15px; }
+
+  /* Final CTA */
+  .final{ text-align:center; background:
+     radial-gradient(700px 360px at 50% 120%, rgba(124,92,255,.25), transparent); }
+  .final h2{ font-size:clamp(28px,4.5vw,44px); margin-bottom:16px; }
+  .final p{ color:var(--muted); max-width:680px; margin:0 auto 32px; font-size:18px; }
+  .final .btn{ font-size:18px; padding:18px 40px; }
+
+  footer{ border-top:1px solid var(--line); padding:30px 0; text-align:center; color:var(--muted); font-size:13px; }
+  .demo-note{ max-width:820px; margin:22px auto 0; background:rgba(124,92,255,.08); border:1px solid var(--line);
+              border-radius:12px; padding:14px 18px; color:var(--muted); font-size:13px; text-align:center; }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="logo">סוכן<b>AI</b> · קליניקות</div>
+  <a href="#cta" class="btn btn-sm">קבעו הדגמה</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="badge">סוכני AI חכמים לקליניקות אסתטיקה וקוסמטיקה</span>
+  <h1>המערכת שלא מפספסת<br>אף פנייה. אף פעם.</h1>
+  <p class="sub">סוכן AI אישי שעונה ללקוחות שלך בוואטסאפ ובאינסטגרם תוך שניות, 24/7. קובע תורים, עונה על שאלות וסוגר פניות בזמן שאת עסוקה עם לקוחה אחרת. כל פנייה שנכנסת הופכת להזדמנות — גם בלילה, גם בסופ״ש.</p>
+  <a href="#cta" class="btn">קבעו שיחת היכרות והדגמה חינם</a>
+  <div class="trust">✓ הקמה תוך ימים · ✓ ללא ידע טכני · ✓ מדבר בשפת המותג שלך</div>
+
+  <div class="mock">
+    <div class="bar">וואטסאפ · היום 23:47</div>
+    <div class="bub in">היי, יש לכם תור לניקוי עור השבוע? <span class="t">23:47</span></div>
+    <div class="bub out">היי! ✨ בשמחה — יש לי יום ה' ב-11:00 או יום א' ב-17:00. מה נוח לך? <span class="t">23:47</span></div>
+    <div class="bub in">יום ה מושלם <span class="t">23:48</span></div>
+    <div class="bub out">קבעתי לך 💆‍♀️ שולחת אישור עכשיו. נתראה! <span class="t">23:48</span></div>
+  </div>
+  <div class="demo-note">⚡ בזמן שהקליניקה ישנה — נסגר תור. זו בדיוק העבודה של הסוכן.</div>
+</div></header>
+
+<section class="fomo"><div class="wrap">
+  <h2>כל פנייה שלא נענתה היא לקוחה שהלכה למתחרה</h2>
+  <p class="lead">בענף האסתטיקה — מי שעונה ראשונה, זוכה בלקוחה.</p>
+  <div class="fgrid">
+    <div class="fcard"><div class="x">5 דק׳</div><p>לקוחה ששלחה הודעה ולא קיבלה מענה תוך 5 דקות כבר פנתה לקליניקה הבאה.</p></div>
+    <div class="fcard"><div class="x">לילה · שבת</div><p>כל יום בלי מענה אוטומטי = עשרות פניות שמתפספסות בשעות שאת בטיפול, בערב ובחגים. תחשבי כמה תורים זה בחודש.</p></div>
+    <div class="fcard"><div class="x">מאחור</div><p>המתחרות שלך כבר מתחילות לעבוד עם סוכני AI. מי שנשארת עם מענה ידני — נשארת מאחור במירוץ.</p></div>
+    <div class="fcard"><div class="x">הזמן שלך</div><p>שעות שנשרפות על מענה לאותן שאלות שוב ושוב. כל שעה כזו היא שעה שלא הקדשת ללקוחות שמשלמות.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">איך זה עובד</div>
+  <h2 class="shead">שלושה צעדים — ואת לא נוגעת בטכנולוגיה</h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>אנחנו לומדים את הקליניקה שלך</h3><p>בשיחת אפיון קצרה אנחנו לומדים את הטיפולים, המחירים, השאלות הנפוצות והטון שלך. הסוכן מדבר בדיוק בשפה של המותג — כאילו את עצמך עונה.</p></div>
+    <div class="step"><div class="num">2</div><h3>אנחנו בונים ומחברים את הסוכן</h3><p>מקימים את סוכן ה-AI ומחברים אותו לוואטסאפ ולאינסטגרם שלך. תוך ימים ספורים הוא מוכן — בלי שתצטרכי לגעת בקוד.</p></div>
+    <div class="step"><div class="num">3</div><h3>הסוכן עובד בשבילך, מסביב לשעון</h3><p>מהרגע הראשון הוא עונה לכל פנייה, קובע תורים, מסנן ומעביר אלייך רק את מה שחשוב. את ממשיכה לעבוד, וההכנסות ממשיכות לזרום.</p></div>
+  </div>
+</div></section>
+
+<section style="background:var(--bg2)"><div class="wrap">
+  <div class="eyebrow">היכולות</div>
+  <h2 class="shead">מה הסוכן עושה בשבילך</h2>
+  <div class="feat">
+    <div class="fc"><div class="ic">⚡</div><h3>מענה מיידי 24/7</h3><p>כל הודעה בוואטסאפ ובאינסטגרם מקבלת מענה מקצועי תוך שניות, בכל שעה. לקוחה לעולם לא נשארת בלי תשובה.</p></div>
+    <div class="fc"><div class="ic">📅</div><h3>קביעת תורים אוטומטית</h3><p>הסוכן מתאם תורים ישירות ביומן שלך, מציע זמנים פנויים ושולח תזכורות. פחות ביטולים, יומן מלא.</p></div>
+    <div class="fc"><div class="ic">💬</div><h3>מדבר בשפת המותג שלך</h3><p>הטון, השפה והערכים שלך מוטמעים בסוכן. הלקוחות מרגישות שהן מדברות עם הצוות שלך — ברמת פרימיום.</p></div>
+    <div class="fc"><div class="ic">🎯</div><h3>סינון וטיוב פניות</h3><p>מסנן פניות לא רלוונטיות, עונה לשאלות חוזרות, ומעביר אלייך רק לקוחות בשלות לסגירה.</p></div>
+    <div class="fc"><div class="ic">🔁</div><h3>עוקב ומחזיר לקוחות</h3><p>פנייה שלא הבשילה לא הולכת לאיבוד. מעקב חכם שמחזיר מתעניינות לשולחן ומגדיל המרה.</p></div>
+    <div class="fc"><div class="ic">📊</div><h3>דשבורד ושקיפות מלאה</h3><p>את רואה בדיוק כמה פניות נכנסו, כמה תורים נקבעו ואיך הסוכן מתפקד. שליטה מלאה.</p></div>
+  </div>
+</div></section>
+
+<section class="roi"><div class="wrap">
+  <div class="roi-box">
+    <h2>זה לא הוצאה. זו המכונה שמייצרת לך תורים.</h2>
+    <div class="roi-points">
+      <div class="p"><span class="v">↩︎</span><span>אם הסוכן יחזיר אפילו תור או שניים נוספים בחודש — הוא כבר החזיר את עצמו. כל פנייה נוספת שנסגרת מעבר לזה היא רווח נקי.</span></div>
+      <div class="p"><span class="v">24/7</span><span>במקום לשלם לעובד שיענה בשעות מסוימות — מערכת שעובדת מסביב לשעון, בלי ימי מחלה ובלי שכר שמטפס.</span></div>
+      <div class="p"><span class="v">⏱</span><span>שעות שחסכת על מענה ידני חוזרות אלייך כזמן טיפולים שמכניס כסף — או כזמן פנוי לעצמך.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="price"><div class="wrap">
+  <div class="eyebrow">השקעה</div>
+  <h2 class="shead">תמחור שקוף</h2>
+  <p class="note">השקעה חד-פעמית בהקמה והטמעה מלאה <b class="gold">(₪6,000–14,000)</b>, בתוספת ריטיינר חודשי <b class="gold">(₪1,500–4,000)</b> לתחזוקה, אופטימיזציה ושיפור מתמיד. זו לא עלות — זו השקעה שמתחילה להחזיר את עצמה מהתור הראשון.</p>
+  <div class="pill">⭐ מחיר Founders מוזל — רק ל-3 הקליניקות הראשונות</div>
+</div></section>
+
+<section style="background:var(--bg2)"><div class="wrap" style="max-width:780px">
+  <div class="eyebrow">שאלות נפוצות</div>
+  <h2 class="shead">כל מה שרצית לדעת</h2>
+  <details class="faq-item"><summary>האם הלקוחות יבינו שזה לא אני שעונה?</summary><p>הסוכן מדבר בדיוק בטון ובשפה של הקליניקה שלך, באופן טבעי ומקצועי. רוב הלקוחות פשוט מרגישות שקיבלו מענה מהיר ואדיב. וברגע שפנייה דורשת מגע אישי — הסוכן מעביר אותה אלייך כך שתמשיכי משם בעצמך.</p></details>
+  <details class="faq-item"><summary>אני לא טכנולוגית. כמה מסובך זה להפעיל?</summary><p>את לא צריכה להבין שום דבר טכני. אנחנו מקימים, מחברים ומגדירים הכל בשבילך. כל מה שנדרש ממך זה שיחת אפיון קצרה — ומשם אנחנו דואגים לכל היתר. תוך ימים ספורים המערכת פעילה.</p></details>
+  <details class="faq-item"><summary>מה לגבי תוכן רפואי או הבטחות ללקוחות?</summary><p>הסוכן לא נותן ייעוץ רפואי ולא מבטיח תוצאות. הוא מתמקד במה שחשוב למכירה: מענה לשאלות שירותיות, מידע על טיפולים וזמינות, וקביעת תורים. כל מה שדורש שיקול דעת מקצועי עובר אלייך.</p></details>
+  <details class="faq-item"><summary>כמה זמן לוקח עד שאני רואה תוצאות?</summary><p>מהרגע שהסוכן עולה לאוויר הוא מתחיל לענות לכל פנייה מיידית. את מרגישה את ההבדל כבר בימים הראשונים: פחות פניות שמתפספסות, יותר תורים שנקבעים, ופחות זמן שנשרף על מענה ידני.</p></details>
+  <details class="faq-item"><summary>מה אם הסוכן לא ידע לענות על משהו?</summary><p>במצב כזה הוא לא ממציא תשובות — הוא מעביר את הפנייה אלייך בצורה חלקה, כך שאת עונה ברגע שמתפנה. ככל שעובר הזמן אנחנו משפרים אותו על בסיס פניות אמת, כך שהוא נעשה חכם ומדויק יותר.</p></details>
+</div></section>
+
+<section class="final" id="cta"><div class="wrap">
+  <h2>תנו לסוכן לתפוס כל פנייה,<br>בזמן שאתם מטפלים בלקוחות</h2>
+  <p>מקומות ה-Founders המוזלים מוגבלים ל-3 קליניקות בלבד. קבעו עכשיו שיחת היכרות והדגמה חינם — וגלו כמה תורים אתם מפספסים בדיוק עכשיו.</p>
+  <a href="https://wa.me/972500000000?text=היי, ראיתי את דף הסוכן ואשמח להדגמה" class="btn">קבעו שיחת היכרות והדגמה חינם</a>
+  <div class="trust">החליפו את מספר הוואטסאפ בכפתור לפני פרסום ↑</div>
+</div></section>
+
+<footer><div class="wrap">סוכן AI לקליניקות אסתטיקה · דף נחיתה (טמפלייט) · החליפו לוגו, צבעים ומספר וואטסאפ לפי המותג שלכם</div></footer>
+
+</body>
+</html>
