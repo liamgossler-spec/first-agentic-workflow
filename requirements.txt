@@ -19,5 +19,7 @@ weasyprint>=62.0         # render_report_pdf.py — preferred HTML/CSS -> PDF (n
 playwright>=1.40.0       # render_report_pdf.py — fallback engine, headless Chromium (no system libs). Run: playwright install chromium
 pypdf>=4.0.0             # render_report_pdf.py — merge cover + body PDFs (Chromium path)
 
+# --- Clinic AI chatbot (tools/clinic_bot.py) ---
+anthropic>=0.40.0        # live mode — Claude API conversational brain
+
 # --- Add as needed ---
-# anthropic>=0.40.0
