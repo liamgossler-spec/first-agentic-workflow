@@ -21,5 +21,7 @@ pypdf>=4.0.0             # render_report_pdf.py — merge cover + body PDFs (Chr
 
 # --- Clinic AI chatbot (tools/clinic_bot.py) ---
 anthropic>=0.40.0        # live mode — Claude API conversational brain
+flask>=3.0.0             # tools/demo_server.py — interactive landing-page backend
+Pillow>=10.0.0           # logo crop/avatar generation
 
 # --- Add as needed ---

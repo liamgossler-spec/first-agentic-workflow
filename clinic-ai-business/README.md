@@ -37,7 +37,8 @@
 ### נכסי מכירה (פרימיום — פתח בדפדפן)
 | קובץ | תוכן |
 |------|------|
-| `landing-page/index.html` | דף נחיתה פרימיום (מותג ZYNX) עם FOMO, יכולות, ROI, FAQ, CTA |
+| `site/index.html` ⭐ | **דף נחיתה אינטראקטיבי** — דמו חי שהלקוחה מתנסה בו + טופס ליד לוואטסאפ. `site/README.md` להעלאה |
+| `landing-page/index.html` | דף נחיתה סטטי (מותג ZYNX) עם FOMO, יכולות, ROI, FAQ, CTA |
 | `sales-deck/deck.html` | מצגת מכירה 12 שקופיות (ניווט עם חיצים, F למסך מלא) |
 | `proposal/proposal-template.md` | תבנית הצעת מחיר/הצעה עסקית לשליחה ללקוח |
 | `ad-sketches/ad-mockup.html` | סקיצת מודעה (3 זוויות, מוקאפ בלבד — לא פורסם) |
