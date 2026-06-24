@@ -1,14 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 130" role="img" aria-label="ZYNX">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 250" role="img" aria-label="ZYNX">
   <defs>
-    <linearGradient id="zynxGrad" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0" stop-color="#38A1FF"/>
-      <stop offset="1" stop-color="#7B4DFF"/>
+    <linearGradient id="zynxGrad" x1="0.2" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3DA1FF"/>
+      <stop offset="0.5" stop-color="#5B6FF2"/>
+      <stop offset="1" stop-color="#8A46F0"/>
     </linearGradient>
   </defs>
   <!-- Z mark -->
-  <path d="M20,15 H100 V38 L52,90 H100 V113 H20 V90 L68,38 H20 Z"
+  <path d="M34,24 L188,24 L188,70 L96,180 L170,180 L186,226 L32,226 L32,180 L124,70 L52,70 Z"
         fill="url(#zynxGrad)"/>
   <!-- Wordmark -->
-  <text x="168" y="96" font-family="'Segoe UI',Arial,Helvetica,sans-serif"
-        font-size="92" font-weight="800" letter-spacing="10" fill="#FFFFFF">ZYNX</text>
+  <text x="270" y="172" font-family="'Chakra Petch','Segoe UI',Arial,sans-serif"
+        font-size="150" font-weight="700" letter-spacing="14" fill="#FFFFFF">ZYNX</text>
 </svg>
