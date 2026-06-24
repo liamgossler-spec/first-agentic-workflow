@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>מצגת מכירה — סוכן AI לקליניקות אסתטיקה</title>
 <style>
-  :root{ --bg:#0a0a0f; --ink:#f4f4f8; --muted:#a0a0b8; --gold:#e9c46a; --gold2:#f4d488;
-         --accent:#7c5cff; --accent2:#a78bfa; --bad:#ff7b7b; --card:#16161f; --line:#2a2a3a; }
+  :root{ --bg:#08080c; --ink:#f4f4f8; --muted:#a0a0b8; --gold:#7aa6ff; --gold2:#a78bfa;
+         --blue:#38a1ff; --purple:#7b4dff;
+         --accent:#7c5cff; --accent2:#a78bfa; --bad:#ff7b7b; --card:#15151f; --line:#2a2a3a; }
   *{ box-sizing:border-box; margin:0; padding:0; }
   body{ background:#000; color:var(--ink); font-family:"Segoe UI","Heebo",Arial,sans-serif; overflow:hidden; }
   .deck{ width:100vw; height:100vh; position:relative; }
@@ -53,12 +54,12 @@
 </head>
 <body>
 <div class="bar" id="bar"></div>
-<div class="logo">סוכן<b>AI</b> · קליניקות</div>
+<div class="logo" style="display:flex;align-items:center;gap:8px"><svg width="20" height="22" viewBox="0 0 120 128" aria-label="ZYNX"><defs><linearGradient id="zgdeck" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="#38A1FF"/><stop offset="1" stop-color="#7B4DFF"/></linearGradient></defs><path d="M20,15 H100 V38 L52,90 H100 V113 H20 V90 L68,38 H20 Z" fill="url(#zgdeck)"/></svg><span style="letter-spacing:1.5px">ZYNX · קליניקות</span></div>
 
 <div class="deck" id="deck">
 
   <section class="slide active">
-    <div class="kicker">סוכן AI לקליניקות אסתטיקה</div>
+    <div class="kicker">ZYNX · סוכני AI לקליניקות אסתטיקה</div>
     <h1>כל פנייה שלא נענתה<br>היא לקוחה שהלכה למתחרה</h1>
     <p class="sub">מערכת AI שעונה לכל פנייה תוך שניות — 24/7, בוואטסאפ ובאינסטגרם. בלי שתרימי אצבע.</p>
     <ul>

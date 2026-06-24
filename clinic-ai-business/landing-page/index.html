@@ -6,8 +6,9 @@
 <title>סוכן AI לקליניקות אסתטיקה — המערכת שלא מפספסת אף פנייה</title>
 <style>
   :root{
-    --bg:#0a0a0f; --bg2:#12121c; --card:#16161f; --line:#262635;
-    --ink:#f4f4f8; --muted:#9a9ab0; --gold:#e9c46a; --gold2:#f4d488;
+    --bg:#08080c; --bg2:#101018; --card:#15151f; --line:#262635;
+    --ink:#f4f4f8; --muted:#9a9ab0; --gold:#7aa6ff; --gold2:#a78bfa;
+    --blue:#38a1ff; --purple:#7b4dff;
     --accent:#7c5cff; --accent2:#a78bfa; --wa:#25d366; --bad:#ff6b6b;
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
@@ -23,10 +24,10 @@
   nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
   .logo{ font-weight:800; font-size:19px; letter-spacing:.3px; }
   .logo b{ color:var(--gold); }
-  .btn{ display:inline-block; background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#1a1407;
+  .btn{ display:inline-block; background:linear-gradient(135deg,var(--blue),var(--purple)); color:#fff;
         font-weight:700; padding:13px 26px; border-radius:12px; text-decoration:none; border:none; cursor:pointer;
-        box-shadow:0 8px 26px rgba(233,196,106,.28); transition:transform .15s, box-shadow .15s; font-size:15px; }
-  .btn:hover{ transform:translateY(-2px); box-shadow:0 12px 34px rgba(233,196,106,.42); }
+        box-shadow:0 8px 28px rgba(123,77,255,.40); transition:transform .15s, box-shadow .15s; font-size:15px; }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 12px 38px rgba(123,77,255,.55); }
   .btn-sm{ padding:9px 18px; font-size:14px; }
 
   /* Hero */
@@ -116,12 +117,15 @@
 <body>
 
 <nav><div class="wrap">
-  <div class="logo">סוכן<b>AI</b> · קליניקות</div>
+  <div class="logo" style="display:flex;align-items:center;gap:10px">
+    <svg width="26" height="28" viewBox="0 0 120 128" aria-label="ZYNX"><defs><linearGradient id="zgnav" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="#38A1FF"/><stop offset="1" stop-color="#7B4DFF"/></linearGradient></defs><path d="M20,15 H100 V38 L52,90 H100 V113 H20 V90 L68,38 H20 Z" fill="url(#zgnav)"/></svg>
+    <span style="letter-spacing:2px">ZYNX</span>
+  </div>
   <a href="#cta" class="btn btn-sm">קבעו הדגמה</a>
 </div></nav>
 
 <header class="hero"><div class="wrap">
-  <span class="badge">סוכני AI חכמים לקליניקות אסתטיקה וקוסמטיקה</span>
+  <span class="badge">ZYNX · סוכני AI לקליניקות אסתטיקה וקוסמטיקה</span>
   <h1>המערכת שלא מפספסת<br>אף פנייה. אף פעם.</h1>
   <p class="sub">סוכן AI אישי שעונה ללקוחות שלך בוואטסאפ ובאינסטגרם תוך שניות, 24/7. קובע תורים, עונה על שאלות וסוגר פניות בזמן שאת עסוקה עם לקוחה אחרת. כל פנייה שנכנסת הופכת להזדמנות — גם בלילה, גם בסופ״ש.</p>
   <a href="#cta" class="btn">קבעו שיחת היכרות והדגמה חינם</a>
@@ -206,7 +210,7 @@
   <div class="trust">החליפו את מספר הוואטסאפ בכפתור לפני פרסום ↑</div>
 </div></section>
 
-<footer><div class="wrap">סוכן AI לקליניקות אסתטיקה · דף נחיתה (טמפלייט) · החליפו לוגו, צבעים ומספר וואטסאפ לפי המותג שלכם</div></footer>
+<footer><div class="wrap">ZYNX · סוכני AI לקליניקות אסתטיקה · החליפו את מספר הוואטסאפ בכפתור ה-CTA לפני פרסום</div></footer>
 
 </body>
 </html>

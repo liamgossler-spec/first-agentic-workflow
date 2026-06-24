@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 130" role="img" aria-label="ZYNX">
+  <defs>
+    <linearGradient id="zynxGrad" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#38A1FF"/>
+      <stop offset="1" stop-color="#7B4DFF"/>
+    </linearGradient>
+  </defs>
+  <!-- Z mark -->
+  <path d="M20,15 H100 V38 L52,90 H100 V113 H20 V90 L68,38 H20 Z"
+        fill="url(#zynxGrad)"/>
+  <!-- Wordmark -->
+  <text x="168" y="96" font-family="'Segoe UI',Arial,Helvetica,sans-serif"
+        font-size="92" font-weight="800" letter-spacing="10" fill="#FFFFFF">ZYNX</text>
+</svg>

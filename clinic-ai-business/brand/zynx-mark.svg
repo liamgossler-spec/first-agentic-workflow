@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 128" role="img" aria-label="ZYNX mark">
+  <defs>
+    <linearGradient id="zynxMark" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#38A1FF"/>
+      <stop offset="1" stop-color="#7B4DFF"/>
+    </linearGradient>
+  </defs>
+  <path d="M20,15 H100 V38 L52,90 H100 V113 H20 V90 L68,38 H20 Z" fill="url(#zynxMark)"/>
+</svg>
