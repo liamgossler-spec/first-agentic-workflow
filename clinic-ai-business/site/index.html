@@ -241,8 +241,9 @@
 
 <script>
   /* ===== הגדרות ===== ריק = מצב הדגמה */
-  const WA_NUMBER = "";
-  const ZYNX_API  = "";
+  const WA_NUMBER = "";   // (אופציונלי) מספר וואטסאפ עסקי — הליד גם פותח שיחה איתך
+  const FORM_KEY  = "";   // ★ הדבק Access Key חינמי מ-web3forms.com → כל ליד יגיע למייל שלך מיד
+  const ZYNX_API  = "";   // (אופציונלי) כתובת שרת לדמו AI אמיתי + שמירת לידים בשרת
 
   /* ===== Typewriter בכותרת ===== */
   const phrases = ["שלא מפספסת אף פנייה.","שקובעת תורים לבד.","שעונה גם ב-2 בלילה.","שמדברת כמו בן אדם."];
@@ -321,11 +322,28 @@
   document.getElementById("leadForm").addEventListener("submit", async (e)=>{
     e.preventDefault();
     const f=e.target, d={name:f.name.value,clinic:f.clinic.value,city:f.city.value,phone:f.phone.value};
-    const leads=JSON.parse(localStorage.getItem("zynx_leads")||"[]"); leads.push(d); localStorage.setItem("zynx_leads",JSON.stringify(leads));
-    if(ZYNX_API){ try{ await fetch(ZYNX_API.replace(/\/$/,"")+"/lead",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)}); }catch(err){} }
+    const btn=f.querySelector("button"); const orig=btn.textContent; btn.textContent="שולח…"; btn.disabled=true;
     const ok=document.getElementById("leadOk");
-    ok.innerHTML=`תודה ${d.name}! 🎉<br>קיבלנו את הפנייה מ"${d.clinic}" — ניצור איתך קשר עם דמו אישי בהקדם.<br><span style="opacity:.65;font-size:13px">(הדגמה — באתר החי הליד נכנס ישר ל-CRM ולוואטסאפ שלך)</span>`;
-    ok.style.display="block"; f.reset(); ok.scrollIntoView({behavior:"smooth",block:"center"});
+    // גיבוי מקומי תמיד
+    const leads=JSON.parse(localStorage.getItem("zynx_leads")||"[]"); leads.push(d); localStorage.setItem("zynx_leads",JSON.stringify(leads));
+    let delivered=false;
+    // 1) משלוח אמיתי למייל דרך Web3Forms (אם הוגדר מפתח)
+    if(FORM_KEY){
+      try{
+        const r=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+          body:JSON.stringify({access_key:FORM_KEY, subject:`ליד חדש מ-ZYNX: ${d.clinic}`, from_name:"ZYNX Landing",
+            name:d.name, clinic:d.clinic, city:d.city, phone:d.phone})});
+        delivered=(await r.json()).success===true;
+      }catch(err){}
+    }
+    // 2) שמירה בשרת/CRM (אם הוגדר)
+    if(ZYNX_API){ try{ await fetch(ZYNX_API.replace(/\/$/,"")+"/lead",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)}); delivered=true; }catch(err){} }
+    btn.textContent=orig; btn.disabled=false; f.reset();
+    ok.innerHTML = delivered
+      ? `תודה ${d.name}! ✅<br>הפרטים מ"${d.clinic}" נשלחו — נחזור אלייך עם דמו אישי בהקדם 💜`
+      : `תודה ${d.name}! 🎉<br>קיבלנו את הפנייה מ"${d.clinic}".<br><span style="opacity:.65;font-size:13px">(הדגמה — חברי Access Key / שרת כדי שהליד יגיע אלייך אמת)</span>`;
+    ok.style.display="block"; ok.scrollIntoView({behavior:"smooth",block:"center"});
+    // 3) פתיחת וואטסאפ (אם הוגדר מספר)
     if(WA_NUMBER){ const msg=`שלום ZYNX! אני ${d.name} מ"${d.clinic}"${d.city?` (${d.city})`:""}. מעוניין/ת בדמו. וואטסאפ: ${d.phone}`; window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank"); }
   });
 </script>
