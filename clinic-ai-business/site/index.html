@@ -149,9 +149,9 @@
       <div class="field"><label>שם הקליניקה</label><input name="clinic" required placeholder="שם העסק"></div>
       <div class="field"><label>עיר</label><input name="city" placeholder="עיר"></div>
       <div class="field"><label>וואטסאפ / טלפון</label><input name="phone" required placeholder="05X-XXXXXXX"></div>
-      <button class="btn" type="submit">שלחי לי דמו בוואטסאפ ←</button>
+      <button class="btn" type="submit">שלחי לי דמו אישי ←</button>
     </form>
-    <div class="ok" id="leadOk">תודה! 🎉 נפתח לך וואטסאפ עם הפרטים — רק תלחצי שליחה ונחזור אלייך עם דמו.</div>
+    <div class="ok" id="leadOk"></div>
   </div>
 </div></section>
 
@@ -162,8 +162,8 @@
 
 <script>
   /* ===== הגדרות — מלאי לפני העלאה ===== */
-  const WA_NUMBER = "972500000000";   // ← מספר הוואטסאפ העסקי שלך (פורמט בינלאומי, בלי +)
-  const ZYNX_API  = "";               // ← אופציונלי: כתובת שרת לדמו AI אמיתי (ריק = סימולציה בדפדפן)
+  const WA_NUMBER = "";   // ← (אופציונלי) מספר וואטסאפ עסקי, פורמט בינלאומי בלי +. ריק = מצב הדגמה
+  const ZYNX_API  = "";   // ← אופציונלי: כתובת שרת לדמו AI אמיתי (ריק = סימולציה בדפדפן)
 
   /* ===== מנוע הדמו (סימולציה בדפדפן; אם ZYNX_API מוגדר — קורא ל-AI אמיתי) ===== */
   let stage = "greet";
@@ -208,15 +208,20 @@
   // greeting
   setTimeout(()=>add("היי! 👋 אני הסוכן של הקליניקה. שאלי אותי כל דבר — מחירים, תורים, שעות — ותראי כמה מהר אני עונה ✨","in"), 400);
 
-  /* ===== טופס ליד → וואטסאפ + שרת (אם מוגדר) ===== */
+  /* ===== טופס ליד ===== ריק WA_NUMBER = מצב הדגמה (אישור יפה, בלי וואטסאפ). מספר מוגדר = פתיחת שיחה אמיתית */
   document.getElementById("leadForm").addEventListener("submit", async (e)=>{
     e.preventDefault();
     const f=e.target; const d={name:f.name.value, clinic:f.clinic.value, city:f.city.value, phone:f.phone.value};
+    // שמירת הליד (במצב הדגמה — נשמר בדפדפן; בשרת — נשמר אצלך)
+    const leads=JSON.parse(localStorage.getItem("zynx_leads")||"[]"); leads.push(d); localStorage.setItem("zynx_leads",JSON.stringify(leads));
     if (ZYNX_API){ try{ await fetch(ZYNX_API.replace(/\/$/,"")+"/lead",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)}); }catch(err){} }
-    const msg=`שלום ZYNX! 👋 אני ${d.name} מ"${d.clinic}"${d.city?` (${d.city})`:""}. מעוניין/ת בדמו של סוכן AI לקליניקה. וואטסאפ: ${d.phone}`;
-    document.getElementById("leadOk").style.display="block";
-    f.reset();
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
+    const ok=document.getElementById("leadOk");
+    ok.innerHTML=`תודה ${d.name}! 🎉<br>קיבלנו את הפנייה מ"${d.clinic}" — ניצור איתך קשר עם דמו אישי בהקדם.<br><span style="opacity:.65;font-size:13px">(הדגמה — באתר החי הפרטים נופלים ישירות אלייך לוואטסאפ)</span>`;
+    ok.style.display="block"; f.reset(); ok.scrollIntoView({behavior:"smooth",block:"center"});
+    if (WA_NUMBER){  // רק אם הוגדר מספר אמיתי
+      const msg=`שלום ZYNX! 👋 אני ${d.name} מ"${d.clinic}"${d.city?` (${d.city})`:""}. מעוניין/ת בדמו. וואטסאפ: ${d.phone}`;
+      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
+    }
   });
 </script>
 </body>
