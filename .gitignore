@@ -9,6 +9,9 @@ token.json
 .tmp/
 !.tmp/.gitkeep
 
+# Build artifacts (regenerable site bundles for deploy)
+*.zip
+
 # Competitor analysis: generated deliverables & research history (regenerable)
 reports/*.pdf
 data/snapshots/*/
