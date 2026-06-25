@@ -1,0 +1,15 @@
+# תלויות
+node_modules/
+
+# סודות — לעולם לא לעלות ל-git
+.env
+.env.local
+*.key
+
+# לוגים
+*.log
+npm-debug.log*
+
+# מערכת
+.DS_Store
+Thumbs.db

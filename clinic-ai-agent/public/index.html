@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>צ'אט · הקליניקה של מאיה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --wa-teal: #128C7E;
+      --wa-teal-dark: #075E54;
+      --wa-bg: #e5ddd5;
+      --bubble-in: #ffffff;
+      --bubble-out: #dcf8c6;
+      --text: #111b21;
+      --muted: #667781;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Heebo', system-ui, sans-serif;
+      background: #d2dbe0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100dvh;
+      color: var(--text);
+    }
+    .phone {
+      width: 100%;
+      max-width: 440px;
+      height: 100dvh;
+      max-height: 900px;
+      display: flex;
+      flex-direction: column;
+      background: var(--wa-bg);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      overflow: hidden;
+      position: relative;
+    }
+    /* header */
+    .header {
+      background: var(--wa-teal-dark);
+      color: #fff;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 3;
+      box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    }
+    .avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg,#c89bff,#ff9ec6);
+      display: grid; place-items: center;
+      font-weight: 700; font-size: 18px; color: #fff;
+      flex: 0 0 auto;
+    }
+    .header .meta { flex: 1; min-width: 0; }
+    .header .name { font-weight: 600; font-size: 16px; }
+    .header .status { font-size: 12.5px; opacity: .85; display: flex; align-items: center; gap: 5px; }
+    .dot-online { width: 7px; height: 7px; border-radius: 50%; background: #69d472; display: inline-block; }
+    .header .back { font-size: 22px; opacity: .9; cursor: pointer; text-decoration: none; color:#fff; }
+
+    /* chat area */
+    .chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 12px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background-image:
+        linear-gradient(rgba(229,221,213,.92), rgba(229,221,213,.92)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='1.2' fill='%23c9bfb3'/%3E%3C/svg%3E");
+      scroll-behavior: smooth;
+    }
+    .row { display: flex; max-width: 82%; }
+    .row.bot { align-self: flex-start; }
+    .row.me  { align-self: flex-end; }
+    .bubble {
+      padding: 7px 11px 8px;
+      border-radius: 9px;
+      font-size: 15px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      box-shadow: 0 1px 1px rgba(0,0,0,.13);
+      position: relative;
+    }
+    .row.bot .bubble { background: var(--bubble-in); border-top-right-radius: 2px; }
+    .row.me  .bubble { background: var(--bubble-out); border-top-left-radius: 2px; }
+    .time { font-size: 10.5px; color: var(--muted); margin-top: 3px; text-align: left; display:flex; gap:3px; justify-content:flex-start; }
+    .me .tick { color: #4fc3f7; font-size: 12px; }
+
+    /* typing indicator */
+    .typing .bubble { display: flex; gap: 4px; align-items: center; padding: 12px 14px; }
+    .typing span {
+      width: 7px; height: 7px; border-radius: 50%; background: #9aa4ad;
+      animation: blink 1.3s infinite ease-in-out both;
+    }
+    .typing span:nth-child(2) { animation-delay: .18s; }
+    .typing span:nth-child(3) { animation-delay: .36s; }
+    @keyframes blink { 0%,80%,100%{ transform: scale(.6); opacity:.4 } 40%{ transform: scale(1); opacity:1 } }
+
+    /* input */
+    .composer {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 10px; background: #f0f2f5;
+    }
+    .composer input {
+      flex: 1; border: none; outline: none;
+      background: #fff; border-radius: 22px;
+      padding: 11px 16px; font-size: 15px; font-family: inherit;
+      box-shadow: 0 1px 1px rgba(0,0,0,.08);
+    }
+    .composer button {
+      width: 46px; height: 46px; border: none; border-radius: 50%;
+      background: var(--wa-teal); color: #fff; font-size: 20px;
+      cursor: pointer; flex: 0 0 auto; display: grid; place-items: center;
+      transition: transform .12s ease, background .2s;
+    }
+    .composer button:hover { background: var(--wa-teal-dark); }
+    .composer button:active { transform: scale(.92); }
+    .composer button:disabled { opacity: .5; cursor: default; }
+
+    .intro-note {
+      align-self: center; background: #fff5c4; color: #5b5326;
+      font-size: 12px; padding: 6px 12px; border-radius: 8px;
+      margin: 4px 0 8px; text-align: center; box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="header">
+      <a class="back" href="/" title="חזרה">›</a>
+      <div class="avatar" id="avatar">מ</div>
+      <div class="meta">
+        <div class="name" id="biz-name">הקליניקה של מאיה</div>
+        <div class="status"><span class="dot-online"></span><span id="status-text">מקוונת</span></div>
+      </div>
+    </div>
+
+    <div class="chat" id="chat">
+      <div class="intro-note">דמו · שיחה עם סוכנת ה-AI. ההודעות אמיתיות מול המודל.</div>
+    </div>
+
+    <form class="composer" id="composer" autocomplete="off">
+      <input id="input" type="text" placeholder="הקלידו הודעה…" aria-label="הודעה" />
+      <button id="send" type="submit" aria-label="שליחה">➤</button>
+    </form>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const form = document.getElementById('composer');
+    const input = document.getElementById('input');
+    const sendBtn = document.getElementById('send');
+
+    // היסטוריית התצוגה. נשלחת במלואה לשרת בכל הודעה — כך הסוכנת זוכרת את השיחה.
+    // (השרת מתעלם מהודעת הפתיחה של הסוכנת בתחילת ההיסטוריה, כפי שנדרש ע"י ה-API.)
+    const history = [];
+
+    function now() {
+      return new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function addMessage(role, text) {
+      const row = document.createElement('div');
+      row.className = 'row ' + (role === 'user' ? 'me' : 'bot');
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.textContent = text;
+      const time = document.createElement('div');
+      time.className = 'time';
+      time.innerHTML = role === 'user'
+        ? now() + ' <span class="tick">✓✓</span>'
+        : now();
+      bubble.appendChild(time);
+      row.appendChild(bubble);
+      chat.appendChild(row);
+      chat.scrollTop = chat.scrollHeight;
+      return row;
+    }
+
+    function showTyping() {
+      const row = document.createElement('div');
+      row.className = 'row bot typing';
+      row.id = 'typing';
+      row.innerHTML = '<div class="bubble"><span></span><span></span><span></span></div>';
+      chat.appendChild(row);
+      chat.scrollTop = chat.scrollHeight;
+    }
+    function hideTyping() {
+      const t = document.getElementById('typing');
+      if (t) t.remove();
+    }
+
+    async function loadGreeting() {
+      try {
+        const res = await fetch('/api/greeting');
+        const data = await res.json();
+        if (data.greeting) {
+          addMessage('assistant', data.greeting);
+          history.push({ role: 'assistant', content: data.greeting });
+        }
+        // עדכון שם העסק בכותרת + אות באווטאר
+        if (data.businessName) document.getElementById('biz-name').textContent = data.businessName;
+      } catch { /* ניתן להמשיך גם בלי ברכת פתיחה */ }
+    }
+
+    async function send(text) {
+      addMessage('user', text);
+      history.push({ role: 'user', content: text });
+      input.value = '';
+      sendBtn.disabled = true;
+      showTyping();
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: history }),
+        });
+        const data = await res.json();
+        hideTyping();
+        const reply = data.reply || data.error || 'אופס, לא התקבלה תשובה.';
+        addMessage('assistant', reply);
+        if (data.reply) history.push({ role: 'assistant', content: reply });
+      } catch {
+        hideTyping();
+        addMessage('assistant', 'שגיאת רשת — בדקו שהשרת רץ ונסו שוב.');
+      } finally {
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (text) send(text);
+    });
+
+    loadGreeting();
+    input.focus();
+  </script>
+</body>
+</html>

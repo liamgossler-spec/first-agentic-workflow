@@ -1,0 +1,19 @@
+{
+  "name": "aura-clinic-agent",
+  "version": "1.0.0",
+  "description": "Aura — סוכנת קבלה חכמה (AI) לקליניקות יופי. עונה ללקוחות, מסננת פניות וקובעת תורים. גרסה מקומית עם ממשק צ'אט בדפדפן ובטרמינל.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "cli": "node src/cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.106.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
