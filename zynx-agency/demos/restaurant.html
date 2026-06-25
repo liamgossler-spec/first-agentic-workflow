@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>טאבולה · מסעדה</title>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#13100c; --card:#1c1812; --ink:#f4ece0; --muted:#a79a86; --gold:#e0a84f; --line:rgba(255,255,255,.08); }
+  *{ box-sizing:border-box; margin:0; padding:0; } html{ scroll-behavior:smooth; }
+  body{ background:var(--bg); color:var(--ink); font-family:"Assistant",sans-serif; line-height:1.7; }
+  .serif{ font-family:"Frank Ruhl Libre",serif; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 22px; } a{ color:inherit; text-decoration:none; }
+  .btn{ display:inline-block; background:linear-gradient(135deg,var(--gold),#c8852a); color:#1a1206; font-weight:700; padding:13px 30px; border-radius:6px; box-shadow:0 10px 28px rgba(224,168,79,.3); }
+  nav{ position:sticky; top:0; z-index:30; background:rgba(19,16,12,.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:70px; }
+  .lg{ font-family:"Frank Ruhl Libre",serif; font-size:26px; font-weight:900; letter-spacing:2px; color:var(--gold); }
+  .nl{ display:flex; gap:26px; color:var(--muted); font-size:15px; } @media(max-width:700px){ .nl{ display:none; } }
+  .hero{ min-height:78vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+    background:linear-gradient(rgba(19,16,12,.6),rgba(19,16,12,.85)),radial-gradient(circle at 30% 30%,#5a3a1a,#13100c 70%); padding:80px 22px; }
+  .hero .tag{ color:var(--gold); letter-spacing:4px; font-size:13px; margin-bottom:18px; }
+  .hero h1{ font-size:clamp(40px,8vw,82px); line-height:1; margin-bottom:20px; }
+  .hero p{ color:var(--muted); font-size:19px; max-width:480px; margin-bottom:28px; }
+  .sec{ padding:72px 0; } .eyebrow{ color:var(--gold); letter-spacing:3px; font-size:13px; text-transform:uppercase; text-align:center; margin-bottom:10px; }
+  .h2{ font-size:clamp(28px,4vw,42px); text-align:center; margin-bottom:40px; }
+  .about{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; } @media(max-width:760px){ .about{ grid-template-columns:1fr; } }
+  .aimg{ aspect-ratio:4/3; border-radius:14px; background:linear-gradient(135deg,#e0a84f,#8a4a1a); }
+  .menu{ display:grid; grid-template-columns:1fr 1fr; gap:14px 50px; } @media(max-width:700px){ .menu{ grid-template-columns:1fr; } }
+  .mi{ display:flex; justify-content:space-between; gap:14px; padding:16px 0; border-bottom:1px dashed var(--line); }
+  .mi .nm{ font-weight:700; font-size:17px; } .mi .ds{ color:var(--muted); font-size:13.5px; } .mi .pr{ color:var(--gold); font-weight:700; white-space:nowrap; }
+  .gal{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; } @media(max-width:700px){ .gal{ grid-template-columns:repeat(2,1fr); } }
+  .gal div{ aspect-ratio:1; border-radius:12px; }
+  .gal div:nth-child(odd){ background:linear-gradient(135deg,#e0a84f,#a85a2a); } .gal div:nth-child(even){ background:linear-gradient(135deg,#8a4a1a,#3a2410); }
+  .cta{ text-align:center; padding:64px 24px; background:var(--card); border-radius:20px; }
+  .cta h2{ font-size:clamp(28px,4vw,42px); margin-bottom:14px; } .cta p{ color:var(--muted); margin-bottom:26px; }
+  footer{ text-align:center; padding:40px 0; color:var(--muted); font-size:14px; border-top:1px solid var(--line); margin-top:30px; }
+  .zynx{ position:fixed; bottom:16px; inset-inline-start:16px; background:#0b0b14; color:#fff; font-size:12px; padding:8px 14px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,.4); z-index:40; }
+  .zynx b{ background:linear-gradient(120deg,#3aa0ff,#b06bff); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <div class="lg">טאבולה</div>
+  <div class="nl"><a href="#menu">תפריט</a><a href="#gal">גלריה</a><a href="#contact">הזמנת מקום</a></div>
+  <a href="#contact" class="btn" style="padding:9px 20px">הזמנת שולחן</a>
+</div></nav>
+
+<header class="hero">
+  <div class="tag">מטבח ים-תיכוני · תל אביב</div>
+  <h1 class="serif">טעם של בית,<br>ברמה אחרת.</h1>
+  <p>חוויה קולינרית מחומרי גלם טריים, יין משובח ואווירה שגורמת לך להישאר.</p>
+  <a href="#contact" class="btn">הזמינו שולחן</a>
+</header>
+
+<section class="sec wrap">
+  <div class="about">
+    <div><div class="eyebrow" style="text-align:right">הסיפור שלנו</div><h2 class="h2 serif" style="text-align:right">מטבח שמבושל באהבה</h2>
+      <p style="color:var(--muted)">כבר 12 שנה אנחנו מגישים את המנות שאתם הכי אוהבים, מחומרי גלם מקומיים וטריים. כל צלחת מספרת סיפור, וכל ביקור הופך לחוויה.</p></div>
+    <div class="aimg"></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="menu">
+  <div class="eyebrow">התפריט</div>
+  <h2 class="h2 serif">מהמנות האהובות</h2>
+  <div class="menu">
+    <div class="mi"><div><div class="nm">קרפצ'ו דג ים</div><div class="ds">לימון, שמן זית, צנובר</div></div><div class="pr">₪62</div></div>
+    <div class="mi"><div><div class="nm">ניוקי תרד</div><div class="ds">חמאת מרווה, פרמזן</div></div><div class="pr">₪58</div></div>
+    <div class="mi"><div><div class="nm">אנטריקוט 300 גרם</div><div class="ds">תפו"א קונפי, רוטב יין</div></div><div class="pr">₪149</div></div>
+    <div class="mi"><div><div class="nm">דג לברק שלם</div><div class="ds">ירקות שורש בתנור</div></div><div class="pr">₪118</div></div>
+    <div class="mi"><div><div class="nm">פוקצ'ה הבית</div><div class="ds">שמן זית, רוזמרין</div></div><div class="pr">₪32</div></div>
+    <div class="mi"><div><div class="nm">טירמיסו</div><div class="ds">קלאסי, מסקרפונה</div></div><div class="pr">₪44</div></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="gal">
+  <div class="eyebrow">הגלריה</div>
+  <h2 class="h2 serif">טעימה מהאווירה</h2>
+  <div class="gal"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</section>
+
+<section class="sec wrap" id="contact">
+  <div class="cta">
+    <h2 class="serif">בואו לחגוג איתנו</h2>
+    <p>פתוחים כל יום 12:00–23:00 · רחוב הברזל 8, תל אביב</p>
+    <a href="#" class="btn">הזמנת שולחן בוואטסאפ</a>
+  </div>
+</section>
+
+<footer>טאבולה · מסעדה ים-תיכונית · 03-7654321 · רחוב הברזל 8, תל אביב</footer>
+<a href="../index.html" class="zynx">נבנה ע״י <b>ZYNX</b></a>
+</body>
+</html>
