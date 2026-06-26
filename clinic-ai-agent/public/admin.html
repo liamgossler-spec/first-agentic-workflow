@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aura · דשבורד ניהול</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F6F4F9; --card:#fff; --ink:#16131B; --text:#221E29; --muted:#6E6877;
+    --line:rgba(20,16,26,.09); --v1:#7C5CFF; --v2:#F26DA8;
+    --grad:linear-gradient(120deg,#7C5CFF,#F26DA8);
+    --shadow:0 8px 30px -16px rgba(40,20,60,.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+  .top-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:14px 22px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}
+  .logo .mark{width:32px;height:32px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff}
+  .top .sub{color:var(--muted);font-weight:600;font-size:14px}
+  .top .links{margin-inline-start:auto;display:flex;gap:10px}
+  .top .links a{font-size:14px;font-weight:600;color:var(--muted);padding:8px 14px;border:1px solid var(--line);border-radius:10px;background:#fff}
+  .top .links a:hover{color:var(--v1)}
+  .wrap{max-width:1200px;margin:0 auto;padding:22px}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+  .stat .n{font-size:30px;font-weight:900;line-height:1}
+  .stat .l{color:var(--muted);font-size:13.5px;margin-top:6px}
+  .stat.accent .n{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  .tabs{display:flex;gap:8px;margin-bottom:16px}
+  .tabs button{border:1px solid var(--line);background:#fff;font-family:'Heebo';font-weight:700;font-size:14.5px;
+    padding:10px 18px;border-radius:10px;cursor:pointer;color:var(--muted)}
+  .tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  .panel{display:none}
+  .panel.on{display:block}
+
+  /* inbox */
+  .inbox{display:grid;grid-template-columns:380px 1fr;gap:16px;align-items:start}
+  .list{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);max-height:70vh;overflow-y:auto}
+  .conv{padding:14px 16px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:10px;align-items:flex-start}
+  .conv:hover{background:#faf8fd}
+  .conv.sel{background:#f3eefe}
+  .conv .av{width:40px;height:40px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;flex:0 0 auto}
+  .conv .meta{flex:1;min-width:0}
+  .conv .nm{font-weight:700;font-size:14.5px;display:flex;justify-content:space-between;gap:8px}
+  .conv .nm small{color:var(--muted);font-weight:500;font-size:11.5px;white-space:nowrap}
+  .conv .lm{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .badge{font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:4px}
+  .badge.open{background:rgba(124,92,255,.12);color:var(--v1)}
+  .badge.needs_human{background:rgba(242,109,168,.16);color:#d23b85}
+  .badge.closed{background:#eee;color:#888}
+  .badge.ch{background:#eef;color:#557;margin-inline-start:6px}
+
+  .thread{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);min-height:300px;max-height:70vh;display:flex;flex-direction:column}
+  .thread .head{padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .thread .head .av{width:42px;height:42px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800}
+  .thread .head b{font-size:16px}
+  .thread .head span{color:var(--muted);font-size:13px}
+  .thread .body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;background:#faf8fd}
+  .msg{max-width:78%;padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.5;white-space:pre-wrap}
+  .msg.assistant{align-self:flex-start;background:#fff;border:1px solid var(--line)}
+  .msg.user{align-self:flex-end;background:#e8dffd}
+  .msg .at{display:block;font-size:10.5px;color:var(--muted);margin-top:3px}
+  .empty{color:var(--muted);text-align:center;padding:60px 20px}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  th,td{padding:13px 16px;text-align:start;font-size:14px;border-bottom:1px solid var(--line)}
+  th{background:#faf8fd;font-weight:800;color:#433d4d;font-size:13px}
+  tr:last-child td{border-bottom:0}
+  .pill{font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(124,92,255,.12);color:var(--v1)}
+  .muted{color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="top-in">
+      <div class="logo"><span class="mark">✦</span>Aura</div>
+      <span class="sub" id="bizName">דשבורד ניהול</span>
+      <div class="links">
+        <a href="/chat" target="_blank">צ'אט ↗</a>
+        <a href="/" target="_blank">דף נחיתה ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats" id="stats"></div>
+
+    <div class="tabs">
+      <button class="on" data-tab="inbox">💬 שיחות</button>
+      <button data-tab="appts">📅 תורים</button>
+      <button data-tab="contacts">👤 לקוחות</button>
+    </div>
+
+    <div class="panel on" id="panel-inbox">
+      <div class="inbox">
+        <div class="list" id="convList"></div>
+        <div class="thread" id="thread">
+          <div class="empty">בחרו שיחה כדי לצפות בה</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-appts"></div>
+    <div class="panel" id="panel-contacts"></div>
+  </div>
+
+<script>
+  var selectedConv = null;
+  var firstLetter = function(s){ return (s||'?').trim().charAt(0) || '👤'; };
+  var STATUS_HE = { open:'פתוחה', needs_human:'למטפלת', closed:'סגורה' };
+  var fmt = function(iso){ try{ return new Date(iso).toLocaleString('he-IL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';} };
+
+  function renderStats(s){
+    document.getElementById('stats').innerHTML =
+      stat(s.conversations,'שיחות') +
+      stat(s.appointments,'תורים שנקבעו', true) +
+      stat(s.contacts,'לקוחות') +
+      stat(s.needsHuman,'ממתינות למטפלת');
+  }
+  function stat(n,l,accent){ return '<div class="stat'+(accent?' accent':'')+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+
+  function renderConvs(list){
+    if(!list.length){ document.getElementById('convList').innerHTML='<div class="empty">אין שיחות עדיין</div>'; return; }
+    document.getElementById('convList').innerHTML = list.map(function(c){
+      var name = c.contactName || 'לקוחה (' + (c.channel) + ')';
+      var lm = c.lastMessage ? (c.lastMessage.role==='user'?'🧑 ':'🤖 ') + c.lastMessage.content : '—';
+      return '<div class="conv'+(c.id===selectedConv?' sel':'')+'" onclick="openConv(\''+c.id+'\')">'+
+        '<div class="av">'+firstLetter(name)+'</div>'+
+        '<div class="meta">'+
+          '<div class="nm">'+esc(name)+'<small>'+fmt(c.updatedAt)+'</small></div>'+
+          '<div class="lm">'+esc(lm)+'</div>'+
+          '<span class="badge '+c.status+'">'+(STATUS_HE[c.status]||c.status)+'</span>'+
+          '<span class="badge ch">'+c.channel+'</span>'+
+        '</div></div>';
+    }).join('');
+  }
+
+  function openConv(id){
+    selectedConv = id;
+    document.querySelectorAll('.conv').forEach(function(e){ e.classList.remove('sel'); });
+    fetch('/api/admin/conversation/'+id).then(function(r){return r.json();}).then(function(c){
+      var name = (c.contact && c.contact.name) || 'לקוחה';
+      var phone = (c.contact && c.contact.phone) || c.channel;
+      var msgs = (c.messages||[]).map(function(m){
+        return '<div class="msg '+m.role+'">'+esc(m.content)+'<span class="at">'+fmt(m.at)+'</span></div>';
+      }).join('') || '<div class="empty">אין הודעות</div>';
+      document.getElementById('thread').innerHTML =
+        '<div class="head"><div class="av">'+firstLetter(name)+'</div><div><b>'+esc(name)+'</b><br><span>'+esc(phone)+
+        (c.status==='needs_human'?' · ⚠️ ממתינה למטפלת'+(c.note?' ('+esc(c.note)+')':''):'')+'</span></div></div>'+
+        '<div class="body">'+msgs+'</div>';
+      var body = document.querySelector('#thread .body'); if(body) body.scrollTop = body.scrollHeight;
+    });
+  }
+
+  function renderAppts(list){
+    var p = document.getElementById('panel-appts');
+    if(!list.length){ p.innerHTML='<div class="empty">אין תורים שנקבעו עדיין</div>'; return; }
+    p.innerHTML = '<table><thead><tr><th>שירות</th><th>לקוחה</th><th>מועד</th><th>סטטוס</th><th>אסמכתא</th></tr></thead><tbody>'+
+      list.map(function(a){
+        return '<tr><td><b>'+esc(a.service||'—')+'</b></td><td>'+esc(a.contactName||'—')+'</td><td>'+esc(a.datetime||'—')+
+          '</td><td><span class="pill">'+(a.status==='booked'?'נקבע':a.status)+'</span></td><td class="muted">'+a.id+'</td></tr>';
+      }).join('')+'</tbody></table>';
+  }
+
+  function renderContacts(list){
+    var p = document.getElementById('panel-contacts');
+    if(!list.length){ p.innerHTML='<div class="empty">אין לקוחות עדיין</div>'; return; }
+    p.innerHTML = '<table><thead><tr><th>שם</th><th>טלפון</th><th>ערוץ</th><th>נוצר</th></tr></thead><tbody>'+
+      list.map(function(c){
+        return '<tr><td><b>'+esc(c.name||'לקוחה')+'</b></td><td>'+esc(c.phone||'—')+'</td><td>'+esc(c.channel)+'</td><td class="muted">'+fmt(c.createdAt)+'</td></tr>';
+      }).join('')+'</tbody></table>';
+  }
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  function refresh(){
+    fetch('/api/admin/overview').then(function(r){return r.json();}).then(function(d){
+      renderStats(d.stats);
+      renderConvs(d.conversations);
+      renderAppts(d.appointments);
+      renderContacts(d.contacts);
+      if(selectedConv) {/* keep thread; refresh handled on click */}
+    }).catch(function(){});
+  }
+
+  document.querySelectorAll('.tabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');});
+      document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      document.getElementById('panel-'+b.dataset.tab).classList.add('on');
+    });
+  });
+
+  // שם העסק בכותרת
+  fetch('/api/greeting').then(function(r){return r.json();}).then(function(d){
+    if(d.businessName) document.getElementById('bizName').textContent = 'דשבורד ניהול · ' + d.businessName;
+  }).catch(function(){});
+
+  refresh();
+  setInterval(refresh, 4000); // רענון חי כל 4 שניות
+</script>
+</body>
+</html>

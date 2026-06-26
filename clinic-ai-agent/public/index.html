@@ -160,9 +160,8 @@
     const input = document.getElementById('input');
     const sendBtn = document.getElementById('send');
 
-    // היסטוריית התצוגה. נשלחת במלואה לשרת בכל הודעה — כך הסוכנת זוכרת את השיחה.
-    // (השרת מתעלם מהודעת הפתיחה של הסוכנת בתחילת ההיסטוריה, כפי שנדרש ע"י ה-API.)
-    const history = [];
+    // מזהה השיחה ב-CRM. השרת מנהל את ההיסטוריה והזיכרון בצד השרת.
+    let conversationId = null;
 
     function now() {
       return new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
@@ -205,7 +204,6 @@
         const data = await res.json();
         if (data.greeting) {
           addMessage('assistant', data.greeting);
-          history.push({ role: 'assistant', content: data.greeting });
         }
         // עדכון שם העסק בכותרת + אות באווטאר
         if (data.businessName) document.getElementById('biz-name').textContent = data.businessName;
@@ -214,7 +212,6 @@
 
     async function send(text) {
       addMessage('user', text);
-      history.push({ role: 'user', content: text });
       input.value = '';
       sendBtn.disabled = true;
       showTyping();
@@ -223,13 +220,13 @@
         const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: history }),
+          body: JSON.stringify({ conversationId, message: text }),
         });
         const data = await res.json();
         hideTyping();
+        if (data.conversationId) conversationId = data.conversationId;
         const reply = data.reply || data.error || 'אופס, לא התקבלה תשובה.';
         addMessage('assistant', reply);
-        if (data.reply) history.push({ role: 'assistant', content: reply });
       } catch {
         hideTyping();
         addMessage('assistant', 'שגיאת רשת — בדקו שהשרת רץ ונסו שוב.');

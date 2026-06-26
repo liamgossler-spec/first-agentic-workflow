@@ -1,90 +1,40 @@
-// שרת מקומי לסוכנת Aura.
-// מגיש דף נחיתה (/), ממשק צ'אט דמו (/chat), ו-API לשיחה עם הסוכן (/api/chat).
-// המודל, הזיכרון וה-system prompt מחוברים כאן. אין מפתחות בקוד — נטענים מ-.env.
+// שרת Aura — מחבר את כל המודל:
+//   /            דף נחיתה
+//   /chat        ממשק צ'אט ללקוחה (מדמה וואטסאפ)
+//   /admin       דשבורד ניהול (CRM): שיחות, תורים, לקוחות, סטטיסטיקות
+//   /api/chat    שיחה: עוברת דרך ה-CRM, הסוכן פועל עם כלים (קובע תורים וכו')
+//   /api/admin/* נתונים לדשבורד
+// אין מפתחות בקוד — נטענים מ-.env.
 import 'dotenv/config';
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import Anthropic from '@anthropic-ai/sdk';
-import { loadConfig } from './config.js';
-import { buildSystemPrompt } from './systemPrompt.js';
+import * as crm from './crm.js';
+import { runAgent, agentSystem } from './agent.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
-
-// --- הגדרות מודל ---
-// המודל נבחר במפורש: claude-sonnet-4-6. max_tokens קטן כי תשובות בסגנון וואטסאפ קצרות.
-const MODEL = 'claude-sonnet-4-6';
-const MAX_TOKENS = 1024;
 const PORT = process.env.PORT || 3000;
 
 if (!process.env.ANTHROPIC_API_KEY) {
-  console.error('\n⛔ חסר ANTHROPIC_API_KEY.');
-  console.error('   צרו קובץ .env (אפשר להעתיק מ-.env.example) והכניסו את המפתח שלכם.\n');
+  console.error('\n⛔ חסר ANTHROPIC_API_KEY. צרו קובץ .env (העתיקו מ-.env.example).\n');
   process.exit(1);
 }
 
-// קונפיגורציה ו-system prompt נבנים פעם אחת בעליית השרת (סטטיים לכל התהליך).
-const config = loadConfig();
-const SYSTEM_PROMPT = buildSystemPrompt(config);
-
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
-/**
- * לב הסוכן: מקבל את היסטוריית השיחה המלאה ומחזיר את תשובת הסוכנת.
- * ה-API של Anthropic חסר-מצב, ולכן שולחים את כל ההיסטוריה בכל קריאה —
- * כך הסוכנת "זוכרת" את כל השיחה ולא חוזרת על עצמה.
- *
- * פונקציה זו משותפת ל-/api/chat ולחיבור ה-WhatsApp העתידי (ראו הערה בתחתית הקובץ).
- *
- * @param {Array<{role: 'user'|'assistant', content: string}>} history
- * @returns {Promise<string>} טקסט התשובה של הסוכנת
- */
-export async function generateReply(history) {
-  // ניקוי וניתוב: רק הודעות תקינות, וההיסטוריה חייבת להתחיל בהודעת משתמש.
-  let messages = (Array.isArray(history) ? history : [])
-    .filter(
-      (m) =>
-        m &&
-        (m.role === 'user' || m.role === 'assistant') &&
-        typeof m.content === 'string' &&
-        m.content.trim()
-    )
-    .map((m) => ({ role: m.role, content: m.content.trim() }));
-
-  while (messages.length && messages[0].role === 'assistant') messages.shift();
-  if (messages.length === 0) {
-    throw Object.assign(new Error('אין הודעת משתמש בהיסטוריה'), { status: 400 });
-  }
-
-  const response = await client.messages.create({
-    model: MODEL,
-    max_tokens: MAX_TOKENS,
-    system: SYSTEM_PROMPT,
-    messages,
-  });
-
-  return response.content
-    .filter((b) => b.type === 'text')
-    .map((b) => b.text)
-    .join('')
-    .trim();
-}
+const config = crm.config;
+const SYSTEM = agentSystem(config); // נבנה פעם אחת בעלייה
 
 const app = express();
 app.use(express.json());
-// index:false — כך שהנתיב "/" לא יוגש אוטומטית כ-index.html (הצ'אט),
-// אלא יעבור ל-handler שמגיש את דף הנחיתה. שאר הקבצים הסטטיים מוגשים כרגיל.
 app.use(express.static(PUBLIC_DIR, { index: false }));
 
-// דף הנחיתה השיווקי
-app.get('/', (_req, res) => res.sendFile(path.join(PUBLIC_DIR, 'landing.html')));
+/* ---------- דפים ---------- */
+app.get('/', (_q, res) => res.sendFile(path.join(PUBLIC_DIR, 'landing.html')));
+app.get('/chat', (_q, res) => res.sendFile(path.join(PUBLIC_DIR, 'index.html')));
+app.get('/admin', (_q, res) => res.sendFile(path.join(PUBLIC_DIR, 'admin.html')));
 
-// ממשק הצ'אט (דמו)
-app.get('/chat', (_req, res) => res.sendFile(path.join(PUBLIC_DIR, 'index.html')));
-
-// הודעת פתיחה דטרמיניסטית (מהירה, בלי קריאת מודל) — נבנית מתוך הקונפיג.
-app.get('/api/greeting', (_req, res) => {
+/* ---------- ברכת פתיחה (דטרמיניסטית, ללא קריאת מודל) ---------- */
+app.get('/api/greeting', (_q, res) => {
   const name = config.assistantName || 'העוזרת האישית';
   const business = config.businessName || 'הקליניקה';
   res.json({
@@ -94,72 +44,101 @@ app.get('/api/greeting', (_req, res) => {
   });
 });
 
-// נקודת הקצה הראשית לשיחה.
-// הלקוח שולח את כל היסטוריית השיחה; השרת מוסיף את ה-system prompt ומחזיר תשובה.
+/* ---------- שיחה (עוברת דרך ה-CRM) ---------- */
+// הלקוח שולח { conversationId?, message }. השרת מנהל את ההיסטוריה ב-CRM,
+// מריץ את הסוכן (שיכול לקבוע תורים וכו'), ושומר הכל.
 app.post('/api/chat', async (req, res) => {
   try {
-    const reply = await generateReply(req.body?.messages);
-    res.json({ reply });
+    const { conversationId, message } = req.body || {};
+    if (typeof message !== 'string' || !message.trim()) {
+      return res.status(400).json({ error: 'הודעה ריקה' });
+    }
+
+    let conv = conversationId ? crm.getConversation(conversationId) : null;
+    if (!conv) {
+      const contact = crm.getOrCreateContact({ channel: 'web' });
+      conv = crm.createConversation({ contactId: contact.id, channel: 'web' });
+    }
+
+    crm.appendMessage(conv.id, 'user', message.trim());
+
+    const { reply, actions } = await runAgent({
+      system: SYSTEM,
+      history: conv.messages,
+      ctx: { conversationId: conv.id, contactId: conv.contactId },
+    });
+
+    crm.appendMessage(conv.id, 'assistant', reply);
+    res.json({ conversationId: conv.id, reply, actions });
   } catch (err) {
     const status = err?.status || 500;
     if (status >= 500) console.error('שגיאת צ\'אט:', err?.message || err);
     res.status(status).json({
-      error:
-        status === 400
-          ? 'לא התקבלה הודעה תקינה.'
-          : 'אופס, משהו השתבש. נסו שוב בעוד רגע 🙏',
+      error: status === 400 ? 'קלט לא תקין' : 'אופס, משהו השתבש. נסו שוב בעוד רגע 🙏',
     });
   }
 });
 
+/* ---------- API לדשבורד הניהול ---------- */
+app.get('/api/admin/overview', (_q, res) => {
+  res.json({
+    stats: crm.stats(),
+    conversations: crm.listConversations().slice(0, 60).map((c) => {
+      const contact = crm.getContact(c.contactId);
+      const last = c.messages[c.messages.length - 1];
+      return {
+        id: c.id, channel: c.channel, status: c.status, note: c.note,
+        contactName: contact?.name || null, contactPhone: contact?.phone || null,
+        messageCount: c.messages.length, updatedAt: c.updatedAt,
+        lastMessage: last ? { role: last.role, content: last.content } : null,
+      };
+    }),
+    appointments: crm.listAppointments(),
+    contacts: crm.listContacts().slice(0, 60),
+    availableSlots: crm.getAvailableSlots(),
+  });
+});
+
+app.get('/api/admin/conversation/:id', (req, res) => {
+  const conv = crm.getConversation(req.params.id);
+  if (!conv) return res.status(404).json({ error: 'שיחה לא נמצאה' });
+  const contact = crm.getContact(conv.contactId);
+  res.json({ ...conv, contact });
+});
+
 app.listen(PORT, () => {
-  console.log(`\n✨ ${config.businessName} — סוכנת Aura פעילה (מודל: ${MODEL})`);
+  console.log(`\n✨ ${config.businessName} — מערכת Aura פעילה`);
   console.log(`   דף נחיתה:  http://localhost:${PORT}/`);
-  console.log(`   צ'אט דמו:  http://localhost:${PORT}/chat\n`);
+  console.log(`   צ'אט דמו:  http://localhost:${PORT}/chat`);
+  console.log(`   דשבורד:    http://localhost:${PORT}/admin\n`);
 });
 
 /* =======================================================================
-   שלב 2 — חיבור עתידי ל-WhatsApp Business API  (לא ממומש בשלב זה)
+   שלב 2 — חיבור WhatsApp Business API (Twilio / 360dialog / Meta Cloud API)
    -----------------------------------------------------------------------
-   כשנגיע לחיבור הוואטסאפ, נשתמש בספק רשמי (Twilio / 360dialog / Meta Cloud API).
-   הרעיון: הספק שולח webhook לכל הודעה נכנסת; אנחנו מזהים את הלקוח, שולפים את
-   היסטוריית השיחה שלו (מ-DB), קוראים ל-generateReply(), ושולחים את התשובה חזרה
-   דרך ה-API של הספק. כל הלוגיקה של הסוכן כבר מוכנה ב-generateReply — החיבור פשוט:
+   כל הלוגיקה כבר מוכנה. ערוץ חדש = רק מתאם (adapter) שממפה הודעה נכנסת
+   ל-CRM ומריץ את אותו סוכן. כך זה ייראה:
 
-   import { generateReply } from './server.js';
-
-   // אימות ה-webhook של מטא (handshake חד-פעמי):
-   // app.get('/webhook/whatsapp', (req, res) => {
-   //   const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN;
-   //   if (req.query['hub.mode'] === 'subscribe' &&
-   //       req.query['hub.verify_token'] === VERIFY_TOKEN) {
-   //     return res.status(200).send(req.query['hub.challenge']);
-   //   }
-   //   res.sendStatus(403);
-   // });
-
-   // קבלת הודעות נכנסות:
    // app.post('/webhook/whatsapp', async (req, res) => {
    //   res.sendStatus(200); // לאשר מיד לספק
-   //   const incoming = parseProviderPayload(req.body); // { from, text }
-   //   if (!incoming?.text) return;
+   //   const { from, text } = parseProviderPayload(req.body); // לפי הספק
+   //   if (!text) return;
    //
-   //   // 1) טוענים את היסטוריית השיחה של הלקוח לפי מספר הטלפון (DB / Redis):
-   //   const history = await loadConversation(incoming.from);
-   //   history.push({ role: 'user', content: incoming.text });
+   //   // 1) מאתרים/יוצרים לקוח לפי הטלפון, ומאתרים/פותחים שיחה פתוחה:
+   //   const contact = crm.getOrCreateContact({ phone: from, channel: 'whatsapp', externalId: from });
+   //   let conv = crm.listConversations().find(c => c.contactId === contact.id && c.status !== 'closed')
+   //           || crm.createConversation({ contactId: contact.id, channel: 'whatsapp' });
    //
-   //   // 2) מפעילים את אותו מנוע סוכן בדיוק:
-   //   const reply = await generateReply(history);
+   //   // 2) אותו מנוע סוכן בדיוק (כולל קביעת תורים אוטומטית ל-CRM):
+   //   crm.appendMessage(conv.id, 'user', text);
+   //   const { reply } = await runAgent({ system: SYSTEM, history: conv.messages,
+   //                                      ctx: { conversationId: conv.id, contactId: contact.id } });
+   //   crm.appendMessage(conv.id, 'assistant', reply);
    //
-   //   // 3) שומרים את התשובה ושולחים חזרה ללקוח דרך ה-API של הספק:
-   //   history.push({ role: 'assistant', content: reply });
-   //   await saveConversation(incoming.from, history);
-   //   await sendWhatsAppMessage(incoming.from, reply); // Twilio / 360dialog / Meta
+   //   // 3) שולחים את התשובה חזרה דרך ה-API של הספק:
+   //   await sendWhatsAppMessage(from, reply);
    // });
    //
-   // מה צריך להוסיף כשנגיע לשם:
-   //   - אחסון שיחות מתמשך (DB) במקום זיכרון לקוח.
-   //   - אימות חתימת ה-webhook (signature verification) של הספק.
-   //   - parseProviderPayload + sendWhatsAppMessage לפי הספק שנבחר.
-   //   - תור/דהבאונס להודעות רצופות מאותו לקוח.
+   // מה שנשאר להוסיף: אימות חתימת ה-webhook, ומימוש
+   // parseProviderPayload + sendWhatsAppMessage לפי הספק שנבחר.
    ======================================================================= */

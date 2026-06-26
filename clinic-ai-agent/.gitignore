@@ -13,3 +13,6 @@ npm-debug.log*
 # מערכת
 .DS_Store
 Thumbs.db
+
+# נתוני CRM בזמן ריצה (לא לעלות)
+data/crm.json
