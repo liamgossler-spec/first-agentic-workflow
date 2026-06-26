@@ -80,7 +80,7 @@ app.post('/api/chat', async (req, res) => {
 });
 
 /* ---------- API לדשבורד הניהול ---------- */
-app.get('/api/admin/overview', (_q, res) => {
+app.get('/api/admin/overview', async (_q, res) => {
   res.json({
     stats: crm.stats(),
     conversations: crm.listConversations().slice(0, 60).map((c) => {
@@ -95,7 +95,7 @@ app.get('/api/admin/overview', (_q, res) => {
     }),
     appointments: crm.listAppointments(),
     contacts: crm.listContacts().slice(0, 60),
-    availableSlots: crm.getAvailableSlots(),
+    availableSlots: await crm.getAvailableSlots().catch(() => []),
   });
 });
 

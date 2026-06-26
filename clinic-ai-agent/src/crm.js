@@ -2,6 +2,7 @@
 // זה ה"מקור האמת" היחיד: לקוחות, שיחות (מכל הערוצים) ותורים — הכל במקום אחד.
 import { db, persist, id } from './store.js';
 import { loadConfig } from './config.js';
+import * as altegio from './altegio.js';
 
 export const config = loadConfig();
 const now = () => new Date().toISOString();
@@ -63,14 +64,23 @@ export function setStatus(convId, status, note = null) {
 export function getBookedSlots() {
   return db.appointments.filter((a) => a.status === 'booked').map((a) => a.datetime);
 }
-export function getAvailableSlots() {
+export async function getAvailableSlots() {
+  // ספק Altegio (אם מופעל) — יומן הקליניקה האמיתי; אחרת המאגר המקומי.
+  if (altegio.enabled()) return altegio.getAvailableSlots();
   const booked = new Set(getBookedSlots());
   return (config.availableSlots || []).filter((s) => !booked.has(s));
 }
-export function bookAppointment({ conversationId = null, contactId, contactName = null, service, datetime }) {
+export async function bookAppointment({ conversationId = null, contactId, contactName = null, service, datetime }) {
+  let source = 'local';
+  if (altegio.enabled()) {
+    const contact = getContact(contactId);
+    await altegio.createBooking({ clientName: contactName || contact?.name, phone: contact?.phone, service, datetime });
+    source = 'altegio';
+  }
+  // נשמר גם מקומית — כדי שהתור יופיע בדשבורד ובהקשר השיחה.
   const appt = {
     id: id('appt'), conversationId, contactId, contactName,
-    service, datetime, status: 'booked', createdAt: now(),
+    service, datetime, status: 'booked', source, createdAt: now(),
   };
   db.appointments.push(appt);
   persist();

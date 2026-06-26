@@ -73,19 +73,19 @@ export function agentSystem(config) {
 }
 
 // הרצת כלי בפועל מול ה-CRM. מחזיר טקסט תוצאה שחוזר למודל.
-function execTool(name, input, ctx) {
+async function execTool(name, input, ctx) {
   try {
     if (name === 'check_availability') {
-      const slots = crm.getAvailableSlots();
+      const slots = await crm.getAvailableSlots();
       return slots.length ? `שעות פנויות: ${slots.join(' | ')}` : 'אין כרגע שעות פנויות במערכת.';
     }
     if (name === 'book_appointment') {
-      const avail = crm.getAvailableSlots();
+      const avail = await crm.getAvailableSlots();
       if (!avail.includes(input.datetime)) {
         return `השעה "${input.datetime}" אינה פנויה. השעות הפנויות כעת: ${avail.join(' | ') || 'אין'}.`;
       }
       if (input.client_name) crm.updateContact(ctx.contactId, { name: input.client_name });
-      const appt = crm.bookAppointment({
+      const appt = await crm.bookAppointment({
         conversationId: ctx.conversationId, contactId: ctx.contactId,
         contactName: input.client_name, service: input.service, datetime: input.datetime,
       });
@@ -128,7 +128,7 @@ export async function runAgent({ system, history, ctx }) {
       const results = [];
       for (const block of resp.content) {
         if (block.type === 'tool_use') {
-          const out = execTool(block.name, block.input || {}, ctx);
+          const out = await execTool(block.name, block.input || {}, ctx);
           actions.push({ name: block.name, input: block.input, result: out });
           results.push({ type: 'tool_result', tool_use_id: block.id, content: out });
         }
