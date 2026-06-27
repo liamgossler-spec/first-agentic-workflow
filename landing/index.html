@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Get Leads with AI — יותר לידים, יותר מכירות, החזר השקעה שאפשר למדוד</title>
-<meta name="description" content="סוכנות שיווק דיגיטלי מבוססת AI. ניהול קמפיינים ממומנים (גוגל, מטא, טיקטוק) ובניית דפי נחיתה ממירים. יותר לידים בעלות נמוכה יותר. שיחת אסטרטגיה חינם." />
+<title>Zynx Agency — סוכנות שיווק לעסקים | קמפיינים ואתרים שממירים</title>
+<meta name="description" content="Zynx Agency — סוכנות שיווק לעסקים. ניהול קמפיינים ממומנים (גוגל, מטא, טיקטוק) ובניית אתרים ממירים. יותר לקוחות, יותר מכירות, החזר השקעה שאפשר למדוד." />
 <meta name="theme-color" content="#060510" />
 
 <!-- Open Graph -->
-<meta property="og:title" content="Get Leads with AI — מכונת לידים מבוססת AI לעסק שלך" />
-<meta property="og:description" content="קמפיינים חכמים ודף נחיתה שממיר. יותר לידים, פחות בזבוז, החזר השקעה שאפשר למדוד." />
+<meta property="og:title" content="Zynx Agency — סוכנות שיווק לעסקים" />
+<meta property="og:description" content="קמפיינים שמביאים לקוחות ואתרים שממירים. יותר מכירות, פחות בזבוז, החזר השקעה שאפשר למדוד." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="he_IL" />
 
@@ -22,16 +22,15 @@
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "Get Leads with AI",
-  "description": "סוכנות שיווק דיגיטלי מבוססת AI — ניהול קמפיינים ממומנים בגוגל, מטא וטיקטוק, ובניית דפי נחיתה ממירים.",
+  "name": "Zynx Agency",
+  "description": "סוכנות שיווק לעסקים — ניהול קמפיינים ממומנים בגוגל, מטא וטיקטוק, ובניית אתרים ממירים.",
   "areaServed": "IL",
-  "slogan": "יותר לידים, יותר מכירות, החזר השקעה שאפשר למדוד",
-  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "340" },
+  "slogan": "יותר לקוחות, יותר מכירות, החזר השקעה שאפשר למדוד",
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "שירותים",
     "itemListElement": [
-      { "@type": "Offer", "priceCurrency": "ILS", "price": "1999", "name": "ניהול קמפיינים ממומנים", "description": "ניהול ואופטימיזציית AI לקמפיינים בגוגל, מטא וטיקטוק.", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "1999", "priceCurrency": "ILS", "billingDuration": "P1M" } },
+      { "@type": "Offer", "priceCurrency": "ILS", "price": "1999", "name": "ניהול קמפיינים ממומנים", "description": "ניהול ואופטימיזציה לקמפיינים בגוגל, מטא וטיקטוק.", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "1999", "priceCurrency": "ILS", "billingDuration": "P1M" } },
       { "@type": "Offer", "priceCurrency": "ILS", "price": "2500", "name": "בניית אתר ממיר", "description": "בניית דף נחיתה ממיר בעברית, מהיר ומותאם מובייל — תשלום חד פעמי." }
     ]
   }
@@ -368,14 +367,72 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
   body{padding-bottom:70px}
 }
 
+/* ---------- premium: logo mark glow ---------- */
+.logo .mark{box-shadow:0 6px 18px rgba(79,70,229,.55),0 0 30px rgba(124,58,237,.35)}
+.logo b{font-family:Inter,sans-serif;letter-spacing:-.01em}
+
+/* ---------- preloader ---------- */
+#preloader{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:var(--bg-deep);
+  animation:preloadOut .7s cubic-bezier(.7,0,.3,1) 1.15s forwards}
+#preloader .pl-inner{display:flex;align-items:center;gap:1rem;transform:translateY(0);animation:plRise .8s cubic-bezier(.7,0,.3,1) 1.15s forwards}
+@keyframes preloadOut{to{opacity:0;visibility:hidden}}
+@keyframes plRise{to{transform:translateY(-12px)}}
+#preloader .pl-mark{width:62px;height:62px;border-radius:16px;background:var(--g-btn);display:grid;place-items:center;
+  box-shadow:0 10px 34px rgba(79,70,229,.6),0 0 70px rgba(124,58,237,.5);
+  opacity:0;transform:scale(.6) rotate(-12deg);animation:plMark .7s cubic-bezier(.34,1.56,.64,1) .1s forwards}
+#preloader .pl-mark svg{width:34px;height:34px;color:#fff;stroke-dasharray:60;stroke-dashoffset:60;animation:plDraw .7s ease .35s forwards}
+@keyframes plMark{to{opacity:1;transform:none}}
+@keyframes plDraw{to{stroke-dashoffset:0}}
+#preloader .pl-word{font-family:Inter,sans-serif;font-weight:900;font-size:2.6rem;letter-spacing:.04em;
+  background:var(--g-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+#preloader .pl-word span{display:inline-block;opacity:0;transform:translateY(14px);animation:plLetter .5s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes plLetter{to{opacity:1;transform:none}}
+
+/* ---------- cursor glow + scroll progress ---------- */
+.cursor-glow{position:fixed;top:0;left:0;width:540px;height:540px;border-radius:50%;pointer-events:none;z-index:-1;
+  transform:translate3d(-50%,-50%,0);background:radial-gradient(circle,rgba(124,92,255,.14),rgba(6,182,212,.06) 40%,transparent 65%);
+  mix-blend-mode:screen;opacity:0;transition:opacity .4s;will-change:transform}
+.scroll-prog{position:fixed;inset-block-start:0;inset-inline-start:0;height:3px;width:0;z-index:80;
+  background:linear-gradient(90deg,#22d3ee,#a855f7,#818cf8);box-shadow:0 0 14px rgba(124,58,237,.7)}
+
+/* ---------- brand kinetic marquee ---------- */
+.brand-marquee{overflow:hidden;padding-block:clamp(1.6rem,4vw,2.8rem);border-block:1px solid var(--border);position:relative;background:rgba(8,6,18,.5)}
+.brand-marquee::before,.brand-marquee::after{content:"";position:absolute;inset-block:0;width:18%;z-index:2;pointer-events:none}
+.brand-marquee::before{inset-inline-start:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.brand-marquee::after{inset-inline-end:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.brand-track{display:flex;align-items:center;gap:2.4rem;width:max-content;animation:marquee 32s linear infinite}
+.brand-marquee:hover .brand-track{animation-play-state:paused}
+.brand-track span{font-family:Inter,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;
+  font-size:clamp(2.4rem,7vw,5.5rem);line-height:1;white-space:nowrap;
+  -webkit-text-stroke:1.4px rgba(165,163,196,.32);color:transparent}
+.brand-track span.fill{-webkit-text-stroke:0;background:var(--g-text);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 24px rgba(124,58,237,.35))}
+.brand-track .star{-webkit-text-stroke:0;color:var(--accent-bright);font-size:clamp(1.4rem,4vw,3rem)}
+
+@media(max-width:760px){ .cursor-glow{display:none} }
+
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
   .reveal{opacity:1;transform:none;filter:none}
   .spark{stroke-dashoffset:0}
+  #preloader{display:none}
+  .cursor-glow{display:none}
 }
 </style>
 </head>
 <body>
+
+<!-- premium intro preloader -->
+<div id="preloader">
+  <div class="pl-inner">
+    <span class="pl-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 6H18L6 18H18"/></svg></span>
+    <span class="pl-word"><span style="animation-delay:.5s">Z</span><span style="animation-delay:.6s">y</span><span style="animation-delay:.7s">n</span><span style="animation-delay:.8s">x</span></span>
+  </div>
+</div>
+
+<!-- premium interactions -->
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
 
 <!-- background -->
 <div class="bg-layers" aria-hidden="true">
@@ -389,9 +446,9 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
 <!-- header -->
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#" class="logo" aria-label="Get Leads with AI">
-      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 7-8"/><path d="M14 4h5v5"/></svg></span>
-      <b>Get Leads<span style="color:var(--accent-bright)"> with AI</span></b>
+    <a href="#" class="logo" aria-label="Zynx Agency">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 6H18L6 18H18"/></svg></span>
+      <b>Zyn<span style="color:var(--accent-bright)">x</span> <i style="font-style:normal;font-weight:600;color:var(--text-muted);font-size:.82em">Agency</i></b>
     </a>
     <nav class="nav-links">
       <a href="#services">שירותים</a>
@@ -421,13 +478,13 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="eyebrow"><span class="dot"></span>GET LEADS WITH AI · סוכנות מבוססת AI</span>
+      <span class="eyebrow"><span class="dot"></span>ZYNX AGENCY · סוכנות שיווק לעסקים</span>
       <h1>אנחנו מביאים לעסק שלך עוד<br>
         <span class="rotator" id="rotator" aria-label="לידים, מכירות, לקוחות, צמיחה, הכנסות">
           <span class="active">לידים</span><span>מכירות</span><span>לקוחות</span><span>צמיחה</span><span>הכנסות</span>
         </span>
       </h1>
-      <p class="sub">קמפיינים ממומנים שמנוהלים על ידי בני אדם חכמים וטכנולוגיית AI, ודף נחיתה שהופך גולשים ללקוחות משלמים. במקום לנחש מה עובד — אנחנו מודדים כל שקל ודואגים שהשיווק שלך יחזיר את עצמו ועוד הרבה מעבר.</p>
+      <p class="sub">קמפיינים ממומנים שמביאים פניות אמיתיות, ואתר שהופך גולשים ללקוחות משלמים. בלי לנחש — אנחנו מודדים כל שקל ודואגים שהשיווק שלך יחזיר את עצמו, ועוד הרבה מעבר.</p>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary btn-lg">קבלו אסטרטגיית לידים חינם
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 5l-7 7 7 7"/></svg>
@@ -436,7 +493,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
       </div>
       <div class="hero-trust">
         <span class="stars">★★★★★</span>
-        <span><b>340+</b> עסקים</span>
+        <span><b>1:1</b> ליווי אישי</span>
         <span class="sep"></span>
         <span>החזר השקעה ממוצע <b>x4.7</b></span>
       </div>
@@ -448,7 +505,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
         <div class="chip c2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>ROI x4</div>
         <div class="dash-top">
           <h4>ביצועי קמפיין</h4>
-          <span class="dash-badge"><span class="live"></span>אופטימיזציית AI · LIVE</span>
+          <span class="dash-badge"><span class="live"></span>ביצועים בזמן אמת · LIVE</span>
         </div>
         <div class="dash-chart">
           <svg viewBox="0 0 320 140" preserveAspectRatio="none">
@@ -521,7 +578,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
     <div class="steps">
       <div class="step glass reveal"><div class="num">01</div><h3>שיחת אסטרטגיה</h3><p>אנחנו לומדים את העסק, היעדים, התקציב ומי הלקוח האידיאלי. בלי שיחת מכירה לוחצת — אבחון אמיתי ותוכנית פעולה ברורה עם תחזית החזר השקעה.</p></div>
       <div class="step glass reveal"><div class="num">02</div><h3>הקמה והשקה</h3><p>בונים את דף הנחיתה הממיר, מקימים את הקמפיינים, מחברים מעקב מדויק ועולים לאוויר תוך ימים — לא חודשים.</p></div>
-      <div class="step glass reveal"><div class="num">03</div><h3>אופטימיזציית AI</h3><p>מהיום הראשון המנוע לומד, מייעל ומוריד עלויות. אתה מתחיל לקבל לידים — ואנחנו ממשיכים לדייק כל יום מחדש.</p></div>
+      <div class="step glass reveal"><div class="num">03</div><h3>אופטימיזציה חכמה</h3><p>מהיום הראשון אנחנו מייעלים, מורידים עלויות ומדייקים את הקמפיין לפי דאטה. אתה מתחיל לקבל פניות — ואנחנו ממשיכים לשפר כל יום מחדש.</p></div>
       <div class="step glass reveal"><div class="num">04</div><h3>צמיחה ושקיפות</h3><p>דוחות שקופים בזמן אמת ולידים ישר לנייד. רואה בדיוק מה ההחזר על כל שקל, ומגדיל תקציב רק על מה שמוכח שעובד.</p></div>
     </div>
   </div>
@@ -544,10 +601,10 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
         <h3>ניהול קמפיינים ממומנים</h3>
         <p class="tag">מכונת לידים שעובדת בשבילך 24/7</p>
         <div class="price-row"><span class="price">1,999 ₪</span><span class="billing">/ לחודש</span></div>
-        <p class="desc">אנחנו בונים, מנהלים ומייעלים את הקמפיינים שלך בגוגל, מטא וטיקטוק. מנוע ה-AI מנתח ביצועים בזמן אמת, מזרים תקציב למה שעובד ומפסיק לשרוף כסף על מה שלא — כדי שכל שקל יחזור אליך עם רווח.</p>
+        <p class="desc">אנחנו בונים, מנהלים ומייעלים את הקמפיינים שלך בגוגל, מטא וטיקטוק. מנתחים ביצועים בזמן אמת, מזרימים תקציב למה שעובד ומפסיקים לשרוף כסף על מה שלא — כדי שכל שקל יחזור אליך עם רווח.</p>
         <ul>
           <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>ניהול מלא בגוגל, מטא וטיקטוק תחת קורת גג אחת</li>
-          <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>אופטימיזציה יומית מבוססת AI להורדת עלות לליד</li>
+          <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>אופטימיזציה יומית מבוססת דאטה להורדת עלות לליד</li>
           <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>מיקוד קהלים חכם שמביא לידים איכותיים, לא רק קליקים</li>
           <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>דוח ביצועים שקוף בזמן אמת — עלות לליד, ROI ומספרים אמיתיים</li>
           <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>בדיקות A/B שוטפות על מודעות, קריאייטיב וכותרות</li>
@@ -589,7 +646,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
       <div class="stat"><div class="v counter" data-target="4.7" data-prefix="x" data-decimals="1">x0</div><div class="l">החזר ממוצע על השקעה בקמפיינים שאנחנו מנהלים</div></div>
       <div class="stat"><div class="v counter" data-target="63" data-suffix="%">0%</div><div class="l">ירידה ממוצעת בעלות לליד תוך 90 יום</div></div>
       <div class="stat"><div class="v counter" data-target="7" data-suffix=" ימים"> ימים</div><div class="l">מהקיק-אוף ועד שהקמפיין הראשון רץ ומביא פניות</div></div>
-      <div class="stat"><div class="v counter" data-target="340" data-prefix="+">+0</div><div class="l">עסקים שכבר מקבלים לידים דרכנו</div></div>
+      <div class="stat"><div class="v counter" data-target="24" data-suffix=" שעות">0 שעות</div><div class="l">זמן תגובה לכל פנייה — אתה אף פעם לא לבד</div></div>
     </div>
   </div>
 </section>
@@ -601,12 +658,12 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow"><span class="dot"></span>היתרון שלנו</span>
-      <h2>למה עסקים בוחרים <span class="grad-text">ב-Get Leads with AI</span></h2>
+      <h2>למה עסקים בוחרים <span class="grad-text">ב-Zynx</span></h2>
       <p>לא עוד סוכנות שמדברת על לייקים. אנחנו אחראים על התוצאה — מהקליק הראשון ועד הסגירה.</p>
     </div>
     <div class="bento">
       <div class="b b1 glass reveal"><div class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg></div><h3>אנחנו מדברים בשפת המספרים</h3><p>לא נדבר איתך על חשיפות ולייקים, אלא על עלות לליד, אחוז המרה וכמה כסף נכנס מול כמה יצא. אם אתה לא מרוויח — אנחנו משנים כיוון.</p></div>
-      <div class="b b2 glass reveal"><div class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg></div><h3>AI אמיתי, לא מילת באזז</h3><p>המנוע שלנו מנתח אלפי נקודות מידע בכל יום ומקבל החלטות אופטימיזציה מהר ומדויק יותר מכל בן אדם — כדי שהתקציב שלך יעבוד בחוכמה.</p></div>
+      <div class="b b2 glass reveal"><div class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg></div><h3>החלטות לפי דאטה, לא תחושות בטן</h3><p>אנחנו לא מנחשים. כל החלטה — תקציב, קהל, מודעה — מגובה במספרים ובבדיקות שוטפות, כדי שהתקציב שלך יעבוד בחוכמה ולא יתבזבז.</p></div>
       <div class="b b3 glass reveal"><div class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h3>ליווי אישי, לא מוקד אנונימי</h3><p>איש קשר אחד שמכיר את העסק שלך, זמין בוואטסאפ ועונה כשצריך. אתה לא עוד לקוח במערכת — אתה שותף.</p></div>
       <div class="b b4 glass reveal"><div class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg></div><h3>מערכת שלמה, לא חצי פתרון</h3><p>קמפיין מעולה שמוביל לדף חלש שווה כסף שנשרף. אנחנו מחברים בין הפרסום לדף הנחיתה הממיר — כך שכל הפאזל עובד יחד מהקליק הראשון ועד הסגירה.</p></div>
       <div class="b b5 glass reveal"><div class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.5 0 4.77 1.02 6.4 2.66"/></svg></div><h3>שקיפות מלאה, בלי חוזה כובל</h3><p>אתה רואה כל מספר, מבין כל החלטה ולא נעול בחוזה שנתי. אנחנו עובדים על תוצאות — ונשארים איתך כי אתה רוצה, לא כי אתה חייב.</p></div>
@@ -653,16 +710,23 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
       <h2>כל מה שרצית <span class="grad-text">לדעת</span></h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">תוך כמה זמן אני אראה תוצאות?<span class="pm">+</span></button><div class="faq-a"><p>הקמפיין הראשון עולה לאוויר תוך כ-7 ימי עבודה, ופניות ראשונות מתחילות להגיע כבר בשבוע הראשון. אופטימיזציית ה-AI מביאה את התוצאות המשמעותיות תוך 60 עד 90 יום, כשהמערכת כבר למדה מה עובד הכי טוב לעסק שלך ועלות הליד יורדת באופן ניכר.</p></div></div>
+      <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">תוך כמה זמן אני אראה תוצאות?<span class="pm">+</span></button><div class="faq-a"><p>הקמפיין הראשון עולה לאוויר תוך כ-7 ימי עבודה, ופניות ראשונות מתחילות להגיע כבר בשבוע הראשון. האופטימיזציה השוטפת מביאה את התוצאות המשמעותיות תוך 60 עד 90 יום, כשכבר למדנו מה עובד הכי טוב לעסק שלך ועלות הליד יורדת באופן ניכר.</p></div></div>
       <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">האם יש התחייבות לתקופה ארוכה?<span class="pm">+</span></button><div class="faq-a"><p>לא. ניהול הקמפיינים הוא על בסיס חודשי, בלי חוזה שנתי ובלי קנס יציאה. אנחנו כל כך בטוחים בתוצאות שאנחנו מעדיפים שתישאר כי אתה מרוויח, ולא כי חתמת על משהו. בניית דף הנחיתה היא תשלום חד פעמי בלבד.</p></div></div>
-      <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">מה כולל המחיר של 1,999 ₪ לחודש? וזה כולל תקציב מדיה?<span class="pm">+</span></button><div class="faq-a"><p>ה-1,999 ₪ הם דמי הניהול והאופטימיזציה החודשיים, וכוללים ניהול מלא של גוגל, מטא וטיקטוק, אופטימיזציית AI יומית, מחקר קהלים, כתיבת מודעות, עיצוב קריאייטיב, דוחות שקופים וליווי אישי. תקציב המדיה (הכסף שמשולם לגוגל ולמטא) משולם בנפרד ונמצא בשליטה מלאה שלך. אנחנו ממליצים על תקציב מתאים בשיחת האסטרטגיה לפי היעדים והענף שלך.</p></div></div>
+      <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">מה כולל המחיר של 1,999 ₪ לחודש? וזה כולל תקציב מדיה?<span class="pm">+</span></button><div class="faq-a"><p>ה-1,999 ₪ הם דמי הניהול והאופטימיזציה החודשיים, וכוללים ניהול מלא של גוגל, מטא וטיקטוק, אופטימיזציה יומית, מחקר קהלים, כתיבת מודעות, עיצוב קריאייטיב, דוחות שקופים וליווי אישי. תקציב המדיה (הכסף שמשולם לגוגל ולמטא) משולם בנפרד ונמצא בשליטה מלאה שלך. אנחנו ממליצים על תקציב מתאים בשיחת האסטרטגיה לפי היעדים והענף שלך.</p></div></div>
       <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">למי שייכים האתר והנכסים השיווקיים?<span class="pm">+</span></button><div class="faq-a"><p>הכל שלך. דף הנחיתה, חשבונות הפרסום, הקמפיינים, הפיקסלים והנתונים רשומים על שמך ונשארים בבעלותך המלאה — גם אם תחליט בעתיד להמשיך לבד. אנחנו לא מחזיקים שום נכס כבן ערובה.</p></div></div>
-      <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">במה אתם שונים מפרילנסר או מסוכנות רגילה?<span class="pm">+</span></button><div class="faq-a"><p>שני דברים. ראשית, אנחנו מחברים בין הקמפיין לדף הממיר כמערכת אחת — כך שאין דליפות בדרך מהקליק ועד הסגירה. שנית, מנוע ה-AI שלנו מבצע אופטימיזציה בזמן אמת ברמה שאדם בודד פשוט לא יכול. אתה מקבל גם את הטכנולוגיה וגם את היד האנושית שמלווה אותך אישית.</p></div></div>
+      <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">במה אתם שונים מפרילנסר או מסוכנות רגילה?<span class="pm">+</span></button><div class="faq-a"><p>שני דברים. ראשית, אנחנו מחברים בין הקמפיין לדף הממיר כמערכת אחת — כך שאין דליפות בדרך מהקליק ועד הסגירה. שנית, אנחנו מנהלים אופטימיזציה הדוקה ומבוססת-דאטה בזמן אמת — לא 'מעלים פרסום ונעלמים'. אתה מקבל גם שיטה מסודרת וגם יד אישית שמלווה אותך לאורך כל הדרך.</p></div></div>
       <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">מה אם הקמפיין לא מביא תוצאות?<span class="pm">+</span></button><div class="faq-a"><p>אנחנו קובעים יחד יעדים מדידים כבר בהתחלה ומנהלים את התקציב בשקיפות מלאה, כך שאתה תמיד יודע מה קורה. אם המספרים לא מתקדמים — אנחנו לא מחכים שלושה חודשים, אלא משנים אסטרטגיה, קריאייטיב ומיקוד בזמן אמת עד שזה עובד. ובגלל שאין התחייבות, הסיכון עלינו — לא עליך.</p></div></div>
-      <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">אני עסק קטן עם תקציב צנוע, האם זה מתאים לי?<span class="pm">+</span></button><div class="faq-a"><p>בדיוק בשבילך בנינו את זה. רוב הלקוחות שלנו הם עסקים קטנים ובינוניים שאין להם זמן או ידע לנהל פרסום בעצמם. דווקא לעסק קטן כל שקל קריטי, והכוח של אופטימיזציית AI הוא להפיק מקסימום מכל שקל — כך שגם תקציב צנוע עובד בחוכמה ומאפשר לך להתחרות בגדולים בלי לשרוף הון.</p></div></div>
+      <div class="faq-item glass reveal"><button class="faq-q" aria-expanded="false">אני עסק קטן עם תקציב צנוע, האם זה מתאים לי?<span class="pm">+</span></button><div class="faq-a"><p>בדיוק בשבילך בנינו את זה. רוב הלקוחות שלנו הם עסקים קטנים ובינוניים שאין להם זמן או ידע לנהל פרסום בעצמם. דווקא לעסק קטן כל שקל קריטי, והכוח שלנו הוא להפיק מקסימום מכל שקל — כך שגם תקציב צנוע עובד בחוכמה ומאפשר לך להתחרות בגדולים בלי לשרוף הון.</p></div></div>
     </div>
   </div>
 </section>
+
+<!-- kinetic brand marquee -->
+<div class="brand-marquee" aria-hidden="true">
+  <div class="brand-track" id="brandTrack">
+    <span class="fill">Zynx</span><span class="star">✦</span><span>קמפיינים</span><span class="star">✦</span><span class="fill">אתרים שממירים</span><span class="star">✦</span><span>מכירות</span><span class="star">✦</span><span class="fill">צמיחה</span><span class="star">✦</span>
+  </div>
+</div>
 
 <!-- ============ FINAL CTA ============ -->
 <section class="final" id="contact">
@@ -688,8 +752,8 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a href="#" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 7-8"/><path d="M14 4h5v5"/></svg></span><b>Get Leads<span style="color:var(--accent-bright)"> with AI</span></b></a>
-        <p>Get Leads with AI — יותר לידים, יותר מכירות, החזר השקעה שאפשר למדוד. מוכן לראות כמה לקוחות אתה מפספס כרגע? השאר פרטים ונחזור אליך תוך 24 שעות.</p>
+        <a href="#" class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 6H18L6 18H18"/></svg></span><b>Zyn<span style="color:var(--accent-bright)">x</span> <i style="font-style:normal;font-weight:600;color:var(--text-muted);font-size:.82em">Agency</i></b></a>
+        <p>Zynx Agency — סוכנות שיווק לעסקים. יותר לקוחות, יותר מכירות, החזר השקעה שאפשר למדוד. מוכן לראות כמה לקוחות אתה מפספס כרגע? השאר פרטים ונחזור אליך תוך 24 שעות.</p>
       </div>
       <div class="foot-col">
         <h5>ניווט</h5>
@@ -707,7 +771,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--border);padding-bloc
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© <span id="year"></span> Get Leads with AI · כל הזכויות שמורות</span>
+      <span>© <span id="year"></span> Zynx Agency · כל הזכויות שמורות</span>
       <span>נבנה כדי להמיר ✦</span>
     </div>
   </div>
@@ -773,6 +837,38 @@ const CONFIG = {
   /* seamless marquee — duplicate items */
   const mq = document.getElementById('marquee');
   if(mq){ mq.innerHTML += mq.innerHTML; }
+  const bt = document.getElementById('brandTrack');
+  if(bt){ bt.innerHTML += bt.innerHTML; }
+
+  /* preloader — remove after intro (CSS auto-hides; JS is a safety net) */
+  const preloader = document.getElementById('preloader');
+  if(preloader){
+    const kill = () => preloader.remove();
+    if(reduce){ kill(); }
+    else { setTimeout(kill, 2200); }
+  }
+
+  /* scroll progress bar */
+  const prog = document.getElementById('scrollProg');
+  if(prog){
+    const setProg = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    };
+    setProg(); window.addEventListener('scroll', setProg, {passive:true});
+  }
+
+  /* cursor glow follower (desktop only, lerped) */
+  const glow = document.getElementById('cursorGlow');
+  if(glow && !reduce && window.matchMedia('(pointer:fine)').matches){
+    let tx=window.innerWidth/2, ty=window.innerHeight/2, cx=tx, cy=ty, on=false;
+    window.addEventListener('mousemove', e => { tx=e.clientX; ty=e.clientY; if(!on){on=true;glow.style.opacity='1';} }, {passive:true});
+    (function loop(){
+      cx += (tx-cx)*0.12; cy += (ty-cy)*0.12;
+      glow.style.transform = `translate3d(${cx}px,${cy}px,0) translate(-50%,-50%)`;
+      requestAnimationFrame(loop);
+    })();
+  }
 
   /* IntersectionObserver: reveal + stagger + trigger counters/chart */
   const counted = new Set();
