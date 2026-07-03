@@ -35,6 +35,15 @@ A Google Sheet with 150-400 unique prospects, sorted by review count
 mobile numbers.
 
 ## Edge cases & lessons learned
+- **API must be enabled before the key works** (learned 2026-07-03): a fresh
+  key returns 403 PERMISSION_DENIED until "Places API (New)" is enabled on the
+  project; the error body includes a direct enable link — send it to Liam.
+- **Review-count sort surfaces noise at the top** (2026-07-03): malls and
+  retail chains (עזריאלי, דיל קוסמטיקס) have the most reviews. The
+  owner-operated sweet spot for outreach: has a wa.me link and ~15-600
+  reviews. First real run: 720 unique → 326 priority rows after this filter.
+- Broad queries like "מכון יופי" also pull hair salons — same lead-pain, fine
+  to keep as secondary targets, or tighten queries if conversion says otherwise.
 - **Cost**: phone/website fields bill under the Enterprise SKU — 1,000 free
   requests/month (≈20,000 businesses). A default run is ~75 requests. Stay on
   the free tier; no billing surprises expected at this scale.
