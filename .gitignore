@@ -18,6 +18,11 @@ brand/logo.*
 brand/fonts/*
 !brand/fonts/.gitkeep
 
+# Site builder (Bildy)
+site-builder/node_modules/
+site-builder/data/
+site-builder/.env
+
 # Python
 __pycache__/
 *.py[cod]

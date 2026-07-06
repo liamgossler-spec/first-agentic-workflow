@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bildy — בונה האתרים שלך</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23ffb547'/%3E%3Ctext x='50' y='72' font-size='62' font-family='sans-serif' font-weight='900' text-anchor='middle' fill='%231b1405'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===================== Dashboard ===================== -->
+<div id="view-dashboard" class="view">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">B</span>
+      <span class="brand-name">Bildy</span>
+      <span class="brand-tag">בונה האתרים שלך, מונע על ידי Claude</span>
+    </div>
+    <div class="topbar-actions">
+      <span id="statusPill" class="pill"></span>
+      <button id="btnNew" class="btn btn-primary">+ אתר חדש</button>
+    </div>
+  </header>
+
+  <main class="dash">
+    <div id="emptyState" class="empty hidden">
+      <div class="empty-art">✦</div>
+      <h2>עוד אין לך אתרים</h2>
+      <p>תאר את העסק במשפט או שניים — ותקבל אתר שלם, מעוצב ומוכן לפרסום.</p>
+      <button class="btn btn-primary" onclick="openNewModal()">בנה את האתר הראשון שלך</button>
+    </div>
+    <div id="projectGrid" class="grid"></div>
+  </main>
+</div>
+
+<!-- ===================== Editor ===================== -->
+<div id="view-editor" class="view hidden">
+  <header class="topbar editor-bar">
+    <div class="editor-right">
+      <button class="btn btn-ghost" onclick="location.hash=''">→ חזרה</button>
+      <span id="edName" class="proj-name"></span>
+    </div>
+    <div class="editor-tools">
+      <div class="devices">
+        <button data-dev="desktop" class="dev active" title="מחשב">🖥</button>
+        <button data-dev="tablet" class="dev" title="טאבלט">📱</button>
+        <button data-dev="mobile" class="dev" title="נייד">📲</button>
+      </div>
+      <select id="versionSelect" title="גרסאות"></select>
+      <button id="btnRevert" class="btn btn-ghost hidden">שחזר לגרסה זו</button>
+      <button id="btnLeads" class="btn btn-ghost">לידים</button>
+      <button id="btnSettings" class="btn btn-ghost">⚙ הגדרות</button>
+      <a id="btnOpenTab" class="btn btn-ghost" target="_blank" rel="noopener">פתח בטאב ↗</a>
+      <a id="btnExport" class="btn btn-primary">ייצוא ZIP</a>
+    </div>
+  </header>
+
+  <div class="editor-body">
+    <aside class="chat">
+      <div class="chat-title">עריכה בצ'אט</div>
+      <div id="chatLog" class="chat-log"></div>
+      <div id="genProgress" class="gen-progress hidden">
+        <div class="spinner"></div>
+        <div>
+          <div id="genStatus">מתחיל...</div>
+          <div id="genChars" class="gen-chars"></div>
+        </div>
+      </div>
+      <form id="chatForm" class="chat-input">
+        <textarea id="chatText" rows="2" placeholder='למשל: "תחליף את הצבע הראשי לירוק ותוסיף סקשן מחירים"'></textarea>
+        <button class="btn btn-primary" type="submit">שלח</button>
+      </form>
+    </aside>
+
+    <section class="stage">
+      <div id="frameWrap" class="frame-wrap desktop">
+        <iframe id="previewFrame" title="תצוגה מקדימה"></iframe>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ===================== New project modal ===================== -->
+<dialog id="newModal">
+  <form id="newForm" method="dialog" class="modal-form">
+    <h2>אתר חדש</h2>
+    <label>שם העסק / האתר
+      <input id="npName" required maxlength="120" placeholder="למשל: סטודיו יוגה שקד">
+    </label>
+    <label>ספר על העסק — מה אתם עושים, למי, ומה חשוב שיהיה באתר
+      <textarea id="npPrompt" rows="5" required placeholder="סטודיו ליוגה ופילאטיס ברמת גן. שיעורי בוקר וערב, מדריכות מוסמכות, שיעור ניסיון חינם. חשוב לי לוח שיעורים, המלצות ומחירון."></textarea>
+    </label>
+    <div class="row2">
+      <label>סגנון עיצוב
+        <select id="npStyle">
+          <option value="modern">מודרני ונועז</option>
+          <option value="luxury">יוקרתי</option>
+          <option value="minimal">מינימליסטי</option>
+          <option value="playful">צבעוני ומשוחרר</option>
+          <option value="corporate">עסקי ואמין</option>
+        </select>
+      </label>
+      <label>שפת האתר
+        <select id="npLang">
+          <option value="he">עברית</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" onclick="newModal.close()">ביטול</button>
+      <button type="submit" class="btn btn-primary">צור אתר ✦</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ===================== Settings modal (GHL) ===================== -->
+<dialog id="settingsModal">
+  <form id="settingsForm" method="dialog" class="modal-form">
+    <h2>הגדרות פרויקט</h2>
+    <label>שם הפרויקט
+      <input id="setName" maxlength="120">
+    </label>
+    <fieldset>
+      <legend>GoHighLevel</legend>
+      <p class="hint">כל ליד מהאתר יישלח כ-Contact ל-Location (סאב־אקאונט) של הלקוח ב-GHL. מפתח ה-API מוגדר ב-<code>.env</code> (GHL_API_KEY).</p>
+      <label>Location ID (של הלקוח)
+        <input id="setGhlLocation" placeholder="לדוגמה: ve9EPM428h8vShlRW1KT" dir="ltr">
+      </label>
+      <label>תגיות (מופרדות בפסיק)
+        <input id="setGhlTags" placeholder="bildy, website-lead" dir="ltr">
+      </label>
+      <p id="ghlStatus" class="hint"></p>
+    </fieldset>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" onclick="settingsModal.close()">ביטול</button>
+      <button type="submit" class="btn btn-primary">שמור</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ===================== Leads modal ===================== -->
+<dialog id="leadsModal">
+  <div class="modal-form wide">
+    <h2>לידים שנקלטו</h2>
+    <div id="leadsTableWrap"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-primary" onclick="leadsModal.close()">סגור</button>
+    </div>
+  </div>
+</dialog>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
