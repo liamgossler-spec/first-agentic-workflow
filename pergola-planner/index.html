@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>פרגו־פלאן · מתכנן פרויקטים לפרגולות ומבני חוץ</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2346603f'/%3E%3Cpath d='M5 13 L16 6 L27 13' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7 13 V26 M25 13 V26 M7 17 H25 M7 21 H25 M7 25 H25' stroke='white' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============ Top bar ============ -->
+  <header class="app-bar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="26" height="26">
+          <path d="M4 12 L16 5 L28 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 12 V26 M26 12 V26 M6 16 H26 M6 20 H26 M6 24 H26" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <strong>פרגו־פלאן</strong>
+        <span>תכנון וחישוב פרויקטים</span>
+      </div>
+    </div>
+    <div class="app-actions">
+      <select id="savedProjects" class="ghost-select" title="פרויקטים שמורים">
+        <option value="">פרויקטים שמורים…</option>
+      </select>
+      <button class="btn ghost" id="btnNew" type="button">＋ חדש</button>
+      <button class="btn ghost" id="btnSave" type="button">💾 שמירה</button>
+      <button class="btn primary" id="btnPrint" type="button">🖨️ הדפסה / PDF</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- ============ Inputs ============ -->
+    <section class="panel inputs" aria-label="נתוני הפרויקט">
+      <form id="planForm" autocomplete="off">
+
+        <div class="card">
+          <h2 class="card-title">פרטי פרויקט</h2>
+          <div class="grid-2">
+            <label class="field">
+              <span>שם הפרויקט</span>
+              <input type="text" id="projName" placeholder="למשל: פרגולה חצר משפ' לוי" />
+            </label>
+            <label class="field">
+              <span>לקוח</span>
+              <input type="text" id="clientName" placeholder="שם הלקוח" />
+            </label>
+          </div>
+          <label class="field">
+            <span>כתובת / הערות</span>
+            <input type="text" id="siteNotes" placeholder="כתובת האתר או הערות כלליות" />
+          </label>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">תמונת השטח</h2>
+          <div class="photo-drop" id="photoDrop">
+            <input type="file" id="photoInput" accept="image/*" capture="environment" hidden />
+            <div class="photo-empty" id="photoEmpty">
+              <div class="photo-ico">📷</div>
+              <p>צלם או העלה תמונה של השטח</p>
+              <button type="button" class="btn ghost sm" id="btnPhoto">בחירת תמונה</button>
+            </div>
+            <img id="photoPreview" alt="תצוגת השטח" hidden />
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">סוג המבנה</h2>
+          <div class="seg" id="segStructure" role="tablist">
+            <button type="button" class="seg-btn active" data-val="pergola">פרגולה</button>
+            <button type="button" class="seg-btn" data-val="canopy">סוכך / גגון</button>
+            <button type="button" class="seg-btn" data-val="deck">דק</button>
+          </div>
+
+          <label class="field mt">
+            <span>סוג התקנה</span>
+            <div class="seg" id="segAttach">
+              <button type="button" class="seg-btn active" data-val="free">עצמאי (4 עמודים)</button>
+              <button type="button" class="seg-btn" data-val="wall">צמוד לקיר</button>
+            </div>
+          </label>
+
+          <div class="grid-2 mt">
+            <label class="field">
+              <span>חומר</span>
+              <select id="material">
+                <option value="wood">עץ (אורן/איפאה)</option>
+                <option value="aluminum">אלומיניום</option>
+                <option value="steel">פלדה / ברזל</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>סוג גג / כיסוי</span>
+              <select id="roofType">
+                <option value="open">רפפות פתוחות</option>
+                <option value="louver">רפפות צפופות</option>
+                <option value="slat">שלבים דחוסים (הצללה)</option>
+                <option value="poly">פוליקרבונט</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">מידות</h2>
+          <div class="grid-3">
+            <label class="field">
+              <span>רוחב (ס״מ)</span>
+              <input type="number" id="width" value="300" min="50" step="10" />
+            </label>
+            <label class="field">
+              <span>עומק / אורך (ס״מ)</span>
+              <input type="number" id="depth" value="400" min="50" step="10" />
+            </label>
+            <label class="field">
+              <span>גובה (ס״מ)</span>
+              <input type="number" id="height" value="250" min="200" step="10" />
+            </label>
+          </div>
+        </div>
+
+        <details class="card advanced">
+          <summary class="card-title">הגדרות מתקדמות</summary>
+          <div class="grid-3 mt">
+            <label class="field">
+              <span>מרווח רפפות (ס״מ)</span>
+              <input type="number" id="rafterSpacing" value="45" min="5" step="1" />
+            </label>
+            <label class="field">
+              <span>מפתח מקסימלי בין עמודים (ס״מ)</span>
+              <input type="number" id="maxSpan" value="300" min="100" step="10" />
+            </label>
+            <label class="field">
+              <span>שלוב / זיז (ס״מ)</span>
+              <input type="number" id="overhang" value="20" min="0" step="5" />
+            </label>
+          </div>
+        </details>
+
+      </form>
+    </section>
+
+    <!-- ============ Output / Plan ============ -->
+    <section class="panel output" aria-label="תוכנית הפרויקט">
+      <div class="output-head">
+        <h1 id="outTitle">תוכנית פרויקט</h1>
+        <p class="subtle" id="outMeta">הזן מידות כדי לחשב את התוכנית</p>
+      </div>
+
+      <!-- Stat tiles -->
+      <div class="stats" id="stats"></div>
+
+      <!-- Diagrams -->
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">שרטוט</h2>
+          <div class="seg small" id="segView">
+            <button type="button" class="seg-btn active" data-val="top">מבט על</button>
+            <button type="button" class="seg-btn" data-val="side">חתך צד</button>
+          </div>
+        </div>
+        <div class="drawing" id="drawing"></div>
+        <p class="legend">
+          <span class="lg lg-post"></span> עמוד
+          <span class="lg lg-beam"></span> קורה ראשית
+          <span class="lg lg-rafter"></span> רפפה
+        </p>
+      </div>
+
+      <!-- Materials -->
+      <div class="card">
+        <h2 class="card-title">רשימת חומרים</h2>
+        <div class="table-wrap">
+          <table class="tbl" id="bomTable">
+            <thead><tr><th>פריט</th><th>מפרט</th><th>כמות</th><th>יחידה</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cut list -->
+      <div class="card">
+        <h2 class="card-title">רשימת חיתוך</h2>
+        <div class="table-wrap">
+          <table class="tbl" id="cutTable">
+            <thead><tr><th>אלמנט</th><th>אורך יחידה</th><th>כמות</th><th>אורך כולל</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cost -->
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">אומדן עלות</h2>
+          <button type="button" class="btn ghost sm" id="btnPrices">✎ עריכת מחירים</button>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl" id="costTable">
+            <thead><tr><th>סעיף</th><th>כמות</th><th>מחיר יח׳ (₪)</th><th>סה״כ (₪)</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="cost-total">
+          <span>סה״כ אומדן חומרים</span>
+          <strong id="grandTotal">₪0</strong>
+        </div>
+        <p class="disclaimer">* המחירים הם ברירת מחדל לאומדן בלבד וניתנים לעריכה. אין לראות בהם הצעת מחיר סופית.</p>
+      </div>
+
+      <!-- Project plan -->
+      <div class="card">
+        <h2 class="card-title">תוכנית עבודה</h2>
+        <ol class="plan-steps" id="planSteps"></ol>
+        <div class="cost-total">
+          <span>משך עבודה מוערך</span>
+          <strong id="totalDays">—</strong>
+        </div>
+      </div>
+
+      <p class="footer-note">נבנה עם ❤️ · פרגו־פלאן — אתה הבעלים המלא של הקוד.</p>
+    </section>
+  </main>
+
+  <!-- Price editor modal -->
+  <dialog id="priceDialog" class="dialog">
+    <form method="dialog">
+      <h2 class="card-title">עריכת מחירים (₪)</h2>
+      <div class="grid-2" id="priceFields"></div>
+      <div class="dialog-actions">
+        <button class="btn ghost" value="cancel">ביטול</button>
+        <button class="btn primary" id="savePrices" value="save">שמירה</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

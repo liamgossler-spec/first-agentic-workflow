@@ -1,0 +1,236 @@
+/* ============ Pergo-Plan · design tokens ============ */
+:root{
+  --bg:#f4f1e9;
+  --surface:#ffffff;
+  --surface-2:#faf8f2;
+  --ink:#2a2b26;
+  --muted:#71756a;
+  --line:#e6dfce;
+  --line-strong:#d8cfb8;
+  --primary:#46603f;      /* forest / olive */
+  --primary-dark:#35492f;
+  --primary-soft:#e7eee2;
+  --accent:#c58a4e;       /* warm wood */
+  --accent-soft:#f0e0cb;
+  --sky:#5f88a0;          /* technical / plan */
+  --danger:#b4553f;
+  --radius:14px;
+  --radius-sm:10px;
+  --shadow:0 1px 2px rgba(42,43,38,.04), 0 8px 24px rgba(42,43,38,.06);
+  --shadow-sm:0 1px 2px rgba(42,43,38,.06);
+  --font:"Rubik", -apple-system, "Segoe UI", system-ui, "Helvetica Neue", Arial, sans-serif;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  font-size:15px;
+}
+
+/* ============ Top bar ============ */
+.app-bar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:12px clamp(16px,3vw,32px);
+  background:rgba(255,255,255,.9);
+  backdrop-filter:saturate(150%) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex; align-items:center; gap:12px}
+.brand-mark{
+  display:grid; place-items:center;
+  width:44px; height:44px; border-radius:12px;
+  background:linear-gradient(150deg,var(--primary),var(--primary-dark));
+  color:#fff; box-shadow:var(--shadow-sm);
+}
+.brand-text{display:flex; flex-direction:column; line-height:1.15}
+.brand-text strong{font-size:18px; font-weight:700; letter-spacing:-.2px}
+.brand-text span{font-size:12px; color:var(--muted)}
+.app-actions{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+
+/* ============ Buttons & controls ============ */
+.btn{
+  font-family:inherit; font-size:14px; font-weight:500;
+  border:1px solid transparent; border-radius:10px;
+  padding:9px 14px; cursor:pointer; transition:.15s;
+  display:inline-flex; align-items:center; gap:6px; white-space:nowrap;
+}
+.btn.sm{padding:6px 10px; font-size:13px}
+.btn.primary{background:var(--primary); color:#fff}
+.btn.primary:hover{background:var(--primary-dark)}
+.btn.ghost{background:var(--surface); color:var(--ink); border-color:var(--line-strong)}
+.btn.ghost:hover{background:var(--surface-2); border-color:var(--primary)}
+.ghost-select{
+  font-family:inherit; font-size:14px; color:var(--ink);
+  background:var(--surface); border:1px solid var(--line-strong);
+  border-radius:10px; padding:8px 12px; cursor:pointer; max-width:200px;
+}
+
+/* ============ Layout ============ */
+.layout{
+  display:grid;
+  grid-template-columns:minmax(340px,440px) 1fr;
+  gap:clamp(16px,2.4vw,28px);
+  padding:clamp(16px,2.4vw,28px);
+  max-width:1400px; margin:0 auto; align-items:start;
+}
+.panel{min-width:0}
+.inputs{position:sticky; top:76px}
+
+/* ============ Cards ============ */
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow-sm);
+  margin-bottom:16px;
+}
+.card-title{font-size:15px; font-weight:600; margin:0 0 14px; letter-spacing:-.1px}
+.card-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px}
+.card-head .card-title{margin:0}
+details.advanced summary{cursor:pointer; list-style:none; margin:0}
+details.advanced summary::-webkit-details-marker{display:none}
+details.advanced summary::before{content:"▸ "; color:var(--accent)}
+details.advanced[open] summary::before{content:"▾ "}
+
+/* ============ Fields ============ */
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field > span{font-size:13px; color:var(--muted); font-weight:500}
+input[type=text], input[type=number], select{
+  font-family:inherit; font-size:15px; color:var(--ink);
+  background:var(--surface-2); border:1px solid var(--line-strong);
+  border-radius:var(--radius-sm); padding:10px 12px; width:100%;
+  transition:.15s;
+}
+input:focus, select:focus{
+  outline:none; border-color:var(--primary);
+  box-shadow:0 0 0 3px var(--primary-soft); background:#fff;
+}
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px}
+.mt{margin-top:12px}
+
+/* ============ Segmented control ============ */
+.seg{display:inline-flex; background:var(--surface-2); border:1px solid var(--line-strong);
+  border-radius:12px; padding:4px; gap:4px; flex-wrap:wrap}
+.seg.small{padding:3px}
+.seg-btn{
+  font-family:inherit; font-size:13.5px; font-weight:500; color:var(--muted);
+  background:transparent; border:none; border-radius:9px;
+  padding:8px 14px; cursor:pointer; transition:.15s;
+}
+.seg.small .seg-btn{padding:6px 12px; font-size:13px}
+.seg-btn:hover{color:var(--ink)}
+.seg-btn.active{background:var(--surface); color:var(--primary); font-weight:600; box-shadow:var(--shadow-sm)}
+
+/* ============ Photo ============ */
+.photo-drop{
+  border:2px dashed var(--line-strong); border-radius:var(--radius-sm);
+  min-height:140px; display:grid; place-items:center; overflow:hidden;
+  background:var(--surface-2); text-align:center; position:relative;
+}
+.photo-empty{display:flex; flex-direction:column; align-items:center; gap:8px; padding:20px; color:var(--muted)}
+.photo-ico{font-size:30px}
+.photo-empty p{margin:0; font-size:13.5px}
+#photoPreview{width:100%; height:auto; display:block; border-radius:8px}
+
+/* ============ Output ============ */
+.output-head{margin-bottom:6px}
+.output-head h1{font-size:24px; font-weight:700; margin:0 0 4px; letter-spacing:-.3px}
+.subtle{color:var(--muted); font-size:14px; margin:0}
+
+/* Stat tiles */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:16px 0}
+.stat{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:14px 16px; box-shadow:var(--shadow-sm);
+}
+.stat .val{font-size:24px; font-weight:700; letter-spacing:-.5px; line-height:1.1}
+.stat .lbl{font-size:12.5px; color:var(--muted); margin-top:3px}
+.stat.accent .val{color:var(--accent)}
+.stat.primary .val{color:var(--primary)}
+
+/* Drawing */
+.drawing{
+  background:linear-gradient(0deg,var(--surface-2),#fff);
+  border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:12px; overflow:auto;
+}
+.drawing svg{display:block; width:100%; height:auto; max-height:420px}
+.legend{display:flex; gap:16px; align-items:center; font-size:12.5px; color:var(--muted); margin:10px 2px 0; flex-wrap:wrap}
+.lg{display:inline-block; width:18px; height:10px; border-radius:3px; margin-inline-end:5px; vertical-align:middle}
+.lg-post{background:var(--primary)}
+.lg-beam{background:var(--accent)}
+.lg-rafter{background:var(--sky)}
+
+/* Tables */
+.table-wrap{overflow-x:auto}
+.tbl{width:100%; border-collapse:collapse; font-size:14px}
+.tbl th, .tbl td{text-align:start; padding:10px 12px; border-bottom:1px solid var(--line)}
+.tbl thead th{font-size:12.5px; color:var(--muted); font-weight:600; background:var(--surface-2)}
+.tbl tbody tr:hover{background:var(--surface-2)}
+.tbl td:last-child, .tbl th:last-child{text-align:end; font-variant-numeric:tabular-nums}
+.tbl .num{text-align:end; font-variant-numeric:tabular-nums}
+.price-input{width:90px; padding:6px 8px; font-size:13px; text-align:end}
+
+.cost-total{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:14px; padding-top:14px; border-top:2px solid var(--line-strong);
+}
+.cost-total span{font-size:14px; color:var(--muted)}
+.cost-total strong{font-size:22px; font-weight:700; color:var(--primary)}
+.disclaimer{font-size:12px; color:var(--muted); margin:10px 0 0}
+
+/* Plan steps */
+.plan-steps{list-style:none; counter-reset:step; margin:0; padding:0}
+.plan-steps li{
+  position:relative; padding:12px 44px 12px 12px; margin-bottom:8px;
+  background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-sm);
+}
+.plan-steps li::before{
+  counter-increment:step; content:counter(step);
+  position:absolute; inset-inline-start:12px; top:12px;
+  width:26px; height:26px; border-radius:50%;
+  background:var(--primary); color:#fff; font-size:13px; font-weight:600;
+  display:grid; place-items:center;
+}
+.plan-steps .step-title{font-weight:600; font-size:14.5px}
+.plan-steps .step-desc{font-size:13px; color:var(--muted); margin-top:2px}
+.plan-steps .step-time{font-size:12.5px; color:var(--accent); font-weight:500; margin-top:3px}
+
+.footer-note{text-align:center; color:var(--muted); font-size:12.5px; margin:20px 0 8px}
+
+/* Dialog */
+.dialog{border:none; border-radius:var(--radius); padding:22px; max-width:440px; width:92%;
+  box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.dialog::backdrop{background:rgba(42,43,38,.4)}
+.dialog-actions{display:flex; justify-content:flex-start; gap:10px; margin-top:16px}
+
+/* ============ Responsive ============ */
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .inputs{position:static}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:480px){
+  .grid-3{grid-template-columns:1fr 1fr}
+  .app-actions .btn span{display:none}
+}
+
+/* ============ Print ============ */
+@media print{
+  .app-bar, .inputs, .app-actions, #btnPrices, .seg, .footer-note{display:none !important}
+  body{background:#fff; font-size:12px}
+  .layout{display:block; padding:0; max-width:100%}
+  .card{box-shadow:none; border:1px solid #ccc; break-inside:avoid; margin-bottom:10px}
+  .output-head h1{font-size:20px}
+  .drawing svg{max-height:340px}
+}
