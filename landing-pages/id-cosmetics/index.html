@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ID cosmetics | קליניקה לטיפוח העור בקרית מוצקין</title>
+<meta name="description" content="ID cosmetics – קליניקה לטיפוח העור בקרית מוצקין. הסרת שיער בלייזר, טיפולי פנים ואנטי-אייג'ינג, הסרת פיגמנטציה, מזותרפיה וקוסמטיקה רפואית באישור משרד הבריאות. לתיאום תור: 054-797-2721">
+<meta property="og:title" content="ID cosmetics | קליניקה לטיפוח העור בקרית מוצקין">
+<meta property="og:description" content="הסרת שיער בלייזר, טיפולי פנים ואנטי-אייג'ינג במחירים הוגנים. דירוג 4.8 בגוגל. לתיאום תור: 054-797-2721">
+<meta property="og:image" content="https://d8j0ntlcm91z4.cloudfront.net/user_36vm0A45O0HnenvQucMpC7VoGek/hf_20260713_124745_c18ffcbc-3967-4c1b-bde0-cced736e8bb3_min.webp">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23221C17'/%3E%3Ctext x='32' y='42' font-family='Georgia' font-size='26' fill='%23C9A25E' text-anchor='middle'%3EID%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6F0;
+    --card:#FFFFFF;
+    --ink:#292420;
+    --muted:#6E6259;
+    --gold:#B08A4F;
+    --gold-deep:#8F6C39;
+    --gold-soft:#EFE3D0;
+    --dark:#221C17;
+    --radius:18px;
+    --shadow:0 12px 34px rgba(34,28,23,.09);
+    --serif:'Frank Ruhl Libre',Georgia,'Times New Roman',serif;
+    --sans:'Heebo',-apple-system,'Segoe UI',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.25}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* ---------- טופ-בר ---------- */
+  .topbar{position:fixed;inset-inline:0;top:0;z-index:50;transition:background .3s,box-shadow .3s;padding:14px 0}
+  .topbar.scrolled{background:rgba(250,246,240,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(34,28,23,.08);padding:10px 0}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .logo{font-family:var(--serif);font-size:1.45rem;letter-spacing:.02em;color:#fff;transition:color .3s;white-space:nowrap}
+  .topbar.scrolled .logo{color:var(--ink)}
+  .logo b{color:var(--gold);font-weight:700}
+  .nav-links{display:flex;gap:26px;font-size:.95rem;font-weight:500;color:rgba(255,255,255,.92);transition:color .3s}
+  .topbar.scrolled .nav-links{color:var(--muted)}
+  .nav-links a:hover{color:var(--gold)}
+  .top-call{background:var(--gold);color:#fff;padding:9px 20px;border-radius:99px;font-weight:600;font-size:.95rem;box-shadow:0 4px 14px rgba(176,138,79,.35);transition:transform .2s,background .2s;white-space:nowrap}
+  .top-call:hover{background:var(--gold-deep);transform:translateY(-1px)}
+  @media(max-width:820px){.nav-links{display:none}}
+
+  /* ---------- הירו ---------- */
+  .hero{position:relative;min-height:92svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .hero .shade{position:absolute;inset:0;background:linear-gradient(10deg,rgba(24,18,12,.82) 12%,rgba(24,18,12,.35) 48%,rgba(24,18,12,.15) 100%)}
+  .hero-inner{position:relative;padding:110px 0 64px;width:100%}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;font-weight:500;letter-spacing:.06em;color:#E9D9BE;margin-bottom:14px}
+  .kicker::before{content:"";width:26px;height:1px;background:var(--gold)}
+  .hero h1{font-size:clamp(2.1rem,5.4vw,3.6rem);max-width:640px;margin-bottom:14px}
+  .hero p.sub{font-size:clamp(1rem,2.2vw,1.2rem);max-width:560px;color:rgba(255,255,255,.88);font-weight:300;margin-bottom:26px}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:22px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:99px;font-weight:600;font-size:1rem;transition:transform .2s,box-shadow .2s,background .2s}
+  .btn svg{width:18px;height:18px;flex:none}
+  .btn-gold{background:var(--gold);color:#fff;box-shadow:0 8px 22px rgba(176,138,79,.42)}
+  .btn-gold:hover{background:var(--gold-deep);transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.45);color:#fff;backdrop-filter:blur(4px)}
+  .btn-ghost:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
+  .rating-chip{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);padding:8px 16px;border-radius:99px;font-size:.92rem}
+  .rating-chip .stars{color:#F2C14E;letter-spacing:2px;font-size:.95rem}
+  .rating-chip b{font-size:1.05rem}
+
+  /* ---------- פס אמון ---------- */
+  .trust{background:var(--dark);color:#EDE4D7}
+  .trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding-top:26px;padding-bottom:26px}
+  .trust-item{display:flex;align-items:center;gap:12px;font-size:.95rem;font-weight:500;justify-content:center;text-align:start}
+  .trust-item svg{width:26px;height:26px;color:var(--gold);flex:none}
+  @media(max-width:820px){.trust .wrap{grid-template-columns:repeat(2,1fr);gap:18px 10px}.trust-item{font-size:.85rem;justify-content:flex-start}}
+
+  /* ---------- כותרות סקשן ---------- */
+  section{padding:76px 0}
+  .sec-head{text-align:center;max-width:620px;margin:0 auto 46px}
+  .sec-head .tag{color:var(--gold-deep);font-weight:600;font-size:.9rem;letter-spacing:.08em;display:block;margin-bottom:10px}
+  .sec-head h2{font-size:clamp(1.7rem,3.6vw,2.4rem);margin-bottom:12px}
+  .sec-head p{color:var(--muted)}
+
+  /* ---------- טיפולים ---------- */
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:26px}
+  .fcard{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+  .fcard:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(34,28,23,.14)}
+  .fcard .ph{aspect-ratio:4/4.6;overflow:hidden}
+  .fcard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .fcard:hover .ph img{transform:scale(1.04)}
+  .fcard .body{padding:20px 22px 24px}
+  .fcard h3{font-size:1.25rem;margin-bottom:8px}
+  .fcard p{color:var(--muted);font-size:.95rem}
+  .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .mcard{background:var(--card);border:1px solid #EFE7DB;border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s,transform .2s}
+  .mcard:hover{border-color:var(--gold);transform:translateY(-2px)}
+  .mcard .ic{width:42px;height:42px;border-radius:12px;background:var(--gold-soft);display:grid;place-items:center;flex:none}
+  .mcard .ic svg{width:22px;height:22px;color:var(--gold-deep)}
+  .mcard h4{font-size:1.02rem;font-weight:600;margin-bottom:3px}
+  .mcard p{font-size:.88rem;color:var(--muted);line-height:1.5}
+  @media(max-width:900px){.feature-grid{grid-template-columns:1fr 1fr}.mini-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.feature-grid{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr}}
+
+  /* ---------- טכנולוגיות ---------- */
+  .tech{background:linear-gradient(160deg,#241D16,#2E251C);color:#F1E9DC;border-radius:calc(var(--radius) + 8px);padding:56px 40px;text-align:center}
+  .tech h2{font-size:clamp(1.6rem,3.2vw,2.1rem);margin-bottom:12px}
+  .tech>p{color:#CBBBA2;max-width:560px;margin:0 auto 30px;font-weight:300}
+  .chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .chip{border:1px solid rgba(201,162,94,.55);color:#E7D5B4;padding:10px 22px;border-radius:99px;font-size:.97rem;font-weight:500;background:rgba(201,162,94,.08)}
+  @media(max-width:600px){.tech{padding:40px 22px}}
+
+  /* ---------- אודות ---------- */
+  .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+  .about-grid .ph{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .about-grid .ph img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/11}
+  .about-copy .tag{color:var(--gold-deep);font-weight:600;font-size:.9rem;letter-spacing:.08em;display:block;margin-bottom:10px}
+  .about-copy h2{font-size:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:16px}
+  .about-copy p{color:var(--muted);margin-bottom:14px}
+  .about-points{list-style:none;margin-top:8px}
+  .about-points li{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-weight:500}
+  .about-points svg{width:20px;height:20px;color:var(--gold);flex:none;margin-top:3px}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+
+  /* ---------- ביקורות ---------- */
+  .reviews{background:var(--card);border-radius:calc(var(--radius) + 8px);box-shadow:var(--shadow);padding:54px 40px;text-align:center}
+  .g-badge{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted);border:1px solid #EAE0D2;border-radius:99px;padding:7px 16px;margin-bottom:18px}
+  .score{font-family:var(--serif);font-size:4rem;line-height:1;color:var(--ink)}
+  .score small{font-size:1.4rem;color:var(--muted)}
+  .stars-row{display:flex;justify-content:center;gap:4px;margin:14px 0 8px}
+  .stars-row svg{width:30px;height:30px}
+  .reviews p.note{color:var(--muted);margin-bottom:24px}
+  @media(max-width:600px){.reviews{padding:40px 22px}}
+
+  /* ---------- צור קשר ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .ccard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:32px}
+  .ccard h3{font-size:1.35rem;margin-bottom:18px}
+  .cline{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #F1EAE0;font-weight:500}
+  .cline:last-of-type{border-bottom:none}
+  .cline .ic{width:40px;height:40px;border-radius:11px;background:var(--gold-soft);display:grid;place-items:center;flex:none}
+  .cline .ic svg{width:20px;height:20px;color:var(--gold-deep)}
+  .cline small{display:block;color:var(--muted);font-weight:400;font-size:.85rem}
+  .cta-box{background:linear-gradient(160deg,#241D16,#332818);border-radius:var(--radius);color:#fff;padding:36px 32px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+  .cta-box h3{font-size:clamp(1.4rem,2.6vw,1.8rem)}
+  .cta-box p{color:#D8C9B2;font-weight:300}
+  .cta-box .btn{justify-content:center}
+  .btn-wa{background:#25D366;color:#fff;box-shadow:0 8px 22px rgba(37,211,102,.35)}
+  .btn-wa:hover{background:#1EBE5A;transform:translateY(-2px)}
+  .btn-line{border:1px solid rgba(255,255,255,.4);color:#fff;background:transparent}
+  .btn-line:hover{background:rgba(255,255,255,.1)}
+  @media(max-width:860px){.contact-grid{grid-template-columns:1fr}}
+
+  /* ---------- פוטר ---------- */
+  footer{background:var(--dark);color:#B8AA96;padding:34px 0 96px;font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  footer .logo{color:#fff;font-size:1.2rem}
+  @media(min-width:821px){footer{padding-bottom:34px}}
+
+  /* ---------- בר תחתון במובייל ---------- */
+  .sticky-bar{position:fixed;bottom:0;inset-inline:0;z-index:60;display:none;grid-template-columns:1fr 1fr;gap:1px;background:#1B1611;padding-bottom:env(safe-area-inset-bottom)}
+  .sticky-bar a{display:flex;align-items:center;justify-content:center;gap:8px;padding:15px 8px;font-weight:600;font-size:.98rem;color:#fff}
+  .sticky-bar a svg{width:19px;height:19px}
+  .sticky-bar .call{background:var(--gold)}
+  .sticky-bar .wa{background:#25D366}
+  @media(max-width:820px){.sticky-bar{display:grid}}
+
+  /* ---------- אנימציית הופעה ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- טופ-בר -->
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="logo" href="#top">ID <b>cosmetics</b></a>
+    <nav class="nav-links">
+      <a href="#treatments">הטיפולים</a>
+      <a href="#tech">הטכנולוגיות</a>
+      <a href="#about">הקליניקה</a>
+      <a href="#reviews">ביקורות</a>
+      <a href="#contact">צור קשר</a>
+    </nav>
+    <a class="top-call" href="tel:+972547972721">054-797-2721</a>
+  </div>
+</header>
+
+<!-- הירו -->
+<section class="hero" id="top">
+  <img class="bg" src="https://d8j0ntlcm91z4.cloudfront.net/user_36vm0A45O0HnenvQucMpC7VoGek/hf_20260713_124745_c18ffcbc-3967-4c1b-bde0-cced736e8bb3_min.webp" alt="טיפוח עור פנים – ID cosmetics">
+  <div class="shade"></div>
+  <div class="wrap hero-inner">
+    <span class="kicker">קליניקה לטיפוח העור · קרית מוצקין</span>
+    <h1>העור שלך מרגיש את ההבדל כשמטפלים בו נכון</h1>
+    <p class="sub">הסרת שיער בלייזר, טיפולי פנים ואנטי-אייג'ינג, טיפול בפיגמנטציה ועוד – עם הטכנולוגיות המתקדמות בתחום, יחס אישי ומחירים הוגנים.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-gold" href="tel:+972547972721">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+        לתיאום תור: 054-797-2721
+      </a>
+      <a class="btn btn-ghost" href="https://wa.me/972547972721?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%AA%D7%95%D7%A8%20%3A%29" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-.9-.3-1.6-.6-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.7.8c.3.1.5.2.5.3.1.2.1.7-.2 1.4z"/></svg>
+        כתבו לנו בוואטסאפ
+      </a>
+    </div>
+    <div class="rating-chip">
+      <span class="stars">★★★★★</span>
+      <span><b>4.8</b> · דירוג הלקוחות שלנו בגוגל</span>
+    </div>
+  </div>
+</section>
+
+<!-- פס אמון -->
+<div class="trust">
+  <div class="wrap">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      מוצרים באישור משרד הבריאות
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>
+      טכנולוגיות מתקדמות
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      יחס אישי ומקצועי
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      מחירים הוגנים
+    </div>
+  </div>
+</div>
+
+<!-- טיפולים -->
+<section id="treatments">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">הטיפולים שלנו</span>
+      <h2>כל מה שהעור שלך צריך, במקום אחד</h2>
+      <p>מגוון טיפולי פנים וגוף המותאמים אישית לכל סוג עור – בעזרת ציוד מקצועי וידיים מנוסות.</p>
+    </div>
+
+    <div class="feature-grid">
+      <article class="fcard reveal">
+        <div class="ph"><img loading="lazy" src="https://d8j0ntlcm91z4.cloudfront.net/user_36vm0A45O0HnenvQucMpC7VoGek/hf_20260713_124748_ee60ac22-7641-4f33-861d-c14cfbd68acf_min.webp" alt="הסרת שיער בלייזר"></div>
+        <div class="body">
+          <h3>הסרת שיער בלייזר</h3>
+          <p>הסרת שיער יעילה ובטוחה לנשים וגברים, בהתאמה אישית לסוג העור והשיער.</p>
+        </div>
+      </article>
+      <article class="fcard reveal">
+        <div class="ph"><img loading="lazy" src="https://d8j0ntlcm91z4.cloudfront.net/user_36vm0A45O0HnenvQucMpC7VoGek/hf_20260713_124756_0e101ea0-26c4-4086-851a-707d3ae5fe38_min.webp" alt="טיפולי פנים ואנטי-אייג'ינג"></div>
+        <div class="body">
+          <h3>טיפולי פנים ואנטי-אייג'ינג</h3>
+          <p>טיפולי פנים לכל סוגי העור, מיצוק והצערת עור הפנים בטכנולוגיות מתקדמות.</p>
+        </div>
+      </article>
+      <article class="fcard reveal">
+        <div class="ph"><img loading="lazy" src="https://d8j0ntlcm91z4.cloudfront.net/user_36vm0A45O0HnenvQucMpC7VoGek/hf_20260713_124801_268f0e09-87d3-44db-85ab-3ad9505dcafe_min.webp" alt="קוסמטיקה רפואית"></div>
+        <div class="body">
+          <h3>קוסמטיקה רפואית</h3>
+          <p>מוצרי טיפוח מהמותגים המובילים בעולם, מאושרים לשימוש על ידי משרד הבריאות.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="mini-grid">
+      <div class="mcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></div>
+        <div><h4>הסרת נגעי עור ופיגמנטציה</h4><p>טיפול ממוקד בכתמים, נגעי עור ופגמי צבע.</p></div>
+      </div>
+      <div class="mcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a7 7 0 0 1 7 7c0 3.9-3.1 7-7 11-3.9-4-7-7.1-7-11a7 7 0 0 1 7-7z"/></svg></div>
+        <div><h4>פילינג עמוק</h4><p>חידוש והחלקת מרקם העור לעור רענן וזוהר.</p></div>
+      </div>
+      <div class="mcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M5 7l14 10M19 7 5 17"/></svg></div>
+        <div><h4>מזותרפיה</h4><p>הזנת העור בחומרים פעילים להזנה והצערה.</p></div>
+      </div>
+      <div class="mcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 19 7-14 7 14H5z"/></svg></div>
+        <div><h4>אפילציה</h4><p>הסרת שיער בשיטה מדויקת, גם לשיערות בהירות.</p></div>
+      </div>
+      <div class="mcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c2-1 4-1 6 0s4 1 6 0 4-1 6 0M4 9c2-1 4-1 6 0s4 1 6 0 4-1 6 0M4 19c2-1 4-1 6 0s4 1 6 0 4-1 6 0"/></svg></div>
+        <div><h4>שעווה</h4><p>הסרת שיער קלאסית ומהירה לעור חלק.</p></div>
+      </div>
+      <div class="mcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9z"/><path d="M9 10h.01M15 10h.01M8.5 15a4.5 4.5 0 0 0 7 0"/></svg></div>
+        <div><h4>טיפולי פנים לכל סוגי העור</h4><p>התאמה אישית – עור רגיש, שמן, יבש או משולב.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- טכנולוגיות -->
+<section id="tech" style="padding-top:0">
+  <div class="wrap">
+    <div class="tech reveal">
+      <h2>הטכנולוגיות שעובדות בשבילך</h2>
+      <p>הטיפולים בקליניקה מבוצעים במיטב הטכנולוגיות והטכניקות המוכרות כיום בתחום הקוסמטיקה הרפואית:</p>
+      <div class="chips">
+        <span class="chip">גלי רדיו</span>
+        <span class="chip">לייזר</span>
+        <span class="chip">אולטרה-סאונד</span>
+        <span class="chip">אלקטרו-קואגולציה</span>
+        <span class="chip">מיקרו-תרפיה</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- אודות -->
+<section id="about" style="padding-top:0">
+  <div class="wrap about-grid">
+    <div class="ph reveal">
+      <img loading="lazy" src="https://d8j0ntlcm91z4.cloudfront.net/user_36vm0A45O0HnenvQucMpC7VoGek/hf_20260713_124804_6d6da688-55a2-4946-80fb-a132edd90663_min.webp" alt="חדר הטיפולים בקליניקה">
+    </div>
+    <div class="about-copy reveal">
+      <span class="tag">הקליניקה</span>
+      <h2>קליניקה מקצועית לטיפוח העור, כאן בקרית מוצקין</h2>
+      <p>ב-ID cosmetics תמצאו טיפולי פנים וגוף המבוצעים בטכנולוגיות המתקדמות בתחום, בסביבה נעימה, נקייה ומקצועית – ובעיקר עם יחס אישי אמיתי לכל לקוחה ולקוח.</p>
+      <ul class="about-points">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>התאמת טיפול אישית לכל סוג עור</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>מוצרי קוסמטיקה רפואית מהמותגים המובילים בעולם</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>כל המוצרים מאושרים לשימוש על ידי משרד הבריאות</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>שירותים ומוצרים במחירים הוגנים</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ביקורות -->
+<section id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <div class="reviews reveal">
+      <span class="g-badge">
+        <svg width="17" height="17" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.6 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h5.9a5 5 0 0 1-2.2 3.3v2.8h3.6c2.1-2 3.3-4.9 3.3-8.3z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.8c-1 .7-2.3 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.6H2.1v2.9A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14a6.6 6.6 0 0 1 0-4.2V6.9H2.1a11 11 0 0 0 0 10l3.7-2.9z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7L19.4 4A11 11 0 0 0 2.1 6.9L5.8 9.8c.9-2.7 3.3-4.4 6.2-4.4z"/></svg>
+        ביקורות Google
+      </span>
+      <div class="score">4.8<small>/5</small></div>
+      <div class="stars-row" aria-label="דירוג 4.8 מתוך 5">
+        <svg viewBox="0 0 24 24" fill="#F2C14E"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="#F2C14E"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="#F2C14E"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        <svg viewBox="0 0 24 24" fill="#F2C14E"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        <svg viewBox="0 0 24 24"><defs><linearGradient id="st8" x1="1" x2="0"><stop offset="80%" stop-color="#F2C14E"/><stop offset="80%" stop-color="#E8E0D3"/></linearGradient></defs><path fill="url(#st8)" d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+      </div>
+      <p class="note">כך מדרגים אותנו הלקוחות בגוגל – שקיפות מלאה, בלי פילטרים.</p>
+      <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=ID+cosmetics+%D7%A9%D7%93%D7%A8%D7%95%D7%AA+%D7%9E%D7%A9%D7%94+%D7%92%D7%95%D7%A9%D7%9F+14+%D7%A7%D7%A8%D7%99%D7%AA+%D7%9E%D7%95%D7%A6%D7%A7%D7%99%D7%9F" target="_blank" rel="noopener">לכל הביקורות בגוגל</a>
+    </div>
+  </div>
+</section>
+
+<!-- צור קשר -->
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">צור קשר</span>
+      <h2>קובעים תור בשיחה אחת</h2>
+      <p>מוזמנים להתקשר או לשלוח הודעת וואטסאפ – נשמח להתאים לך את הטיפול הנכון.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="ccard reveal">
+        <h3>פרטי הקליניקה</h3>
+        <div class="cline">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div>שדרות משה גושן 14, קרית מוצקין<small>קומת קרקע, נגישות נוחה</small></div>
+        </div>
+        <div class="cline">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span>
+          <div><a href="tel:+972547972721">054-797-2721</a><small>מומלץ לתאם תור מראש</small></div>
+        </div>
+        <div class="cline">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+          <div>שעות פעילות<small>נא לתאם הגעה בטלפון או בוואטסאפ</small></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+          <a class="btn" style="background:#33CCFF;color:#fff;padding:11px 20px;font-size:.92rem" href="https://waze.com/ul?q=%D7%A9%D7%93%D7%A8%D7%95%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%95%D7%A9%D7%9F%2014%20%D7%A7%D7%A8%D7%99%D7%AA%20%D7%9E%D7%95%D7%A6%D7%A7%D7%99%D7%9F&navigate=yes" target="_blank" rel="noopener">ניווט ב-Waze</a>
+          <a class="btn" style="background:var(--gold-soft);color:var(--gold-deep);padding:11px 20px;font-size:.92rem" href="https://www.google.com/maps/search/?api=1&query=%D7%A9%D7%93%D7%A8%D7%95%D7%AA+%D7%9E%D7%A9%D7%94+%D7%92%D7%95%D7%A9%D7%9F+14+%D7%A7%D7%A8%D7%99%D7%AA+%D7%9E%D7%95%D7%A6%D7%A7%D7%99%D7%9F" target="_blank" rel="noopener">פתיחה במפות Google</a>
+        </div>
+      </div>
+      <div class="cta-box reveal">
+        <h3>רוצה עור זוהר? זה מתחיל בהודעה אחת.</h3>
+        <p>ספרו לנו מה מעניין אתכם – הסרת שיער, טיפול פנים או ייעוץ מוצרים – ונחזור אליכם עם כל הפרטים.</p>
+        <a class="btn btn-wa" href="https://wa.me/972547972721?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%AA%D7%95%D7%A8%20%3A%29" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-.9-.3-1.6-.6-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.7.8c.3.1.5.2.5.3.1.2.1.7-.2 1.4z"/></svg>
+          שליחת הודעה בוואטסאפ
+        </a>
+        <a class="btn btn-line" href="tel:+972547972721">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+          או בטלפון: 054-797-2721
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- פוטר -->
+<footer>
+  <div class="wrap">
+    <span class="logo">ID <b>cosmetics</b></span>
+    <span>שדרות משה גושן 14, קרית מוצקין · 054-797-2721</span>
+    <span>© ID cosmetics</span>
+  </div>
+</footer>
+
+<!-- בר פעולות במובייל -->
+<div class="sticky-bar">
+  <a class="call" href="tel:+972547972721">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+    התקשרו עכשיו
+  </a>
+  <a class="wa" href="https://wa.me/972547972721?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%AA%D7%95%D7%A8%20%3A%29" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-.9-.3-1.6-.6-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.7.8c.3.1.5.2.5.3.1.2.1.7-.2 1.4z"/></svg>
+    וואטסאפ
+  </a>
+</div>
+
+<script>
+  // טופ-בר משנה רקע בגלילה
+  const topbar = document.getElementById('topbar');
+  const onScroll = () => topbar.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // הופעה עדינה בגלילה
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
