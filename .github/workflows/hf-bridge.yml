@@ -1,0 +1,49 @@
+name: hf-bridge
+# גשר בין הריפו הזה לריפו האתר ב-Higgsfield (הרשת של סביבת ה-agent חסומה לשם).
+# mode=pull: משכפל את תבנית האתר של Higgsfield אל landing-pages/id-cosmetics/hf-app
+# mode=push: דוחף את תוכן hf-app אל הריפו של Higgsfield
+# מפתח הגישה מגיע כקלט בזמן ריצה בלבד ואינו נשמר בקוד.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "pull | push"
+        required: true
+        default: "pull"
+      hf_token:
+        description: "Higgsfield repo access token (runtime only)"
+        required: true
+permissions:
+  contents: write
+concurrency: hf-bridge
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bridge
+        env:
+          HF_REPO: https://apps-repos.higgsfield.ai/hfu-user36vm0A45O0HnenvQucMpC7VoGek/id-cosmetics-df2451ee-8b86-45ea-9f36-f6344bf97c8f.git
+          HF_TOKEN: ${{ inputs.hf_token }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          set -euo pipefail
+          echo "::add-mask::$HF_TOKEN"
+          DIR=landing-pages/id-cosmetics/hf-app
+          git config user.name "hf-bridge"
+          git config user.email "hf-bridge@users.noreply.github.com"
+          git -c http.extraHeader="Authorization: token $HF_TOKEN" clone "$HF_REPO" /tmp/hf
+          if [ "$MODE" = "push" ]; then
+            rsync -a --delete --exclude '.git' "$DIR"/ /tmp/hf/
+            cd /tmp/hf
+            git add -A
+            git -c user.name=hf-bridge -c user.email=hf-bridge@users.noreply.github.com \
+              commit -m "Deploy ID cosmetics landing page" || echo "nothing to commit"
+            git -c http.extraHeader="Authorization: token $HF_TOKEN" push origin main
+          else
+            mkdir -p "$DIR"
+            rsync -a --exclude '.git' /tmp/hf/ "$DIR"/
+            git add -f "$DIR"
+            git commit -m "hf-bridge: mirror higgsfield template" || echo "nothing to commit"
+            git push origin HEAD
+          fi
