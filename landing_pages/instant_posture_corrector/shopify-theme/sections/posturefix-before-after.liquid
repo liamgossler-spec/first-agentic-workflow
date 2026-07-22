@@ -1,0 +1,83 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-section" style="background:{{ section.settings.bg_color }};">
+    <div class="pfx-wrap">
+      <h2 class="pfx-center">{{ section.settings.heading }}</h2>
+      <p class="pfx-sub pfx-center">{{ section.settings.sub }}</p>
+      <div class="pfx-ba-grid">
+        <div class="pfx-ba-card pfx-ba-card--before">
+          <span class="pfx-ba-tag">{{ section.settings.before_label }}</span>
+          <svg class="pfx-ba-art" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="118" cy="52" r="17" fill="#d99a86"/>
+            <path d="M110 66 Q84 84 82 118 L84 168 L98 168 L96 122 Q100 96 122 82 Z" fill="#d99a86"/>
+            <path d="M112 78 Q96 96 96 120" stroke="#b3543a" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="2 7"/>
+          </svg>
+          <ul>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'before_point' -%}
+                <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+        <div class="pfx-ba-card pfx-ba-card--after">
+          <span class="pfx-ba-tag">{{ section.settings.after_label }}</span>
+          <svg class="pfx-ba-art" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="42" r="17" fill="#0fa393"/>
+            <path d="M92 60 L92 168 L106 168 L106 60 Z" fill="#0fa393"/>
+            <path d="M99 62 L99 130" stroke="#0b7d71" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 7"/>
+            <path d="M84 74 Q99 88 114 74" stroke="#0e2a3a" stroke-width="6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <ul>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'after_point' -%}
+                <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX Before After",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Difference You’ll Feel — and See" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Posture changes how you feel, how you breathe, and how people see you." },
+    { "type": "text", "id": "before_label", "label": "Before label", "default": "WITHOUT POSTUREFIX PRO" },
+    { "type": "text", "id": "after_label", "label": "After label", "default": "WITH POSTUREFIX PRO" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f5f8f9" }
+  ],
+  "blocks": [
+    {
+      "type": "before_point",
+      "name": "Before point",
+      "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "Pain point before" } ]
+    },
+    {
+      "type": "after_point",
+      "name": "After point",
+      "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "Benefit after" } ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "PFX Before After",
+      "blocks": [
+        { "type": "before_point", "settings": { "text": "Head juts forward, neck strained" } },
+        { "type": "before_point", "settings": { "text": "Shoulders rolled in, chest compressed" } },
+        { "type": "before_point", "settings": { "text": "Aches, tension & low energy" } },
+        { "type": "after_point", "settings": { "text": "Spine tall & naturally aligned" } },
+        { "type": "after_point", "settings": { "text": "Shoulders open, easier breathing" } },
+        { "type": "after_point", "settings": { "text": "Confident, energized presence" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

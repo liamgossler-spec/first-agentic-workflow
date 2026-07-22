@@ -1,0 +1,66 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-trust" style="background:{{ section.settings.bg_color }};">
+    <div class="pfx-wrap">
+      {%- for block in section.blocks -%}
+        <div class="pfx-trust-item" {{ block.shopify_attributes }}>
+          {%- case block.settings.icon -%}
+            {%- when 'shipping' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7fd6cc" stroke-width="2"><path d="M3 7h13v10H3zM16 10h3l2 3v4h-5z"/><circle cx="7" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/></svg>
+            {%- when 'secure' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7fd6cc" stroke-width="2"><rect x="5" y="10" width="14" height="9" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            {%- when 'support' -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7fd6cc" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>
+            {%- else -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7fd6cc" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>
+          {%- endcase -%}
+          {{ block.settings.text }}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX Trust Strip",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0e2a3a" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "check",
+          "options": [
+            { "value": "check", "label": "Checkmark" },
+            { "value": "shipping", "label": "Truck" },
+            { "value": "secure", "label": "Lock" },
+            { "value": "support", "label": "Person" }
+          ]
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "Trust point" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "PFX Trust Strip",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "check", "text": "30-Day Guarantee" } },
+        { "type": "item", "settings": { "icon": "shipping", "text": "Free Fast Shipping" } },
+        { "type": "item", "settings": { "icon": "secure", "text": "Secure Checkout" } },
+        { "type": "item", "settings": { "icon": "support", "text": "Friendly Support" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

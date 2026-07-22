@@ -1,0 +1,65 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-section">
+    <div class="pfx-wrap">
+      <h2 class="pfx-center">{{ section.settings.heading }}</h2>
+      <p class="pfx-sub pfx-center"><span class="pfx-stars">★★★★★</span>&nbsp; {{ section.settings.rating_text }}</p>
+      <div class="pfx-grid3">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {%- render block -%}
+            {%- else -%}
+              <div class="pfx-card pfx-quote" {{ block.shopify_attributes }}>
+                <span class="pfx-stars">{% for i in (1..block.settings.stars) %}★{% endfor %}</span>
+                <p class="pfx-quote-q">“{{ block.settings.quote }}”</p>
+                <div class="pfx-who">
+                  <div class="pfx-avatar">{{ block.settings.author | slice: 0 | upcase | default: '?' }}</div>
+                  <div>
+                    <div class="pfx-who-name">{{ block.settings.author }}</div>
+                    <div class="pfx-who-tag">✓ {{ block.settings.verified_label }}</div>
+                  </div>
+                </div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX Reviews",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Real Customers. Real Relief." },
+    { "type": "text", "id": "rating_text", "label": "Rating line", "default": "Rated by verified buyers", "info": "Keep in sync with your real review stats. Only publish reviews from real customers." }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Paste a real customer review here — from your review app or order feedback." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Customer name" },
+        { "type": "text", "id": "verified_label", "label": "Verified label", "default": "Verified Purchase" }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [
+    {
+      "name": "PFX Reviews",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

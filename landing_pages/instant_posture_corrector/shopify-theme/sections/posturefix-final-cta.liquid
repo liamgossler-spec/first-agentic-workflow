@@ -1,0 +1,33 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-section pfx-final" style="background:linear-gradient(135deg,{{ section.settings.bg_color }},{{ section.settings.bg_color_2 }});">
+    <div class="pfx-wrap">
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.text }}</p>
+      <a class="pfx-btn pfx-btn--big" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }} <span class="pfx-arrow">→</span></a>
+      <p class="pfx-micro"><b>✓</b> {{ section.settings.micro }}</p>
+      {%- if section.settings.disclaimer != blank -%}
+        <p class="pfx-disclaimer">{{ section.settings.disclaimer }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX Final CTA",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stand Taller. Feel Better. Starting Today." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "It’s time to straighten up with the Alignly PostureFix Pro™ — 33% off and free shipping, for a limited time." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "GET 33% OFF NOW" },
+    { "type": "text", "id": "cta_link", "label": "Button link", "default": "#posturefix-buy" },
+    { "type": "text", "id": "micro", "label": "Microcopy", "default": "30-Day Money-Back Guarantee — you risk nothing" },
+    { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "This product is not intended to diagnose, treat, cure or prevent any disease. If you have a medical condition, consult your physician before use." },
+    { "type": "color", "id": "bg_color", "label": "Background top", "default": "#0e2a3a" },
+    { "type": "color", "id": "bg_color_2", "label": "Background bottom", "default": "#123a50" }
+  ],
+  "presets": [{ "name": "PFX Final CTA" }]
+}
+{% endschema %}

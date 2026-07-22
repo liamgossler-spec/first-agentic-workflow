@@ -1,0 +1,50 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx" id="pfx-ann-{{ section.id }}">
+  <div class="pfx-bar" style="background:{{ section.settings.bg_color }};color:{{ section.settings.text_color }};">
+    {{ section.settings.text }}
+    {%- if section.settings.highlight != blank %} <b>{{ section.settings.highlight }}</b>{% endif -%}
+    {%- if section.settings.show_countdown %} — {{ section.settings.countdown_label }} <span class="pfx-clock" data-pfx-countdown data-end="{{ section.settings.sale_end | escape }}">--:--:--</span>{% endif -%}
+  </div>
+</div>
+
+<script>
+(function () {
+  function initPfxCountdown(root) {
+    root.querySelectorAll('[data-pfx-countdown]').forEach(function (el) {
+      if (el.dataset.pfxInit === '1') return;
+      el.dataset.pfxInit = '1';
+      var end = new Date(el.dataset.end).getTime();
+      if (isNaN(end)) { el.style.display = 'none'; return; }
+      function pad(n) { return String(n).padStart(2, '0'); }
+      function tick() {
+        var d = end - Date.now();
+        if (d <= 0) { el.textContent = '00:00:00'; return; }
+        var h = Math.floor(d / 36e5), m = Math.floor(d % 36e5 / 6e4), s = Math.floor(d % 6e4 / 1e3);
+        el.textContent = (h > 23 ? Math.floor(h / 24) + 'd ' : '') + pad(h % 24) + ':' + pad(m) + ':' + pad(s);
+        setTimeout(tick, 1000);
+      }
+      tick();
+    });
+  }
+  initPfxCountdown(document);
+  document.addEventListener('shopify:section:load', function (e) { initPfxCountdown(e.target); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PFX Announcement",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Message", "default": "🔥 SUMMER SALE:" },
+    { "type": "text", "id": "highlight", "label": "Highlighted text", "default": "33% OFF + FREE SHIPPING" },
+    { "type": "checkbox", "id": "show_countdown", "label": "Show countdown", "default": true },
+    { "type": "text", "id": "countdown_label", "label": "Countdown label", "default": "ends in" },
+    { "type": "text", "id": "sale_end", "label": "Sale end (YYYY-MM-DDTHH:MM)", "default": "2026-07-27T23:59", "info": "Set the real end of your sale. The countdown stops at zero — it never resets." },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0e2a3a" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "PFX Announcement" }]
+}
+{% endschema %}

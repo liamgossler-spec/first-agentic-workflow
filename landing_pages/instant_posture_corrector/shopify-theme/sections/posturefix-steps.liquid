@@ -1,0 +1,52 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-section" style="background:{{ section.settings.bg_color }};">
+    <div class="pfx-wrap">
+      <h2 class="pfx-center">{{ section.settings.heading }}</h2>
+      <p class="pfx-sub pfx-center">{{ section.settings.sub }}</p>
+      <div class="pfx-steps">
+        {%- for block in section.blocks -%}
+          <div class="pfx-step" {{ block.shopify_attributes }}>
+            <div class="pfx-num">{{ forloop.index }}</div>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX How It Works",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Better Posture in 3 Simple Steps" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "No exercises to remember. No appointments to book. Just put it on." },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f5f8f9" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Step title" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Describe this step in one or two short sentences." }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "PFX How It Works",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Slip It On", "text": "Put it on like a backpack — takes 10 seconds, over or under your clothes." } },
+        { "type": "step", "settings": { "title": "Adjust the Straps", "text": "Set your comfort level. Feel your shoulders glide back and your spine straighten instantly." } },
+        { "type": "step", "settings": { "title": "Wear 30 Min a Day", "text": "Your muscles relearn healthy alignment — so standing tall becomes your new default." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

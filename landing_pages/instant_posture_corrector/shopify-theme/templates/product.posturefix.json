@@ -1,0 +1,160 @@
+{
+  "sections": {
+    "pfx_announcement": {
+      "type": "posturefix-announcement",
+      "settings": {
+        "text": "🔥 SUMMER SALE:",
+        "highlight": "33% OFF + FREE SHIPPING",
+        "show_countdown": true,
+        "countdown_label": "ends in",
+        "sale_end": "2026-07-27T23:59"
+      }
+    },
+    "pfx_header": {
+      "type": "posturefix-header",
+      "settings": {
+        "brand_main": "Align",
+        "brand_accent": "ly",
+        "cta_label": "Get 33% Off",
+        "cta_link": "#posturefix-buy"
+      }
+    },
+    "pfx_hero": {
+      "type": "posturefix-hero",
+      "blocks": {
+        "check1": { "type": "check", "settings": { "text": "<p>Instant posture correction the second you slip it on</p>" } },
+        "check2": { "type": "check", "settings": { "text": "<p>Relieves tension in your neck, shoulders &amp; upper back</p>" } },
+        "check3": { "type": "check", "settings": { "text": "<p>Breathable, adjustable &amp; discreet under any outfit</p>" } }
+      },
+      "block_order": ["check1", "check2", "check3"],
+      "settings": {
+        "rating_text": "Rated by verified customers",
+        "heading": "<p>Stop Slouching in <em>Seconds</em>. Feel Relief All Day.</p>",
+        "cta_label": "GET 33% OFF TODAY",
+        "cta_link": "#posturefix-buy",
+        "badge": "SAVE 33%",
+        "image": "shopify://shop_images/alignly-posturefix-hero.png",
+        "show_float": false,
+        "float_quote": "Add a short real customer quote here",
+        "float_author": "Verified Buyer"
+      }
+    },
+    "pfx_trust": {
+      "type": "posturefix-trust",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "check", "text": "30-Day Guarantee" } },
+        "t2": { "type": "item", "settings": { "icon": "shipping", "text": "Free Fast Shipping" } },
+        "t3": { "type": "item", "settings": { "icon": "secure", "text": "Secure Checkout" } },
+        "t4": { "type": "item", "settings": { "icon": "support", "text": "Friendly Support" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "pfx_pain": {
+      "type": "posturefix-pain",
+      "blocks": {
+        "p1": { "type": "card", "settings": { "icon": "neck", "title": "“Tech Neck” Pain", "text": "Every inch your head drifts forward adds ~10 lbs of strain on your neck. That end-of-day ache isn’t random — it’s posture." } },
+        "p2": { "type": "card", "settings": { "icon": "shoulders", "title": "Rounded Shoulders", "text": "Slouched shoulders compress your chest, restrict breathing, and make you look shorter and less confident than you are." } },
+        "p3": { "type": "card", "settings": { "icon": "energy", "title": "Constant Tension", "text": "Your muscles fight gravity all day in the wrong position — leaving you stiff, tense and exhausted by the afternoon." } }
+      },
+      "block_order": ["p1", "p2", "p3"]
+    },
+    "pfx_solution": {
+      "type": "posturefix-solution",
+      "settings": {
+        "image": "shopify://shop_images/alignly-posturefix-closeup.png"
+      },
+      "blocks": {
+        "s1": { "type": "check", "settings": { "text": "<p><strong>Gentle, adjustable tension</strong> pulls shoulders back instantly</p>" } },
+        "s2": { "type": "check", "settings": { "text": "<p><strong>Trains muscle memory</strong> — good posture sticks, even without it</p>" } },
+        "s3": { "type": "check", "settings": { "text": "<p><strong>Invisible under clothes</strong> — wear it at work, at home, anywhere</p>" } },
+        "s4": { "type": "check", "settings": { "text": "<p><strong>Adjustable fit</strong> — available in sizes S to XXXL</p>" } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"]
+    },
+    "pfx_steps": {
+      "type": "posturefix-steps",
+      "blocks": {
+        "st1": { "type": "step", "settings": { "title": "Slip It On", "text": "Put it on like a backpack — takes 10 seconds, over or under your clothes." } },
+        "st2": { "type": "step", "settings": { "title": "Adjust the Straps", "text": "Set your comfort level. Feel your shoulders glide back and your spine straighten instantly." } },
+        "st3": { "type": "step", "settings": { "title": "Wear 30 Min a Day", "text": "Your muscles relearn healthy alignment — so standing tall becomes your new default." } }
+      },
+      "block_order": ["st1", "st2", "st3"]
+    },
+    "pfx_ba": {
+      "type": "posturefix-before-after",
+      "blocks": {
+        "b1": { "type": "before_point", "settings": { "text": "Head juts forward, neck strained" } },
+        "b2": { "type": "before_point", "settings": { "text": "Shoulders rolled in, chest compressed" } },
+        "b3": { "type": "before_point", "settings": { "text": "Aches, tension & low energy" } },
+        "a1": { "type": "after_point", "settings": { "text": "Spine tall & naturally aligned" } },
+        "a2": { "type": "after_point", "settings": { "text": "Shoulders open, easier breathing" } },
+        "a3": { "type": "after_point", "settings": { "text": "Confident, energized presence" } }
+      },
+      "block_order": ["b1", "b2", "b3", "a1", "a2", "a3"]
+    },
+    "pfx_reviews": {
+      "type": "posturefix-reviews",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "quote": "Paste a real customer review here — from your review app or order feedback.", "author": "Customer name" } },
+        "r2": { "type": "review", "settings": { "quote": "Paste a real customer review here — from your review app or order feedback.", "author": "Customer name" } },
+        "r3": { "type": "review", "settings": { "quote": "Paste a real customer review here — from your review app or order feedback.", "author": "Customer name" } }
+      },
+      "block_order": ["r1", "r2", "r3"]
+    },
+    "pfx_compare": {
+      "type": "posturefix-compare",
+      "blocks": {
+        "c1": { "type": "row", "settings": { "label": "Instant posture support", "ours": "✓", "alt_a": "✓", "alt_b": "✕" } },
+        "c2": { "type": "row", "settings": { "label": "Comfortable for daily wear", "ours": "✓", "alt_a": "✕", "alt_b": "—" } },
+        "c3": { "type": "row", "settings": { "label": "Builds lasting muscle memory", "ours": "✓", "alt_a": "✕", "alt_b": "✓" } },
+        "c4": { "type": "row", "settings": { "label": "Discreet under clothing", "ours": "✓", "alt_a": "✕", "alt_b": "—" } },
+        "c5": { "type": "row", "settings": { "label": "One-time cost", "ours": "✓ one payment", "alt_a": "✓ but wears out fast", "alt_b": "✕ $65–$200 per visit" } },
+        "c6": { "type": "row", "settings": { "label": "Money-back guarantee", "ours": "✓ 30 days", "alt_a": "✕ rarely", "alt_b": "✕" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6"]
+    },
+    "pfx_buy": {
+      "type": "posturefix-buy-box",
+      "blocks": {
+        "tier1": { "type": "tier", "settings": { "qty": 1, "title": "Buy 1", "sub": "Perfect to try it out" } },
+        "tier2": { "type": "tier", "settings": { "qty": 2, "title": "Buy 2", "sub": "One for home, one for work", "badge": "MOST POPULAR", "preselect": true } },
+        "tier3": { "type": "tier", "settings": { "qty": 3, "title": "Buy 3", "sub": "Share better posture with family", "badge": "BEST VALUE", "badge_style": "teal" } }
+      },
+      "block_order": ["tier1", "tier2", "tier3"]
+    },
+    "pfx_guarantee": {
+      "type": "posturefix-guarantee"
+    },
+    "pfx_faq": {
+      "type": "posturefix-faq",
+      "blocks": {
+        "q1": { "type": "faq", "settings": { "question": "How long until I see results?", "answer": "<p>You’ll feel the difference the moment you put it on — shoulders back, spine aligned. With consistent wear (about 30 minutes a day), most customers notice their natural posture improving within a few weeks as muscle memory builds.</p>" } },
+        "q2": { "type": "faq", "settings": { "question": "Will it fit me?", "answer": "<p>Yes — the straps are fully adjustable and it comes in sizes S to XXXL, so you can pick the perfect fit for your body type.</p>" } },
+        "q3": { "type": "faq", "settings": { "question": "Can I wear it under clothes?", "answer": "<p>Absolutely. The slim, breathable design is virtually invisible under a shirt or blouse, so you can wear it at the office, while commuting, or at home.</p>" } },
+        "q4": { "type": "faq", "settings": { "question": "How long should I wear it each day?", "answer": "<p>Start with 20–30 minutes a day and increase gradually as it feels comfortable. It’s designed to gently remind your muscles of correct alignment — not to do all the work forever.</p>" } },
+        "q5": { "type": "faq", "settings": { "question": "How fast is shipping?", "answer": "<p>Orders ship within 24 hours and arrive with free tracked shipping. You’ll receive your tracking number by email as soon as it’s on the way.</p>" } },
+        "q6": { "type": "faq", "settings": { "question": "What if it doesn’t work for me?", "answer": "<p>You’re covered by our 30-day money-back guarantee. If you’re not happy for any reason, contact support and we’ll refund you in full.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"]
+    },
+    "pfx_final": {
+      "type": "posturefix-final-cta"
+    }
+  },
+  "order": [
+    "pfx_announcement",
+    "pfx_header",
+    "pfx_hero",
+    "pfx_trust",
+    "pfx_pain",
+    "pfx_solution",
+    "pfx_steps",
+    "pfx_ba",
+    "pfx_reviews",
+    "pfx_compare",
+    "pfx_buy",
+    "pfx_guarantee",
+    "pfx_faq",
+    "pfx_final"
+  ]
+}

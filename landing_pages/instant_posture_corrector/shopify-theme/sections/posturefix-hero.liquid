@@ -1,0 +1,81 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-hero">
+    <div class="pfx-wrap">
+      <div>
+        <div class="pfx-rating"><span class="pfx-stars">★★★★★</span> {{ section.settings.rating_text }}</div>
+        <h1>{{ section.settings.heading | replace: '<p>', '' | replace: '</p>', '' }}</h1>
+        <p class="pfx-lead">{{ section.settings.lead }}</p>
+        {%- if section.blocks.size > 0 -%}
+          <ul class="pfx-checks">
+            {%- for block in section.blocks -%}
+              <li {{ block.shopify_attributes }}><span class="pfx-tick">✓</span> <span class="pfx-check-text">{{ block.settings.text }}</span></li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        <a class="pfx-btn pfx-btn--big" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }} <span class="pfx-arrow">→</span></a>
+        <p class="pfx-micro">{{ section.settings.micro }}</p>
+      </div>
+      <div class="pfx-hero-media">
+        {%- if section.settings.badge != blank -%}<div class="pfx-hero-badge">{{ section.settings.badge }}</div>{%- endif -%}
+        <div class="pfx-hero-img">
+          {%- if section.settings.image -%}
+            {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'eager', alt: section.settings.image.alt | default: product.title }}
+          {%- elsif product.featured_image -%}
+            {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.featured_image.alt | default: product.title }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'pfx-placeholder' }}
+          {%- endif -%}
+        </div>
+        {%- if section.settings.show_float -%}
+          <div class="pfx-float-review">
+            <span class="pfx-stars">★★★★★</span>
+            “{{ section.settings.float_quote }}”
+            <div class="pfx-float-author">{{ section.settings.float_author }}</div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX Hero",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "rating_text", "label": "Rating line", "default": "Rated by verified customers", "info": "Keep this in sync with your real review count." },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Stop Slouching in <em>Seconds</em>. Feel Relief All Day.</p>", "info": "Italic text is shown in the accent color." },
+    { "type": "textarea", "id": "lead", "label": "Subheading", "default": "The PostureFix Pro™ gently pulls your shoulders back into perfect alignment — easing neck, shoulder and back tension from the moment you put it on. Just 30 minutes a day retrains your posture for good." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "GET 33% OFF TODAY" },
+    { "type": "text", "id": "cta_link", "label": "Button link", "default": "#posturefix-buy" },
+    { "type": "text", "id": "micro", "label": "Microcopy under button", "default": "✓ 30-Day Money-Back Guarantee ✓ Free Shipping ✓ Ships Within 24h" },
+    { "type": "text", "id": "badge", "label": "Image badge", "default": "SAVE 33%" },
+    { "type": "image_picker", "id": "image", "label": "Hero image", "info": "Falls back to the product's featured image." },
+    { "type": "checkbox", "id": "show_float", "label": "Show floating review card", "default": true },
+    { "type": "text", "id": "float_quote", "label": "Floating review quote", "default": "Add a short real customer quote here" },
+    { "type": "text", "id": "float_author", "label": "Floating review author", "default": "Verified Buyer" }
+  ],
+  "blocks": [
+    {
+      "type": "check",
+      "name": "Checkmark line",
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Benefit-driven checkmark line</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "PFX Hero",
+      "blocks": [
+        { "type": "check" },
+        { "type": "check" },
+        { "type": "check" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,70 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-section">
+    <div class="pfx-wrap pfx-split">
+      <div>
+        <div class="pfx-media-img">
+          {%- if section.settings.image -%}
+            {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.image.alt | default: product.title }}
+          {%- elsif product.images[1] -%}
+            {{ product.images[1] | image_url: width: 1000 | image_tag: loading: 'lazy', alt: product.images[1].alt | default: product.title }}
+          {%- elsif product.featured_image -%}
+            {{ product.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: product.title }}
+          {%- else -%}
+            {{ 'product-2' | placeholder_svg_tag: 'pfx-placeholder' }}
+          {%- endif -%}
+        </div>
+      </div>
+      <div>
+        <span class="pfx-eyebrow">{{ section.settings.eyebrow }}</span>
+        <h2>{{ section.settings.heading }}</h2>
+        <p class="pfx-split-text">{{ section.settings.text }}</p>
+        {%- if section.blocks.size > 0 -%}
+          <ul class="pfx-checks">
+            {%- for block in section.blocks -%}
+              <li {{ block.shopify_attributes }}><span class="pfx-tick">✓</span> <span class="pfx-check-text">{{ block.settings.text }}</span></li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        <a class="pfx-btn" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }} <span class="pfx-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX Solution",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Fix" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Meet the PostureFix Pro™" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "A featherlight, breathable brace that wraps around your shoulders and gently guides your spine into its natural, healthy alignment — no bulky straps, no workouts, no willpower required." },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Falls back to the product's second image." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Try It Risk-Free" },
+    { "type": "text", "id": "cta_link", "label": "Button link", "default": "#posturefix-buy" }
+  ],
+  "blocks": [
+    {
+      "type": "check",
+      "name": "Checkmark line",
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p><strong>Key benefit</strong> — supporting detail</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "PFX Solution",
+      "blocks": [
+        { "type": "check", "settings": { "text": "<p><strong>Gentle, adjustable tension</strong> pulls shoulders back instantly</p>" } },
+        { "type": "check", "settings": { "text": "<p><strong>Trains muscle memory</strong> — good posture sticks, even without it</p>" } },
+        { "type": "check", "settings": { "text": "<p><strong>Invisible under clothes</strong> — wear it at work, at home, anywhere</p>" } },
+        { "type": "check", "settings": { "text": "<p><strong>Adjustable fit</strong> — available in sizes S to XXXL</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

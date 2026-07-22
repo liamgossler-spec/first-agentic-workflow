@@ -1,0 +1,32 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-section">
+    <div class="pfx-wrap">
+      <div class="pfx-guarantee-inner" style="background:{{ section.settings.bg_color }};">
+        <svg class="pfx-guarantee-badge" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="54" fill="none" stroke="#0fa393" stroke-width="6"/>
+          <circle cx="60" cy="60" r="42" fill="#0fa393"/>
+          <path d="M44 61l11 11 21-24" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <h2>{{ section.settings.heading }}</h2>
+          <p>{{ section.settings.text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX Guarantee",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Love It, or It’s Free — 30-Day Guarantee" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Try the PostureFix Pro™ for a full 30 days. If you don’t feel taller, straighter and more comfortable, send it back for a full refund — no questions, no hassle. You risk nothing.", "info": "Make sure this matches your store's actual refund policy." },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0e2a3a" }
+  ],
+  "presets": [{ "name": "PFX Guarantee" }]
+}
+{% endschema %}

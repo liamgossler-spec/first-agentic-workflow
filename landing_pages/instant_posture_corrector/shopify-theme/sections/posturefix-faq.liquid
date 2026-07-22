@@ -1,0 +1,53 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-section" style="background:{{ section.settings.bg_color }};">
+    <div class="pfx-wrap" style="max-width:760px">
+      <h2 class="pfx-center">{{ section.settings.heading }}</h2>
+      <p class="pfx-sub pfx-center">{{ section.settings.sub }}</p>
+      {%- for block in section.blocks -%}
+        <details class="pfx-faq-item" {% if forloop.first and section.settings.open_first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }} <span class="pfx-chev">▼</span></summary>
+          <div class="pfx-faq-a">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX FAQ",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Everything you need to know before you order." },
+    { "type": "checkbox", "id": "open_first", "label": "Open first question by default", "default": true },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f5f8f9" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Your question here?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Your answer here.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "PFX FAQ",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "How long until I see results?", "answer": "<p>You’ll feel the difference the moment you put it on — shoulders back, spine aligned. With consistent wear (about 30 minutes a day), most customers notice their natural posture improving within a few weeks as muscle memory builds.</p>" } },
+        { "type": "faq", "settings": { "question": "Will it fit me?", "answer": "<p>Yes — the straps are fully adjustable and it comes in sizes S to XXXL, so you can pick the perfect fit for your body type.</p>" } },
+        { "type": "faq", "settings": { "question": "Can I wear it under clothes?", "answer": "<p>Absolutely. The slim, breathable design is virtually invisible under a shirt or blouse, so you can wear it at the office, while commuting, or at home.</p>" } },
+        { "type": "faq", "settings": { "question": "How long should I wear it each day?", "answer": "<p>Start with 20–30 minutes a day and increase gradually as it feels comfortable. It’s designed to gently remind your muscles of correct alignment — not to do all the work forever.</p>" } },
+        { "type": "faq", "settings": { "question": "How fast is shipping?", "answer": "<p>Orders ship within 24 hours and arrive with free tracked shipping. You’ll receive your tracking number by email as soon as it’s on the way.</p>" } },
+        { "type": "faq", "settings": { "question": "What if it doesn’t work for me?", "answer": "<p>You’re covered by our 30-day money-back guarantee. If you’re not happy for any reason, contact support and we’ll refund you in full.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

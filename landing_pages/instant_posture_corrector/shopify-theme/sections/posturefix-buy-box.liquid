@@ -1,0 +1,247 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+{%- assign pfx_variant = product.selected_or_first_available_variant -%}
+{%- assign pfx_form_id = 'pfx-form-' | append: section.id -%}
+
+<div class="pfx" id="posturefix-buy" data-pfx-buybox data-currency="{{ cart.currency.iso_code }}">
+  <div class="pfx-section pfx-offer">
+    <div class="pfx-wrap">
+      <h2 class="pfx-center">{{ section.settings.heading }}</h2>
+      <p class="pfx-sub pfx-center">{{ section.settings.sub }}</p>
+
+      <div class="pfx-buybox">
+        <div class="pfx-center">
+          {%- if section.settings.pill != blank -%}<span class="pfx-save-pill">{{ section.settings.pill }}</span>{%- endif -%}
+          <div class="pfx-price-row">
+            <span class="pfx-price" data-pfx-price>{{ pfx_variant.price | money }}</span>
+            <span class="pfx-was" data-pfx-was{% unless pfx_variant.compare_at_price > pfx_variant.price %} style="display:none"{% endunless %}>{{ pfx_variant.compare_at_price | money }}</span>
+          </div>
+          {%- if section.settings.rating_text != blank -%}
+            <div class="pfx-rating pfx-rating--center"><span class="pfx-stars">★★★★★</span> {{ section.settings.rating_text }}</div>
+          {%- endif -%}
+        </div>
+
+        <script type="application/json" data-pfx-variants>
+          [{%- for v in product.variants -%}
+            {"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }},"price":{{ v.price }},{% if v.compare_at_price %}"compare":{{ v.compare_at_price }}{% else %}"compare":null{% endif %}}
+            {%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}]
+        </script>
+
+        {% form 'product', product, id: pfx_form_id %}
+          <input type="hidden" name="id" data-pfx-id value="{{ pfx_variant.id }}">
+          <input type="hidden" name="quantity" data-pfx-qty-input value="1">
+
+          {%- unless product.has_only_default_variant -%}
+            <div class="pfx-opts">
+              {%- for option in product.options_with_values -%}
+                <fieldset style="border:0">
+                  <legend class="pfx-opt-label">{{ option.name }}</legend>
+                  <div class="pfx-opt-pills">
+                    {%- for value in option.values -%}
+                      <label class="pfx-opt-pill">
+                        <input type="radio" name="pfx-opt-{{ section.id }}-{{ forloop.parentloop.index0 }}"
+                               data-pfx-opt data-idx="{{ forloop.parentloop.index0 }}" value="{{ value | escape }}"
+                               {% if option.selected_value == value %}checked{% endif %}>
+                        <span>{{ value }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                </fieldset>
+              {%- endfor -%}
+            </div>
+          {%- endunless -%}
+
+          {%- if section.blocks.size > 0 -%}
+            <div class="pfx-tiers" data-pfx-tiers>
+              {%- for block in section.blocks -%}
+                <label class="pfx-tier{% if block.settings.preselect %} pfx-tier--selected{% endif %}" data-pfx-tier data-qty="{{ block.settings.qty }}" {{ block.shopify_attributes }}>
+                  {%- if block.settings.badge != blank -%}
+                    <span class="pfx-flag{% if block.settings.badge_style == 'teal' %} pfx-flag--alt{% endif %}">{{ block.settings.badge }}</span>
+                  {%- endif -%}
+                  <input type="radio" name="pfx-tier-{{ section.id }}" value="{{ block.settings.qty }}" {% if block.settings.preselect %}checked{% endif %}>
+                  <div>
+                    <div class="pfx-tier-name">{{ block.settings.title }}</div>
+                    <div class="pfx-tier-sub">{{ block.settings.sub }}</div>
+                  </div>
+                  <div class="pfx-tier-price">
+                    <div class="pfx-tier-now" data-pfx-tier-now>{{ pfx_variant.price | times: block.settings.qty | money }}</div>
+                    <div class="pfx-tier-old" data-pfx-tier-old>{%- if pfx_variant.compare_at_price -%}{{ pfx_variant.compare_at_price | times: block.settings.qty | money }}{%- endif -%}</div>
+                  </div>
+                </label>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <button type="submit" class="pfx-btn pfx-btn--big pfx-buy-btn" data-pfx-submit {% unless pfx_variant.available %}disabled{% endunless %}>
+            {%- if pfx_variant.available -%}{{ section.settings.cta_label }}{%- else -%}{{ section.settings.soldout_label }}{%- endif %} <span class="pfx-arrow">→</span>
+          </button>
+        {% endform %}
+
+        {%- if section.settings.micro != blank -%}<p class="pfx-micro pfx-center">{{ section.settings.micro }}</p>{%- endif -%}
+        {%- if section.settings.show_pay -%}
+          <div class="pfx-pay"><span>VISA</span><span>MASTERCARD</span><span>AMEX</span><span>PAYPAL</span><span>SHOP PAY</span></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.sticky_enable -%}
+    <div class="pfx-sticky" data-pfx-sticky>
+      <div>
+        <div class="pfx-sticky-now" data-pfx-sticky-price>{{ pfx_variant.price | money }}</div>
+        <div class="pfx-sticky-was" data-pfx-sticky-was{% unless pfx_variant.compare_at_price > pfx_variant.price %} style="display:none"{% endunless %}>{{ pfx_variant.compare_at_price | money }}</div>
+      </div>
+      <a class="pfx-btn" href="#posturefix-buy">{{ section.settings.sticky_label }} →</a>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+(function () {
+  function initPfxBuyBox(scope) {
+    scope.querySelectorAll('[data-pfx-buybox]').forEach(function (root) {
+      if (root.dataset.pfxInit === '1') return;
+      root.dataset.pfxInit = '1';
+
+      var variants = [];
+      try { variants = JSON.parse(root.querySelector('[data-pfx-variants]').textContent); } catch (e) { return; }
+      var fmt = new Intl.NumberFormat(undefined, { style: 'currency', currency: root.dataset.currency || 'USD' });
+      var money = function (cents) { return fmt.format(cents / 100); };
+
+      var idInput = root.querySelector('[data-pfx-id]');
+      var qtyInput = root.querySelector('[data-pfx-qty-input]');
+      var priceEl = root.querySelector('[data-pfx-price]');
+      var wasEl = root.querySelector('[data-pfx-was]');
+      var submitBtn = root.querySelector('[data-pfx-submit]');
+      var soldoutLabel = {{ section.settings.soldout_label | json }};
+      var ctaLabel = {{ section.settings.cta_label | json }};
+
+      function selectedOptions() {
+        var opts = [];
+        root.querySelectorAll('[data-pfx-opt]:checked').forEach(function (r) { opts[+r.dataset.idx] = r.value; });
+        return opts;
+      }
+      function currentVariant() {
+        var sel = selectedOptions();
+        if (!sel.length) return variants[0];
+        return variants.find(function (v) {
+          return v.options.every(function (o, i) { return sel[i] === undefined || sel[i] === o; });
+        }) || null;
+      }
+      function currentQty() {
+        var t = root.querySelector('[data-pfx-tier] input:checked');
+        return t ? Math.max(1, parseInt(t.value, 10) || 1) : 1;
+      }
+      function render() {
+        var v = currentVariant();
+        var qty = currentQty();
+        qtyInput.value = qty;
+        if (!v) {
+          if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = soldoutLabel; }
+          return;
+        }
+        idInput.value = v.id;
+        if (priceEl) priceEl.textContent = money(v.price * qty);
+        if (wasEl) {
+          if (v.compare && v.compare > v.price) { wasEl.style.display = ''; wasEl.textContent = money(v.compare * qty); }
+          else { wasEl.style.display = 'none'; }
+        }
+        root.querySelectorAll('[data-pfx-tier]').forEach(function (tier) {
+          var tq = Math.max(1, parseInt(tier.dataset.qty, 10) || 1);
+          var now = tier.querySelector('[data-pfx-tier-now]');
+          var old = tier.querySelector('[data-pfx-tier-old]');
+          if (now) now.textContent = money(v.price * tq);
+          if (old) old.textContent = (v.compare && v.compare > v.price) ? money(v.compare * tq) : '';
+          tier.classList.toggle('pfx-tier--selected', tier.querySelector('input').checked);
+        });
+        var stickyPrice = root.querySelector('[data-pfx-sticky-price]');
+        var stickyWas = root.querySelector('[data-pfx-sticky-was]');
+        if (stickyPrice) stickyPrice.textContent = money(v.price * qty);
+        if (stickyWas) {
+          if (v.compare && v.compare > v.price) { stickyWas.style.display = ''; stickyWas.textContent = money(v.compare * qty); }
+          else { stickyWas.style.display = 'none'; }
+        }
+        if (submitBtn) {
+          submitBtn.disabled = !v.available;
+          submitBtn.innerHTML = (v.available ? ctaLabel : soldoutLabel) + ' <span class="pfx-arrow">→</span>';
+        }
+      }
+
+      root.addEventListener('change', function (e) {
+        if (e.target.matches('[data-pfx-opt], [data-pfx-tier] input')) render();
+      });
+      render();
+
+      var sticky = root.querySelector('[data-pfx-sticky]');
+      if (sticky && 'IntersectionObserver' in window) {
+        var boxVisible = false;
+        var box = root.querySelector('.pfx-buybox');
+        new IntersectionObserver(function (entries) {
+          boxVisible = entries[0].isIntersecting;
+          update();
+        }).observe(box);
+        var update = function () {
+          sticky.classList.toggle('pfx-sticky--show', window.scrollY > 600 && !boxVisible);
+        };
+        window.addEventListener('scroll', update, { passive: true });
+      }
+    });
+  }
+  initPfxBuyBox(document);
+  document.addEventListener('shopify:section:load', function (e) { initPfxBuyBox(e.target); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PFX Buy Box",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Claim Your 33% Discount" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Limited-time summer sale — free shipping included on every order." },
+    { "type": "text", "id": "pill", "label": "Sale pill", "default": "SUMMER SALE — SAVE 33%" },
+    { "type": "text", "id": "rating_text", "label": "Rating line", "default": "Loved by verified buyers" },
+    { "type": "text", "id": "cta_label", "label": "Add to cart label", "default": "ADD TO CART — SAVE 33%" },
+    { "type": "text", "id": "soldout_label", "label": "Sold out label", "default": "SOLD OUT" },
+    { "type": "text", "id": "micro", "label": "Microcopy", "default": "✓ 30-Day Money-Back Guarantee ✓ Free Shipping ✓ Secure Checkout" },
+    { "type": "checkbox", "id": "show_pay", "label": "Show payment badges", "default": true },
+    { "type": "checkbox", "id": "sticky_enable", "label": "Show sticky mobile bar", "default": true },
+    { "type": "text", "id": "sticky_label", "label": "Sticky bar button label", "default": "GET 33% OFF" }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Quantity tier",
+      "settings": [
+        { "type": "range", "id": "qty", "label": "Quantity", "min": 1, "max": 10, "step": 1, "default": 1 },
+        { "type": "text", "id": "title", "label": "Title", "default": "Buy 1" },
+        { "type": "text", "id": "sub", "label": "Subtitle", "default": "Perfect to try it out" },
+        { "type": "text", "id": "badge", "label": "Badge (optional)" },
+        {
+          "type": "select",
+          "id": "badge_style",
+          "label": "Badge color",
+          "default": "orange",
+          "options": [
+            { "value": "orange", "label": "Orange" },
+            { "value": "teal", "label": "Teal" }
+          ]
+        },
+        { "type": "checkbox", "id": "preselect", "label": "Selected by default", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "PFX Buy Box",
+      "blocks": [
+        { "type": "tier", "settings": { "qty": 1, "title": "Buy 1", "sub": "Perfect to try it out" } },
+        { "type": "tier", "settings": { "qty": 2, "title": "Buy 2", "sub": "One for home, one for work", "badge": "MOST POPULAR", "preselect": true } },
+        { "type": "tier", "settings": { "qty": 3, "title": "Buy 3", "sub": "Share better posture with family", "badge": "BEST VALUE", "badge_style": "teal" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

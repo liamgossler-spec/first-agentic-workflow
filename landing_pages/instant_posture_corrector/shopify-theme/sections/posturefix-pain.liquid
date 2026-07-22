@@ -1,0 +1,72 @@
+{{ 'posturefix-page.css' | asset_url | stylesheet_tag }}
+
+<div class="pfx">
+  <div class="pfx-section" style="background:{{ section.settings.bg_color }};">
+    <div class="pfx-wrap">
+      <h2 class="pfx-center">{{ section.settings.heading }}</h2>
+      <p class="pfx-sub pfx-center">{{ section.settings.sub }}</p>
+      <div class="pfx-grid3">
+        {%- for block in section.blocks -%}
+          <div class="pfx-card" {{ block.shopify_attributes }}>
+            <div class="pfx-card-icon">
+              {%- case block.settings.icon -%}
+                {%- when 'shoulders' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0fa393" stroke-width="2"><path d="M4 14c3-4 5-4 8-1s5 3 8-1"/><path d="M4 8h16" opacity=".4"/></svg>
+                {%- when 'energy' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0fa393" stroke-width="2"><path d="M13 3 5 13h5l-1 8 8-11h-5z"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0fa393" stroke-width="2"><circle cx="12" cy="6" r="2.5"/><path d="M12 9c-1 3-4 4-4 8m4-8c2 1 3 3 3 5"/><path d="M15 18h4"/></svg>
+              {%- endcase -%}
+            </div>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PFX Pain Points",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Hours of Hunching Are Wrecking Your Back" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Desks, laptops and phones pull your head forward and roll your shoulders in. Left unchecked, poor posture quietly builds into daily pain and drained energy." },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f5f8f9" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Pain card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "neck",
+          "options": [
+            { "value": "neck", "label": "Neck" },
+            { "value": "shoulders", "label": "Shoulders" },
+            { "value": "energy", "label": "Energy bolt" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Pain point" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Describe the pain your customer feels every day." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "PFX Pain Points",
+      "blocks": [
+        { "type": "card", "settings": { "icon": "neck", "title": "“Tech Neck” Pain", "text": "Every inch your head drifts forward adds ~10 lbs of strain on your neck. That end-of-day ache isn’t random — it’s posture." } },
+        { "type": "card", "settings": { "icon": "shoulders", "title": "Rounded Shoulders", "text": "Slouched shoulders compress your chest, restrict breathing, and make you look shorter and less confident than you are." } },
+        { "type": "card", "settings": { "icon": "energy", "title": "Constant Tension", "text": "Your muscles fight gravity all day in the wrong position — leaving you stiff, tense and exhausted by the afternoon." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
