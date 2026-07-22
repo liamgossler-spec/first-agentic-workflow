@@ -201,6 +201,36 @@
 .pfx-sticky-was{font-size:13px;color:#9fb0bc;text-decoration:line-through}
 .pfx-sticky .pfx-btn{flex:1;padding:13px 10px;font-size:15px}
 
+/* PDP hero (gallery + buy box) */
+.pfx-pdp-section{padding:26px 0 56px;background:linear-gradient(180deg,#fbfdfd,#fff)}
+.pfx-pdp{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:start}
+.pfx-gallery{position:sticky;top:84px}
+.pfx-gallery-main{border-radius:16px;overflow:hidden;border:1px solid var(--pfx-line);background:#fff}
+.pfx-gallery-main img{width:100%;height:auto;display:block}
+.pfx-thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.pfx-thumb{width:64px;height:64px;border-radius:10px;border:2px solid var(--pfx-line);overflow:hidden;padding:0;cursor:pointer;background:#fff;transition:border-color .15s}
+.pfx-thumb:hover{border-color:#bcd8d5}
+.pfx-thumb--on{border-color:var(--pfx-teal)}
+.pfx-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pfx-pdp-title{font-size:clamp(26px,3.2vw,36px);line-height:1.12;margin:6px 0 14px;color:var(--pfx-navy);letter-spacing:-.02em}
+.pfx-benefits{list-style:none;display:grid;gap:9px;margin:0 0 6px}
+.pfx-benefits li{display:flex;gap:10px;font-weight:600;font-size:15px;color:var(--pfx-navy);align-items:flex-start}
+.pfx-benefits svg{width:20px;height:20px;flex:none;margin-top:2px}
+.pfx-pdp-price-row{display:flex;align-items:center;gap:12px;margin:14px 0 4px;flex-wrap:wrap}
+.pfx-pdp-price{font-size:34px;font-weight:800;color:var(--pfx-navy)}
+.pfx-save-badge{background:#ffe9e2;color:#d24324;font-weight:800;font-size:13px;padding:4px 12px;border-radius:999px;letter-spacing:.03em}
+.pfx-tiers-label{font-weight:800;font-size:12.5px;letter-spacing:.08em;color:#6b7f8f;margin-bottom:2px}
+.pfx-tier-gift{font-size:12.5px;font-weight:700;color:#0b8a3d;margin-top:3px}
+.pfx-lowstock{display:flex;align-items:center;gap:8px;color:#d92027;font-weight:700;font-size:13.5px;margin:10px 0 12px}
+.pfx-lowstock-dot{width:8px;height:8px;border-radius:50%;background:#d92027;animation:pfxPulse 1.2s infinite}
+@keyframes pfxPulse{50%{opacity:.3}}
+.pfx-timeline{display:flex;margin-top:22px;border-top:1px solid var(--pfx-line);padding-top:20px;position:relative}
+.pfx-tl-item{text-align:center;flex:1;position:relative;font-size:12.5px;color:#51677a}
+.pfx-tl-item b{display:block;color:var(--pfx-navy);font-size:13px;margin-bottom:2px}
+.pfx-tl-dot{display:block;width:12px;height:12px;border-radius:50%;background:var(--pfx-teal);margin:0 auto 8px;position:relative;z-index:2}
+.pfx-tl-item::before{content:"";position:absolute;top:25px;left:-50%;width:100%;height:2px;background:var(--pfx-teal-soft)}
+.pfx-tl-item:first-child::before{display:none}
+
 /* Rich text inside inline contexts */
 .pfx-check-text p{display:inline;margin:0}
 .pfx-faq-a p{margin:0 0 8px}
@@ -209,6 +239,9 @@
 /* Responsive */
 @media (max-width:900px){
   .pfx-section{padding:48px 0}
+  .pfx-pdp{grid-template-columns:1fr;gap:24px}
+  .pfx-gallery{position:static}
+  .pfx-pdp-section{padding:16px 0 44px}
   .pfx-hero .pfx-wrap,.pfx-split{grid-template-columns:1fr;gap:32px}
   .pfx-hero-media{order:-1}
   .pfx-grid3,.pfx-steps{grid-template-columns:1fr}

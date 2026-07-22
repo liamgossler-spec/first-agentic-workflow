@@ -7,7 +7,8 @@
         "highlight": "33% OFF + FREE SHIPPING",
         "show_countdown": true,
         "countdown_label": "ends in",
-        "sale_end": "2026-07-27T23:59"
+        "sale_end": "2026-07-27T23:59",
+        "bg_color": "#d92027"
       }
     },
     "pfx_header": {
@@ -19,24 +20,21 @@
         "cta_link": "#posturefix-buy"
       }
     },
-    "pfx_hero": {
-      "type": "posturefix-hero",
+    "pfx_pdp": {
+      "type": "posturefix-pdp",
       "blocks": {
-        "check1": { "type": "check", "settings": { "text": "<p>Instant posture correction the second you slip it on</p>" } },
-        "check2": { "type": "check", "settings": { "text": "<p>Relieves tension in your neck, shoulders &amp; upper back</p>" } },
-        "check3": { "type": "check", "settings": { "text": "<p>Breathable, adjustable &amp; discreet under any outfit</p>" } }
+        "ben1": { "type": "benefit", "settings": { "icon": "bolt", "text": "Instantly straightens & aligns your posture" } },
+        "ben2": { "type": "benefit", "settings": { "icon": "heart", "text": "Relieves back, shoulder and neck tension" } },
+        "ben3": { "type": "benefit", "settings": { "icon": "muscle", "text": "Builds lasting muscle memory in 30 min/day" } },
+        "ben4": { "type": "benefit", "settings": { "icon": "shield", "text": "Breathable & invisible under any outfit" } },
+        "tier1": { "type": "tier", "settings": { "qty": 1, "title": "Buy 1", "sub": "Perfect to try it out" } },
+        "tier2": { "type": "tier", "settings": { "qty": 2, "title": "Buy 2", "sub": "One for home, one for work", "badge": "MOST POPULAR", "preselect": true } },
+        "tier3": { "type": "tier", "settings": { "qty": 3, "title": "Buy 3", "sub": "Share better posture with family", "badge": "BEST VALUE", "badge_style": "teal" } }
       },
-      "block_order": ["check1", "check2", "check3"],
+      "block_order": ["ben1", "ben2", "ben3", "ben4", "tier1", "tier2", "tier3"],
       "settings": {
         "rating_text": "Rated by verified customers",
-        "heading": "<p>Stop Slouching in <em>Seconds</em>. Feel Relief All Day.</p>",
-        "cta_label": "GET 33% OFF TODAY",
-        "cta_link": "#posturefix-buy",
-        "badge": "SAVE 33%",
-        "image": "shopify://shop_images/alignly-posturefix-hero.png",
-        "show_float": false,
-        "float_quote": "Add a short real customer quote here",
-        "float_author": "Verified Buyer"
+        "title_text": "PostureFix Pro™ — Instant Posture Corrector"
       }
     },
     "pfx_trust": {
@@ -113,15 +111,6 @@
       },
       "block_order": ["c1", "c2", "c3", "c4", "c5", "c6"]
     },
-    "pfx_buy": {
-      "type": "posturefix-buy-box",
-      "blocks": {
-        "tier1": { "type": "tier", "settings": { "qty": 1, "title": "Buy 1", "sub": "Perfect to try it out" } },
-        "tier2": { "type": "tier", "settings": { "qty": 2, "title": "Buy 2", "sub": "One for home, one for work", "badge": "MOST POPULAR", "preselect": true } },
-        "tier3": { "type": "tier", "settings": { "qty": 3, "title": "Buy 3", "sub": "Share better posture with family", "badge": "BEST VALUE", "badge_style": "teal" } }
-      },
-      "block_order": ["tier1", "tier2", "tier3"]
-    },
     "pfx_guarantee": {
       "type": "posturefix-guarantee"
     },
@@ -144,7 +133,7 @@
   "order": [
     "pfx_announcement",
     "pfx_header",
-    "pfx_hero",
+    "pfx_pdp",
     "pfx_trust",
     "pfx_pain",
     "pfx_solution",
@@ -152,7 +141,6 @@
     "pfx_ba",
     "pfx_reviews",
     "pfx_compare",
-    "pfx_buy",
     "pfx_guarantee",
     "pfx_faq",
     "pfx_final"
