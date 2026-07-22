@@ -231,6 +231,16 @@
 .pfx-tl-item::before{content:"";position:absolute;top:25px;left:-50%;width:100%;height:2px;background:var(--pfx-teal-soft)}
 .pfx-tl-item:first-child::before{display:none}
 
+/* Frequently bought together */
+.pfx-fbt-item{position:relative;text-align:center;display:flex;flex-direction:column;gap:10px}
+.pfx-fbt-img{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--pfx-line);background:#fff}
+.pfx-fbt-img img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+.pfx-fbt-title{font-weight:700;font-size:15px;color:var(--pfx-navy)}
+.pfx-fbt-price{font-size:16px;color:var(--pfx-navy)}
+.pfx-fbt-price s{color:#9fb0bc;font-size:13px;margin-left:8px}
+.pfx-fbt-item form{margin-top:auto}
+.pfx-fbt-empty{border:2px dashed #b9d4d4;border-radius:12px;padding:36px 16px;color:#5d8484;font-weight:600;font-size:13.5px;background:#f4faf9}
+
 /* Rich text inside inline contexts */
 .pfx-check-text p{display:inline;margin:0}
 .pfx-faq-a p{margin:0 0 8px}

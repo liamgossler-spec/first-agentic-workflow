@@ -111,6 +111,15 @@
       },
       "block_order": ["c1", "c2", "c3", "c4", "c5", "c6"]
     },
+    "pfx_fbt": {
+      "type": "posturefix-fbt",
+      "blocks": {
+        "f1": { "type": "item" },
+        "f2": { "type": "item" },
+        "f3": { "type": "item" }
+      },
+      "block_order": ["f1", "f2", "f3"]
+    },
     "pfx_guarantee": {
       "type": "posturefix-guarantee"
     },
@@ -141,6 +150,7 @@
     "pfx_ba",
     "pfx_reviews",
     "pfx_compare",
+    "pfx_fbt",
     "pfx_guarantee",
     "pfx_faq",
     "pfx_final"
