@@ -1,0 +1,45 @@
+{{ 'postavo-page.css' | asset_url | stylesheet_tag }}
+<style>
+  .pv-home-hero{position:relative;min-height:72vh;display:flex;align-items:center;background-size:cover;background-position:center right;color:#fff}
+  .pv-home-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,30,30,.72) 0%,rgba(10,30,30,.35) 55%,rgba(10,30,30,.05) 100%)}
+  .pv-home-hero .pv-wrap{position:relative;z-index:1;width:100%}
+  .pv-hh-inner{max-width:560px;padding:70px 0}
+  .pv-hh-eyebrow{display:inline-block;background:rgba(255,255,255,.14);backdrop-filter:blur(4px);border-radius:999px;padding:6px 16px;font-size:13px;font-weight:700;letter-spacing:.06em;margin-bottom:18px}
+  .pv-hh-inner h1{font-size:clamp(34px,4.6vw,58px);line-height:1.08;margin:0 0 16px;color:#fff}
+  .pv-hh-inner p{font-size:clamp(16px,1.6vw,19px);color:rgba(255,255,255,.88);margin:0 0 28px}
+  .pv-hh-cta{display:inline-block}
+  .pv-hh-micro{margin-top:14px;font-size:13px;color:rgba(255,255,255,.75)}
+  @media (max-width:749px){
+    .pv-home-hero{min-height:78vh;background-position:70% center}
+    .pv-hh-inner{padding:48px 0}
+  }
+</style>
+<div class="postavo-root">
+  <section class="pv-home-hero" {% if section.settings.bg_image != blank %}style="background-image:url('{{ section.settings.bg_image | image_url: width: 2000 }}')"{% else %}style="background-image:url('{{ 'postavo-home-hero.png' | asset_url }}')"{% endif %}>
+    <div class="pv-wrap">
+      <div class="pv-hh-inner">
+        {%- if section.settings.eyebrow != blank -%}<span class="pv-hh-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h1>{{ section.settings.heading }}</h1>
+        <p>{{ section.settings.subheading }}</p>
+        <a class="pv-btn pv-btn--pulse pv-hh-cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_text }}</a>
+        {%- if section.settings.micro != blank -%}<div class="pv-hh-micro">{{ section.settings.micro }}</div>{%- endif -%}
+      </div>
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Postavo Home Hero",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "bg_image", "label": "Background image", "info": "Leave empty to use the built-in Postavo hero image (assets/postavo-home-hero.png)." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "⭐ ALIGN. POSTURE. THRIVE." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stand taller. Feel better. Every day." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Postavo™ is the 10-second habit that undoes 9 hours of desk slouch — gentle back support that trains posture that lasts." },
+    { "type": "text", "id": "cta_text", "label": "Button text", "default": "SHOP POSTAVO — 30% OFF" },
+    { "type": "text", "id": "cta_link", "label": "Button link", "default": "/products/posturefix-pro" },
+    { "type": "text", "id": "micro", "label": "Microcopy", "default": "✓ 30-day money-back guarantee · ✓ Free US shipping" }
+  ],
+  "presets": [{ "name": "Postavo Home Hero" }]
+}
+{% endschema %}

@@ -1,0 +1,240 @@
+{
+  "sections": {
+    "pv_announce": {
+      "type": "postavo-announcement",
+      "settings": {
+        "text": "🔥 SUMMER SALE — 30% OFF + FREE US SHIPPING ends in",
+        "show_timer": true,
+        "timer_minutes": 110,
+        "bg_color": "#c0392b"
+      }
+    },
+    "pv_home_hero": {
+      "type": "postavo-home-hero"
+    },
+    "pv_trust": {
+      "type": "postavo-trust",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "🛡️", "text": "30-day money-back guarantee" } },
+        "t2": { "type": "item", "settings": { "icon": "🚚", "text": "Free US shipping on every order" } },
+        "t3": { "type": "item", "settings": { "icon": "🔒", "text": "Safe & secure checkout" } },
+        "t4": { "type": "item", "settings": { "icon": "↩️", "text": "Easy 30-day exchanges" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "features": {
+      "type": "trust-badges",
+      "blocks": {
+        "f1": {
+          "type": "image",
+          "settings": {
+            "feature_title": "<strong>Breathable, Skin-Friendly Fabric</strong>",
+            "feature_text": "<p>Perforated material that doesn't trap heat — comfortable all day, even in summer.</p>",
+            "feature_image": "shopify://shop_images/3737608_green_leaf_nature_environment_plant_icon_27068d18-e945-4a06-b27d-c68e5e7e7fbf.png",
+            "feature_url": "",
+            "hide_image": false
+          }
+        },
+        "f2": {
+          "type": "image",
+          "settings": {
+            "feature_title": "<strong>Supports Back, Shoulders & Neck</strong>",
+            "feature_text": "<p>Gentle tension rolls your shoulders back and takes the load off your spine during desk hours.</p>",
+            "feature_image": "shopify://shop_images/4312970_bone_femur_joint_knee_organ_icon_8130acd3-7fb2-48d5-8879-ebb9a7d699eb.png",
+            "feature_url": "",
+            "hide_image": false
+          }
+        },
+        "f3": {
+          "type": "image",
+          "settings": {
+            "feature_title": "<strong>On in 10 Seconds</strong>",
+            "feature_text": "<p>Clip it on like a backpack — over or under your shirt, at home or at work.</p>",
+            "feature_image": "shopify://shop_images/convenient_5649042.png",
+            "feature_url": "",
+            "hide_image": false
+          }
+        },
+        "f4": {
+          "type": "image",
+          "settings": {
+            "feature_title": "<strong>No Pills. No Appointments.</strong>",
+            "feature_text": "<p>A natural daily habit that retrains your posture — 30 minutes a day is enough.</p>",
+            "feature_image": "shopify://shop_images/no-drugs_5298625.png",
+            "feature_url": "",
+            "hide_image": false
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "name": "Feature Blocks",
+      "settings": {
+        "feature_row": 4,
+        "feature_row_mobile": 1,
+        "feature_gap": 20,
+        "feature_gap_mobile": 20,
+        "feature_padding_horizontal": 0,
+        "feature_padding_vertical": 0,
+        "feature_radius": 16,
+        "feature_border_thickness": 0,
+        "feature_shadow": false,
+        "feature_heading_size": 18,
+        "feature_heading_size_mobile": 16,
+        "feature_heading_height": 130,
+        "feature_heading_mt": 8,
+        "feature_text_size": 12,
+        "feature_text_size_mobile": 12,
+        "feature_text_height": 130,
+        "feature_text_mt": 4,
+        "feature_icon_size": 54,
+        "feature_icon_size_mobile": 62,
+        "feature_bg": "#ffffff",
+        "feature_border_color": "#000000",
+        "feature_shadow_color": "#000000",
+        "feature_heading_color": "#000000",
+        "feature_text_color": "#000000",
+        "feature_icon_color": "#000000",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 24,
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": false,
+        "content_width": 120,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "featured_product": {
+      "type": "featured-product",
+      "blocks": {
+        "text_v": { "type": "text", "settings": { "text": "POSTAVO™", "text_style": "uppercase" } },
+        "title_t": { "type": "title", "settings": { "heading_size": "h1" } },
+        "price_p": {
+          "type": "price",
+          "settings": {
+            "price_style": "price",
+            "price_size_2": 1,
+            "badge_size": 14,
+            "sale_price_color": "#131313",
+            "badge_price": "#8b8d8f",
+            "badge_bg": "#f2f2f2",
+            "badge_border": "#f2f2f2",
+            "price_bold": false,
+            "price_bold_2": false,
+            "badge_hide": false,
+            "taxes_hide": false,
+            "shipping_hide": false,
+            "padding_top": 4,
+            "padding_bottom": 4
+          }
+        },
+        "picker_v": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatchType": "color",
+            "optionName": "Color",
+            "swatchStyle": "round",
+            "swatchSize": 30,
+            "swatchHeight": 30
+          }
+        },
+        "qty_q": { "type": "quantity_selector", "settings": {} },
+        "buy_b": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true, "show_gift_card_recipient": true } }
+      },
+      "block_order": ["text_v", "title_t", "price_p", "picker_v", "qty_q", "buy_b"],
+      "settings": {
+        "product": "posturefix-pro",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "pv_reviews": {
+      "type": "postavo-reviews",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "name": "Sarah M.",
+            "meta": "Austin, TX · 2 weeks ago",
+            "text": "I sit 9 hours a day and my shoulders were basically glued forward. I wear this 30 minutes every morning — now I catch myself sitting straighter without it. Wish I bought it years ago."
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "name": "James C.",
+            "meta": "Chicago, IL · 1 week ago",
+            "text": "Honest review: felt weird the first day, like it was pulling me back. By day 4 it felt natural. My wife noticed I stand differently before I even told her I bought it."
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "name": "Hailey T.",
+            "meta": "Tampa, FL · 3 days ago",
+            "text": "I'm 5'2 and always felt like I disappear in rooms. This thing makes me carry myself completely differently. Wearing it under a hoodie right now and you can't see it at all."
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "heading": "Thousands of happier backs",
+        "subheading": "Real people. Real change in how they stand, sit and feel."
+      }
+    },
+    "pv_guarantee": {
+      "type": "postavo-guarantee",
+      "settings": {
+        "cta_link": "/products/posturefix-pro"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "h": { "type": "heading", "settings": { "heading": "Subscribe for 10% OFF Your First Order", "heading_size": "h1" } },
+        "p": { "type": "paragraph", "settings": { "text": "<p>Posture tips and exclusive Postavo offers — straight to your inbox.</p>" } },
+        "e": { "type": "email_form", "settings": {} }
+      },
+      "block_order": ["h", "p", "e"],
+      "settings": {
+        "color_scheme": "accent-1",
+        "full_width": true,
+        "text_align": "center",
+        "news_alignment": "vertical",
+        "show_small_text": true,
+        "small_text": "* You can unsubscribe at any time.",
+        "padding_top": 40,
+        "padding_bottom": 52,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "pv_announce",
+    "pv_home_hero",
+    "pv_trust",
+    "features",
+    "featured_product",
+    "pv_reviews",
+    "pv_guarantee",
+    "newsletter"
+  ]
+}
